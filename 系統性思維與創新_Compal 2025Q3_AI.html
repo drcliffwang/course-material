@@ -476,7 +476,7 @@
                 <div class="content-block">
                     <h4 data-lang-key="idea_a_h4_2">關鍵行動工具</h4>
                     <ul>
-                        <li data-lang-key="idea_a_li_1"><b>設計思維 (Design Thinking):</b> 這是一套以「人」為中心的迭代流程（同理->定義->發想->原型->測試）。它強調快速做出最小可行性產品(MVP)，並透過真實用戶的回饋來不斷修正，降低開發風險，確保最終產品是市場所需的。</li>
+                        <li data-lang-key="idea_a_li_1"><b>設計思維 (Design Thinking):</b> 這是一套以「人」為中心的迭代流程（同理->定義->發想->原型->測試）。它強調快速做出最小可行性產品(MVP)，并透過真實用戶的回饋來不斷修正，降低開發風險，確保最終產品是市場所需的。</li>
                         <li data-lang-key="idea_a_li_2"><b>價值主張圖 (Value Proposition Canvas, VPC):</b> 這是確保「產品」與「市場」適配(Fit)的利器。它將「顧客輪廓」(Jobs, Pains, Gains)與「價值地圖」(Products, Pain Relievers, Gain Creators)並列檢視，確保我們提供的方案，能真正解決顧客的痛點、創造顧客的爽點。</li>
                         <li data-lang-key="idea_a_li_3"><b>商業模式圖 (Business Model Canvas, BMC):</b> 這是將創新轉化為商業的全盤計畫。它用九個格子（目標客層、價值主張、通路、顧客關係、收益流、關鍵活動、關鍵資源、關鍵夥伴、成本結構），讓我們系統性地思考如何創造、傳遞並獲取價值。</li>
                     </ul>
@@ -570,6 +570,12 @@
         <section id="conclusion" class="text-center">
             <h2 class="section-title" data-lang-key="conclusion_title">結論與討論</h2>
             <div class="card max-w-4xl mx-auto">
+                 <div class="mb-6 p-2 border rounded-lg bg-gray-100">
+                    <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/Mermaid%20Chart%20System%20Thinking%20&%20Innovation.jpg" target="_blank" data-lang-key-title="conclusion_map_zoom" title="點擊放大圖片">
+                        <img src="https://raw.githubusercontent.com/drcliffwang/course-material/main/Mermaid%20Chart%20System%20Thinking%20&%20Innovation.jpg" alt="系統性思維與創新課程心智圖" class="w-full h-auto rounded-md shadow-md">
+                    </a>
+                    <p class="text-center text-sm text-gray-500 mt-2" data-lang-key="conclusion_map_caption">點擊圖片可在新分頁中放大檢視，方便您複習課程全貌。</p>
+                </div>
                 <ul class="list-none space-y-3 text-left text-lg">
                     <li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span> <span data-lang-key="conclusion_li_1">一個系統思維整合: 邏輯思維 (左腦) 與創意思維 (右腦)</span></li>
                     <li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span> <span data-lang-key="conclusion_li_2">二個邏輯必須兼具: 演譯(左腦)與歸納(右腦)</span></li>
@@ -718,6 +724,9 @@
             'toolbox_placeholder': '例如：公司產品線過多，資源分散... (用於SA) 或 傳統的雨傘... (用於SCAMPER)',
             'toolbox_submit_btn': '✨ 啟動 AI 分析',
             'conclusion_title': '結論與討論',
+            'conclusion_map_title': '課程架構心智圖總覽',
+            'conclusion_map_zoom': '點擊放大圖片',
+            'conclusion_map_caption': '點擊圖片可在新分頁中放大檢視，方便您複習課程全貌。',
             'conclusion_li_1': '一個系統思維整合: 邏輯思維 (左腦) 與創意思維 (右腦)',
             'conclusion_li_2': '二個邏輯必須兼具: 演譯(左腦)與歸納(右腦)',
             'conclusion_li_3': '三個層次: 議題層, 邏輯層, 與結論層',
@@ -864,6 +873,9 @@
             'toolbox_placeholder': '例如：公司产品线过多，资源分散... (用于SA) 或 传统的雨伞... (用于SCAMPER)',
             'toolbox_submit_btn': '✨ 启动 AI 分析',
             'conclusion_title': '结论与讨论',
+            'conclusion_map_title': '课程架构心智图总览',
+            'conclusion_map_zoom': '点击放大图片',
+            'conclusion_map_caption': '点击图片可在新分页中放大检视，方便您复习课程全貌。',
             'conclusion_li_1': '一个系统思维整合: 逻辑思维 (左脑) 与创意思维 (右脑)',
             'conclusion_li_2': '二个逻辑必须兼具: 演译(左脑)与归纳(右脑)',
             'conclusion_li_3': '三个层次: 议题层, 逻辑层, 与结论层',
@@ -1071,6 +1083,13 @@
                     element.innerHTML = translations[lang][key];
                 }
             }
+        });
+
+        document.querySelectorAll('[data-lang-key-title]').forEach(element => {
+            const key = element.getAttribute('data-lang-key-title');
+             if (translations[lang] && translations[lang][key]) {
+                element.title = translations[lang][key];
+             }
         });
         
         document.title = translations[lang].page_title;
