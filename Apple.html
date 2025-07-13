@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apple Inc. 損益表視覺化</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- D3.js will be loaded dynamically by the script at the end of the body -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -170,7 +170,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        function initializeApp() {
             // Apple Inc. 損益表數據 (單位為百萬美元，保持原始數據)
             const financialData = {
                 "2024年度": { // Twelve Months Ended September 28, 2024
@@ -229,7 +229,10 @@
 
             // Helper function to format money values (no currency unit)
             const formatMoney = (value) => `${d3.format(",.0f")(value)}`;
-            const formatMoneyShort = (value) => `${d3.format(".2s")(value)}`; // For axis ticks, automatically scales (e.g., 6.86B)
+            const formatMoneyShort = (value) => {
+                const format = d3.format(".2s");
+                return format(value).replace('G', 'B'); // Use B for Billions
+            };
 
             // --- Draw KPI Dashboard ---
             function drawKPIDashboard() {
@@ -248,8 +251,8 @@
                 ];
 
                 kpiDefinitions.forEach(kpiDef => {
-                    const valueCurrentYearData = financialData[currentYear];
-                    const valuePreviousYearData = financialData[(currentYear === "2024年度" ? "2023年度" : "2024年度")];
+                    const valueCurrentYearData = financialData["2024年度"];
+                    const valuePreviousYearData = financialData["2023年度"];
 
                     let valueCurrentYear, valuePreviousYear;
 
@@ -273,28 +276,18 @@
                     if (kpiDef.format === "money") {
                         formattedValueCurrentYear = formatMoney(valueCurrentYear);
                         formattedValuePreviousYear = formatMoney(valuePreviousYear);
-                        if (valuePreviousYear !== 0) {
-                            const percentageChange = ((valueCurrentYear - valuePreviousYear) / valuePreviousYear) * 100;
-                            changeText = `${percentageChange > 0 ? '↑' : '↓'} ${Math.abs(percentageChange).toFixed(2)}%`;
-                            changeClass = percentageChange > 0 ? 'positive' : 'negative';
-                        }
                     } else if (kpiDef.format === "percentage") {
                         formattedValueCurrentYear = `${valueCurrentYear.toFixed(2)}%`;
                         formattedValuePreviousYear = `${valuePreviousYear.toFixed(2)}%`;
-
-                        if (valuePreviousYear !== 0) {
-                            const percentageChange = ((valueCurrentYear - valuePreviousYear) / valuePreviousYear) * 100;
-                            changeText = `${percentageChange > 0 ? '↑' : '↓'} ${Math.abs(percentageChange).toFixed(2)}%`;
-                            changeClass = percentageChange > 0 ? 'positive' : 'negative';
-                        }
                     } else if (kpiDef.format === "eps") {
                         formattedValueCurrentYear = valueCurrentYear.toFixed(2);
                         formattedValuePreviousYear = valuePreviousYear.toFixed(2);
-                        if (valuePreviousYear !== 0) {
-                            const percentageChange = ((valueCurrentYear - valuePreviousYear) / valuePreviousYear) * 100;
-                            changeText = `${percentageChange > 0 ? '↑' : '↓'} ${Math.abs(percentageChange).toFixed(2)}%`;
-                            changeClass = percentageChange > 0 ? 'positive' : 'negative';
-                        }
+                    }
+
+                    if (valuePreviousYear !== 0) {
+                        const percentageChange = ((valueCurrentYear - valuePreviousYear) / valuePreviousYear) * 100;
+                        changeText = `${percentageChange > 0 ? '↑' : '↓'} ${Math.abs(percentageChange).toFixed(2)}%`;
+                        changeClass = percentageChange > 0 ? 'positive' : 'negative';
                     }
 
                     const kpiCard = kpiDashboardContainer.append("div")
@@ -309,11 +302,11 @@
 
                     valueGroup.append("div")
                         .attr("class", "kpi-value")
-                        .text(`${currentYear}: ${formattedValueCurrentYear}`);
+                        .text(`2024年度: ${formattedValueCurrentYear}`);
 
                     valueGroup.append("div")
                         .attr("class", "kpi-value")
-                        .text(`${currentYear === "2024年度" ? "2023年度" : "2024年度"}: ${formattedValuePreviousYear}`);
+                        .text(`2023年度: ${formattedValuePreviousYear}`);
 
                     if (changeText) {
                         valueGroup.append("div")
@@ -329,56 +322,35 @@
                 const waterfallContainer = d3.select("#waterfall-chart");
                 waterfallContainer.select("svg").remove(); // Clear existing chart
 
-                // Update Waterfall Chart Title
                 d3.select("#waterfall-chart-title").text(`Apple Inc. 損益表瀑布圖 - ${year} (所有單位均為 百萬美元)`);
 
                 const waterfallRawData = [
-                    { name: "總淨銷售額", value: currentFinancialData["總淨銷售額"], type: "start" },
-                    { name: "總銷售成本", value: -currentFinancialData["總銷售成本"], type: "decrease" },
-                    { name: "毛利", value: 0, type: "total" },
-                    { name: "研發費用", value: -currentFinancialData["研發費用"], type: "decrease" },
-                    { name: "銷售、一般及行政費用", value: -currentFinancialData["銷售、一般及行政費用"], type: "decrease" },
-                    { name: "營運收入", value: 0, type: "total" },
-                    {
-                        name: "其他收入/(費用), 淨額",
-                        value: currentFinancialData["其他收入/(費用), 淨額"],
-                        type: currentFinancialData["其他收入/(費用), 淨額"] >= 0 ? "increase" : "decrease"
-                    },
-                    { name: "所得稅費用", value: -currentFinancialData["所得稅費用"], type: "decrease" },
-                    { name: "淨收入", value: 0, type: "total" }
+                    { name: "總淨銷售額", value: currentFinancialData["總淨銷售額"] },
+                    { name: "總銷售成本", value: -currentFinancialData["總銷售成本"] },
+                    { name: "毛利", isTotal: true },
+                    { name: "研發費用", value: -currentFinancialData["研發費用"] },
+                    { name: "銷售、一般及行政費用", value: -currentFinancialData["銷售、一般及行政費用"] },
+                    { name: "營運收入", isTotal: true },
+                    { name: "其他收入/(費用), 淨額", value: currentFinancialData["其他收入/(費用), 淨額"] },
+                    { name: "所得稅費用", value: -currentFinancialData["所得稅費用"] },
+                    { name: "淨收入", isTotal: true }
                 ];
 
-                let cumulativeWaterfall = 0;
-                const waterfallChartData = [];
-
-                waterfallRawData.forEach(d => {
-                    if (d.type === "start") {
-                        d.y0 = 0;
-                        d.y1 = d.value;
-                        cumulativeWaterfall = d.value;
-                        waterfallChartData.push(d);
-                    } else if (d.type === "increase") {
-                        d.y0 = cumulativeWaterfall;
-                        d.y1 = cumulativeWaterfall + d.value;
-                        cumulativeWaterfall += d.value;
-                        waterfallChartData.push(d);
-                    } else if (d.type === "decrease") {
-                        d.y0 = cumulativeWaterfall + d.value;
-                        d.y1 = cumulativeWaterfall;
-                        cumulativeWaterfall += d.value;
-                        waterfallChartData.push(d);
-                    } else if (d.type === "total") {
-                        d.y0 = 0;
-                        d.y1 = cumulativeWaterfall;
-                        d.value = cumulativeWaterfall;
-                        waterfallChartData.push(d);
+                let cumulative = 0;
+                const waterfallChartData = waterfallRawData.map(d => {
+                    const base = cumulative;
+                    if (d.isTotal) {
+                        d.value = cumulative;
+                        return { name: d.name, start: 0, end: cumulative, class: 'total' };
                     }
+                    cumulative += d.value;
+                    return { name: d.name, start: base, end: cumulative, class: d.value >= 0 ? 'increase' : 'decrease', value: d.value };
                 });
 
                 const containerWidth = waterfallContainer.node().getBoundingClientRect().width;
-                const margin = { top: 50, right: 20, bottom: 100, left: 80 };
+                const margin = { top: 30, right: 20, bottom: 100, left: 80 };
                 const width = containerWidth - margin.left - margin.right;
-                const height = 500 - margin.top - margin.bottom;
+                const height = 400 - margin.top - margin.bottom;
 
                 const x = d3.scaleBand()
                     .domain(waterfallChartData.map(d => d.name))
@@ -386,7 +358,7 @@
                     .padding(0.3);
 
                 const y = d3.scaleLinear()
-                    .domain([d3.min(waterfallChartData, d => Math.min(d.y0, d.y1)), d3.max(waterfallChartData, d => Math.max(d.y0, d.y1))])
+                    .domain([0, d3.max(waterfallChartData, d => d.end)])
                     .nice()
                     .range([height, 0]);
 
@@ -408,17 +380,18 @@
                     .attr("class", "y-axis axis")
                     .call(d3.axisLeft(y).tickFormat(formatMoneyShort));
 
-                svg.selectAll(".bar")
+                const bars = svg.selectAll(".bar")
                     .data(waterfallChartData)
                     .enter().append("rect")
-                    .attr("class", d => `bar ${d.type === 'increase' ? 'increase' : d.type === 'decrease' ? 'decrease' : 'total'}`)
+                    .attr("class", d => `bar ${d.class}`)
                     .attr("x", d => x(d.name))
-                    .attr("y", d => y(Math.max(d.y0, d.y1)))
+                    .attr("y", d => y(Math.max(d.start, d.end)))
                     .attr("width", x.bandwidth())
-                    .attr("height", d => Math.abs(y(d.y0) - y(d.y1)))
-                    .on("mouseover", function(event, d) {
+                    .attr("height", d => Math.abs(y(d.start) - y(d.end)));
+
+                bars.on("mouseover", function(event, d) {
                         tooltip.style("opacity", 1)
-                            .html(`<strong>${d.name}</strong><br>金額: ${formatMoney(d.value)}`)
+                            .html(`<strong>${d.name}</strong><br>金額: ${formatMoney(d.value || d.end)}`)
                             .style("left", (event.pageX + 10) + "px")
                             .style("top", (event.pageY - 28) + "px");
                     })
@@ -426,34 +399,24 @@
                         tooltip.style("opacity", 0);
                     });
 
-                svg.selectAll(".value-label")
-                    .data(waterfallChartData)
-                    .enter().append("text")
-                    .attr("class", "value-label")
-                    .attr("x", d => x(d.name) + x.bandwidth() / 2)
-                    .attr("y", d => y(Math.max(d.y0, d.y1)) - 5)
-                    .attr("text-anchor", "middle")
-                    .attr("fill", "#4A5568")
-                    .text(d => formatMoney(d.value));
-
                 svg.selectAll(".connector")
-                    .data(waterfallChartData.slice(0, waterfallChartData.length - 1))
+                    .data(waterfallChartData.filter(d => !d.isTotal && d.name !== "淨收入"))
                     .enter().append("line")
+                    .filter((d, i, nodes) => i < nodes.length -1 && !waterfallChartData[i+1].isTotal)
                     .attr("class", "line connector")
                     .attr("x1", d => x(d.name) + x.bandwidth())
-                    .attr("y1", d => y(d.y1))
+                    .attr("y1", d => y(d.end))
                     .attr("x2", (d, i) => x(waterfallChartData[i + 1].name))
-                    .attr("y2", (d, i) => y(waterfallChartData[i + 1].y1));
+                    .attr("y2", d => y(d.end));
             }
 
             // --- Draw Pie Chart ---
             function drawPieChart(year) {
                 const currentFinancialData = financialData[year];
                 const pieSvgContainer = d3.select("#pie-chart-svg-container");
-                pieSvgContainer.select("svg").remove(); // Clear existing chart
-                d3.select("#pie-chart-legend").html(""); // Clear existing legend
+                pieSvgContainer.select("svg").remove();
+                d3.select("#pie-chart-legend").html("");
 
-                // Update Pie Chart Title
                 d3.select("#pie-chart-title").text(`Apple Inc. 各項費用佔營業收入比例 - ${year} (所有單位均為 百萬美元)`);
 
                 const operatingRevenue = currentFinancialData["總淨銷售額"];
@@ -464,12 +427,8 @@
                     { name: "所得稅費用", value: currentFinancialData["所得稅費用"] }
                 ];
 
-                const filteredExpenseData = expenseData.filter(d => d.value > 0);
-
-                const pieWidth = 400;
-                const pieHeight = 400;
-                const radius = Math.min(pieWidth, pieHeight) / 2 - 20;
-
+                const pieWidth = 350, pieHeight = 350, radius = Math.min(pieWidth, pieHeight) / 2 - 10;
+                
                 const svg = pieSvgContainer.append("svg")
                     .attr("width", pieWidth)
                     .attr("height", pieHeight)
@@ -477,30 +436,16 @@
                     .attr("transform", `translate(${pieWidth / 2},${pieHeight / 2})`);
 
                 const color = d3.scaleOrdinal(d3.schemeCategory10);
+                const pie = d3.pie().value(d => d.value).sort(null);
+                const arc = d3.arc().innerRadius(0).outerRadius(radius);
 
-                const pie = d3.pie()
-                    .value(d => d.value)
-                    .sort(null);
-
-                const arc = d3.arc()
-                    .innerRadius(0)
-                    .outerRadius(radius);
-
-                const outerArc = d3.arc()
-                    .innerRadius(radius * 0.9)
-                    .outerRadius(radius * 0.9);
-
-                const arcs = svg.selectAll(".arc")
-                    .data(pie(filteredExpenseData))
-                    .enter().append("g")
-                    .attr("class", "arc");
-
-                arcs.append("path")
+                const path = svg.selectAll("path")
+                    .data(pie(expenseData))
+                    .enter().append("path")
                     .attr("d", arc)
-                    .attr("fill", d => color(d.data.name))
-                    .attr("stroke", "white")
-                    .style("stroke-width", "2px")
-                    .on("mouseover", function(event, d) {
+                    .attr("fill", d => color(d.data.name));
+                
+                path.on("mouseover", function(event, d) {
                         const percentage = (d.data.value / operatingRevenue * 100).toFixed(2);
                         tooltip.style("opacity", 1)
                             .html(`<strong>${d.data.name}</strong><br>金額: ${formatMoney(d.data.value)}<br>佔營業收入: ${percentage}%`)
@@ -511,24 +456,12 @@
                         tooltip.style("opacity", 0);
                     });
 
-                arcs.append("text")
-                    .attr("transform", d => `translate(${outerArc.centroid(d)})`)
-                    .attr("dy", "0.35em")
-                    .attr("text-anchor", "middle")
-                    .text(d => {
-                        const percentage = (d.data.value / operatingRevenue * 100);
-                        return percentage > 3 ? `${percentage.toFixed(1)}%` : '';
-                    });
-
                 const legend = d3.select("#pie-chart-legend");
-                filteredExpenseData.forEach((d, i) => {
+                expenseData.forEach(d => {
                     const percentage = (d.value / operatingRevenue * 100).toFixed(2);
                     legend.append("div")
                         .attr("class", "legend-item")
-                        .html(`
-                            <div class="legend-color" style="background-color: ${color(d.name)};"></div>
-                            <span>${d.name}: ${formatMoney(d.value)} (${percentage}%)</span>
-                        `);
+                        .html(`<div class="legend-color" style="background-color: ${color(d.name)};"></div><span>${d.name}: ${formatMoney(d.value)} (${percentage}%)</span>`);
                 });
             }
 
@@ -544,7 +477,24 @@
 
             // Listen for window resize to redraw all charts
             window.addEventListener('resize', updateAllCharts);
-        });
+        }
+
+        // Use a robust script loader to ensure D3.js is ready
+        function loadScript(url, callback) {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+            script.onload = callback;
+            script.onreadystatechange = function() {
+                if (this.readyState == 'complete') {
+                    callback();
+                }
+            }
+            document.head.appendChild(script);
+        }
+
+        // Start the application after D3.js is loaded
+        loadScript('https://d3js.org/d3.v7.min.js', initializeApp);
     </script>
 </body>
 </html>
