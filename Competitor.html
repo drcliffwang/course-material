@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>光學組件產業領導者財務透視 (2024年)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js will be loaded dynamically by the script at the end of the body -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #f1f5f9; color: #334155; line-height: 1.7; }
@@ -569,7 +569,7 @@
                 navLinks.forEach((link) => link.classList.remove('active'));
                 if (index >= 0 && navLinks[index]) { 
                   navLinks[index].classList.add('active');
-                } else if (window.scrollY < (sections[0]?.offsetTop - navHeight) && navLinks[0]) {
+                } else if (sections.length > 0 && window.scrollY < (sections[0].offsetTop - navHeight)) {
                     navLinks[0].classList.add('active'); 
                 }
             }
@@ -596,8 +596,24 @@
             });
         }
         
-        // Use window.onload to ensure all external scripts like Chart.js are loaded
-        window.onload = initializeApp;
+        // Use a robust script loader to ensure Chart.js is ready
+        function loadScript(url, callback) {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+            // Most browsers
+            script.onload = callback;
+            // IE
+            script.onreadystatechange = function() {
+                if (this.readyState == 'complete') {
+                    callback();
+                }
+            }
+            document.head.appendChild(script);
+        }
+
+        // Start the application after Chart.js is loaded
+        loadScript('https://cdn.jsdelivr.net/npm/chart.js', initializeApp);
     </script>
 </body>
 </html>
