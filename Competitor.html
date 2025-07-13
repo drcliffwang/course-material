@@ -86,19 +86,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="stat-card">
                         <h3 class="font-semibold text-lg company-lg-text mb-2">樂金伊諾特</h3>
-                        <p class="stat-value" id="overview-lg-revenue">US$0億</p><p class="stat-label-card">營收</p>
+                        <p class="stat-value" id="overview-lg-revenue">US$0十億</p><p class="stat-label-card">營收</p>
                         <p class="stat-value" id="overview-lg-npm">0%</p><p class="stat-label-card">淨利率</p>
                         <p class="stat-value" id="overview-lg-roe">0%</p><p class="stat-label-card">ROE</p>
                     </div>
                     <div class="stat-card">
                         <h3 class="font-semibold text-lg company-sunny-text mb-2">舜宇光學科技</h3>
-                        <p class="stat-value" id="overview-sunny-revenue">US$0億</p><p class="stat-label-card">營收</p>
+                        <p class="stat-value" id="overview-sunny-revenue">US$0十億</p><p class="stat-label-card">營收</p>
                         <p class="stat-value" id="overview-sunny-npm">0%</p><p class="stat-label-card">淨利率</p>
                         <p class="stat-value" id="overview-sunny-roe">0%</p><p class="stat-label-card">ROE</p>
                     </div>
                     <div class="stat-card">
                         <h3 class="font-semibold text-lg company-cowell-text mb-2">高偉電子</h3>
-                        <p class="stat-value" id="overview-cowell-revenue">US$0億</p><p class="stat-label-card">營收</p>
+                        <p class="stat-value" id="overview-cowell-revenue">US$0十億</p><p class="stat-label-card">營收</p>
                         <p class="stat-value" id="overview-cowell-npm">0%</p><p class="stat-label-card">淨利率</p>
                         <p class="stat-value" id="overview-cowell-roe">0%</p><p class="stat-label-card">ROE</p>
                     </div>
@@ -107,14 +107,14 @@
 
             <section id="revenue" class="card-main">
                 <h2 class="title-section">一、營收規模與增長動力</h2>
-                <p class="mb-6 text-slate-600">營收是衡量企業市場地位和業務擴張能力的基礎。本節將三家公司2024年的營收統一換算為億美元，以便於直接比較，並分析其相較於2023年的增長情況。您可以點擊表頭進行排序。</p>
+                <p class="mb-6 text-slate-600">營收是衡量企業市場地位和業務擴張能力的基礎。本節將三家公司2024年的營收統一換算為十億美元，以便於直接比較，並分析其相較於2023年的增長情況。您可以點擊表頭進行排序。</p>
                 <div class="table-responsive-container">
                     <table class="table-data">
                         <thead>
                             <tr>
                                 <th onclick="sortTable(0, 'revenueTableBody')">公司 ↕</th>
-                                <th onclick="sortTable(1, 'revenueTableBody', true)">2024年營收 (億美元) ↕</th>
-                                <th onclick="sortTable(2, 'revenueTableBody', true)">2023年營收 (億美元) ↕</th>
+                                <th onclick="sortTable(1, 'revenueTableBody', true)">2024年營收 (十億美元) ↕</th>
+                                <th onclick="sortTable(2, 'revenueTableBody', true)">2023年營收 (十億美元) ↕</th>
                                 <th onclick="sortTable(3, 'revenueTableBody', true)">2024年營收年增長率 (YoY) ↕</th>
                             </tr>
                         </thead>
@@ -273,25 +273,7 @@
                       currency: 'USD', exchangeRateToUSD: 1, unit: '百萬美元'
             }
         };
-
-        // Calculate USD revenues and YoY growth
-        Object.values(companyRawData).forEach(co => {
-            if (co.currency === 'KRW') {
-                co.revenue2024USD_Billion = co.revenue2024KRW / co.exchangeRateToUSD / 1000; 
-                co.revenue2023USD_Billion = co.revenue2023KRW / co.exchangeRateToUSD / 1000;
-            } else if (co.currency === 'CNY') {
-                co.revenue2024USD_Billion = co.revenue2024CNY / co.exchangeRateToUSD / 1000;
-                co.revenue2023USD_Billion = co.revenue2023CNY / co.exchangeRateToUSD / 1000;
-            } else if (co.currency === 'USD') { 
-                co.revenue2024USD_Billion = co.revenue2024USD_Million / 1000; 
-                co.revenue2023USD_Billion = co.revenue2023USD_Million / 1000;
-            }
-            co.yoyGrowth = ((co.revenue2024USD_Billion / co.revenue2023USD_Billion) - 1) * 100;
-        });
         
-        const companyDisplayData = Object.values(companyRawData);
-
-
         const marketInsightsData = [
             { title: "智慧型手機市場復甦與升級", content: "經過兩年調整後，全球智慧型手機市場在2024年迎來復甦。AI技術的深度整合以及摺疊螢幕等新形態產品的普及，正推動高階機種相機規格的持續升級，為光學鏡頭、相機模組等精密組件帶來新的市場需求與價值提升空間。" },
             { title: "車用光學市場方興未艾", content: "汽車的智能化與電動化趨勢已不可逆轉。高級駕駛輔助系統(ADAS)的滲透率不斷提升，以及對更高階自動駕駛技術的追求，使得車載鏡頭、車載感測模組、激光雷達(LiDAR)等光學產品的需求持續強勁增長，成為光學產業的重要成長引擎。" },
@@ -302,238 +284,252 @@
         let currentYearView = 2024;
         let debtRatiosChartInstance, currentRatioChartInstance;
 
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            if (Array.isArray(label)) { return label.join(' '); }
-            return label;
-        };
-        const chartTooltipConfig = { plugins: { tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Noto Sans TC'}, titleFont: { family: 'Noto Sans TC'} } } };
-
-        function wrapLabel(label, maxWidth = 10) {
-            if (typeof label !== 'string' || label.length <= maxWidth) return label;
-            const chars = label.split('');
-            let lines = []; let currentLine = "";
-            chars.forEach(char => {
-                if ((currentLine + char).length > maxWidth && currentLine.length > 0) {
-                    lines.push(currentLine);
-                    currentLine = char;
-                } else {
-                    currentLine += char;
+        function initializeApp() {
+            // Calculate USD revenues and YoY growth
+            Object.values(companyRawData).forEach(co => {
+                if (co.currency === 'KRW') {
+                    co.revenue2024USD_Billion = co.revenue2024KRW / co.exchangeRateToUSD / 1000; 
+                    co.revenue2023USD_Billion = co.revenue2023KRW / co.exchangeRateToUSD / 1000;
+                } else if (co.currency === 'CNY') {
+                    co.revenue2024USD_Billion = co.revenue2024CNY / co.exchangeRateToUSD / 1000;
+                    co.revenue2023USD_Billion = co.revenue2023CNY / co.exchangeRateToUSD / 1000;
+                } else if (co.currency === 'USD') { 
+                    co.revenue2024USD_Billion = co.revenue2024USD_Million / 1000; 
+                    co.revenue2023USD_Billion = co.revenue2023USD_Million / 1000;
                 }
+                co.yoyGrowth = ((co.revenue2024USD_Billion / co.revenue2023USD_Billion) - 1) * 100;
             });
-            lines.push(currentLine);
-            return lines;
-        }
-        
-        function populateTable(tbodyId, dataArray, dataKeys) {
-            const tbody = document.getElementById(tbodyId);
-            if (!tbody) return;
-            tbody.innerHTML = ''; 
-            dataArray.forEach(item => {
-                const row = tbody.insertRow();
-                dataKeys.forEach(keyInfo => {
-                    const cell = row.insertCell();
-                    let value = item[keyInfo.key];
-                    if (typeof value === 'number') {
-                         value = value.toFixed(keyInfo.decimals !== undefined ? keyInfo.decimals : 2);
-                    }
-                    cell.textContent = value !== null && value !== undefined ? (keyInfo.suffix ? value + keyInfo.suffix : value) : 'N/A';
-                    if (keyInfo.key === 'yoyGrowth' && parseFloat(value) > 0) cell.classList.add('positive');
-                    if (keyInfo.key === 'yoyGrowth' && parseFloat(value) < 0) cell.classList.add('negative');
-                });
-            });
-        }
-
-        function sortTable(columnIndex, tbodyId, isNumeric = false) {
-            const tbody = document.getElementById(tbodyId);
-            if (!tbody) return;
-            const rows = Array.from(tbody.rows);
-            const currentSortOrder = tbody.getAttribute('data-sort-column') == columnIndex && tbody.getAttribute('data-sort-order') === 'asc' ? 'desc' : 'asc';
             
-            tbody.setAttribute('data-sort-column', columnIndex);
-            tbody.setAttribute('data-sort-order', currentSortOrder);
+            const companyDisplayData = Object.values(companyRawData);
 
-            rows.sort((a, b) => {
-                let valA = a.cells[columnIndex].textContent.replace('%','').replace('N/A','0').trim();
-                let valB = b.cells[columnIndex].textContent.replace('%','').replace('N/A','0').trim();
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) { return label.join(' '); }
+                return label;
+            };
+            const chartTooltipConfig = { plugins: { tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Noto Sans TC'}, titleFont: { family: 'Noto Sans TC'} } } };
 
-                if (isNumeric) {
-                    valA = parseFloat(valA);
-                    valB = parseFloat(valB);
-                }
+            function wrapLabel(label, maxWidth = 10) {
+                if (typeof label !== 'string' || label.length <= maxWidth) return label;
+                const chars = label.split('');
+                let lines = []; let currentLine = "";
+                chars.forEach(char => {
+                    if ((currentLine + char).length > maxWidth && currentLine.length > 0) {
+                        lines.push(currentLine);
+                        currentLine = char;
+                    } else {
+                        currentLine += char;
+                    }
+                });
+                lines.push(currentLine);
+                return lines;
+            }
+            
+            function populateTable(tbodyId, dataArray, dataKeys) {
+                const tbody = document.getElementById(tbodyId);
+                if (!tbody) return;
+                tbody.innerHTML = ''; 
+                dataArray.forEach(item => {
+                    const row = tbody.insertRow();
+                    dataKeys.forEach(keyInfo => {
+                        const cell = row.insertCell();
+                        let value = item[keyInfo.key];
+                        if (typeof value === 'number') {
+                             value = value.toFixed(keyInfo.decimals !== undefined ? keyInfo.decimals : 2);
+                        }
+                        cell.textContent = value !== null && value !== undefined ? (keyInfo.suffix ? value + keyInfo.suffix : value) : 'N/A';
+                        if (keyInfo.key === 'yoyGrowth' && parseFloat(value) > 0) cell.classList.add('positive');
+                        if (keyInfo.key === 'yoyGrowth' && parseFloat(value) < 0) cell.classList.add('negative');
+                    });
+                });
+            }
+
+            window.sortTable = function(columnIndex, tbodyId, isNumeric = false) {
+                const tbody = document.getElementById(tbodyId);
+                if (!tbody) return;
+                const rows = Array.from(tbody.rows);
+                const currentSortOrder = tbody.getAttribute('data-sort-column') == columnIndex && tbody.getAttribute('data-sort-order') === 'asc' ? 'desc' : 'asc';
                 
-                if (valA < valB) return currentSortOrder === 'asc' ? -1 : 1;
-                if (valA > valB) return currentSortOrder === 'asc' ? 1 : -1;
-                return 0;
-            });
-            rows.forEach(row => tbody.appendChild(row));
-        }
-        
-        function createRevenueChart() {
-            const ctx = document.getElementById('revenueChart2024')?.getContext('2d');
-            if (!ctx) return;
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: companyDisplayData.map(co => wrapLabel(co.name)),
-                    datasets: [{
-                        label: '2024年營收 (十億美元)',
-                        data: companyDisplayData.map(co => co.revenue2024USD_Billion.toFixed(2)),
-                        backgroundColor: companyDisplayData.map(co => co.color),
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '金額 (十億美元)' } } }, plugins: { title: { display: true, text: '2024年公司營收比較', font: { size: 16, family: 'Noto Sans TC' } }, legend: { display: false } }, ...chartTooltipConfig }
-            });
-        }
+                tbody.setAttribute('data-sort-column', columnIndex);
+                tbody.setAttribute('data-sort-order', currentSortOrder);
 
-        function createProfitabilityCharts() {
-            const marginsCtx = document.getElementById('profitMarginsChart')?.getContext('2d');
-            if(!marginsCtx) return;
-            new Chart(marginsCtx, {
-                type: 'bar',
-                data: {
-                    labels: companyDisplayData.map(co => wrapLabel(co.name)),
-                    datasets: [
-                        { label: '毛利率 (%)', data: companyDisplayData.map(co => co.gpm2024), backgroundColor: '#42a5f5' },
-                        { label: '淨利率 (%)', data: companyDisplayData.map(co => co.npm2024), backgroundColor: '#66bb6a' }
-                    ]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '百分比 (%)' } } }, plugins: { title: { display: true, text: '毛利率與淨利率 (2024年)', font: { size: 16, family: 'Noto Sans TC' } } }, ...chartTooltipConfig }
-            });
-            const roeCtx = document.getElementById('roeChart')?.getContext('2d');
-            if(!roeCtx) return;
-            new Chart(roeCtx, {
-                type: 'bar',
-                data: {
-                    labels: companyDisplayData.map(co => wrapLabel(co.name)),
-                    datasets: [{ label: '股東權益報酬率 (ROE %)', data: companyDisplayData.map(co => co.roe2024), backgroundColor: companyDisplayData.map(co => co.color) }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '百分比 (%)' } } }, plugins: { title: { display: true, text: '股東權益報酬率 (ROE) (2024年)', font: { size: 16, family: 'Noto Sans TC' } }, legend: { display: false } }, ...chartTooltipConfig }
-            });
-        }
+                rows.sort((a, b) => {
+                    let valA = a.cells[columnIndex].textContent.replace('%','').replace('N/A','0').trim();
+                    let valB = b.cells[columnIndex].textContent.replace('%','').replace('N/A','0').trim();
 
-        function createFinancialStructureCharts(year) {
-            const debtKey = `debtEquity${year}`;
-            const capKey = `capitalization${year}`;
-            const currentKey = `currentRatio${year}`;
+                    if (isNumeric) {
+                        valA = parseFloat(valA);
+                        valB = parseFloat(valB);
+                    }
+                    
+                    if (valA < valB) return currentSortOrder === 'asc' ? -1 : 1;
+                    if (valA > valB) return currentSortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+                rows.forEach(row => tbody.appendChild(row));
+            }
+            
+            function createRevenueChart() {
+                const ctx = document.getElementById('revenueChart2024')?.getContext('2d');
+                if (!ctx) return;
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: companyDisplayData.map(co => wrapLabel(co.name)),
+                        datasets: [{
+                            label: '2024年營收 (十億美元)',
+                            data: companyDisplayData.map(co => co.revenue2024USD_Billion.toFixed(2)),
+                            backgroundColor: companyDisplayData.map(co => co.color),
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '金額 (十億美元)' } } }, plugins: { title: { display: true, text: '2024年公司營收比較', font: { size: 16, family: 'Noto Sans TC' } }, legend: { display: false } }, ...chartTooltipConfig }
+                });
+            }
 
-            const debtCtx = document.getElementById('debtRatiosChart')?.getContext('2d');
-            if(!debtCtx) return;
-            if (debtRatiosChartInstance) debtRatiosChartInstance.destroy();
-            debtRatiosChartInstance = new Chart(debtCtx, {
-                type: 'bar',
-                data: {
-                    labels: [wrapLabel(companyRawData.lg.name + ' (負債權益比)'), wrapLabel(companyRawData.sunny.name + ' (資本化比率)'), wrapLabel(companyRawData.cowell.name + ' (資本化比率)')],
-                    datasets: [{ label: `負債相關比率 (%) - ${year}年`, data: [companyRawData.lg[debtKey], companyRawData.sunny[capKey], companyRawData.cowell[capKey]], backgroundColor: [companyRawData.lg.color, companyRawData.sunny.color, companyRawData.cowell.color] }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '百分比 (%)' } } }, plugins: { title: { display: true, text: `負債結構比率 (${year}年)`, font: { size: 16, family: 'Noto Sans TC' } }, legend: { display: false } }, ...chartTooltipConfig }
-            });
+            function createProfitabilityCharts() {
+                const marginsCtx = document.getElementById('profitMarginsChart')?.getContext('2d');
+                if(!marginsCtx) return;
+                new Chart(marginsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: companyDisplayData.map(co => wrapLabel(co.name)),
+                        datasets: [
+                            { label: '毛利率 (%)', data: companyDisplayData.map(co => co.gpm2024), backgroundColor: '#42a5f5' },
+                            { label: '淨利率 (%)', data: companyDisplayData.map(co => co.npm2024), backgroundColor: '#66bb6a' }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '百分比 (%)' } } }, plugins: { title: { display: true, text: '毛利率與淨利率 (2024年)', font: { size: 16, family: 'Noto Sans TC' } } }, ...chartTooltipConfig }
+                });
+                const roeCtx = document.getElementById('roeChart')?.getContext('2d');
+                if(!roeCtx) return;
+                new Chart(roeCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: companyDisplayData.map(co => wrapLabel(co.name)),
+                        datasets: [{ label: '股東權益報酬率 (ROE %)', data: companyDisplayData.map(co => co.roe2024), backgroundColor: companyDisplayData.map(co => co.color) }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '百分比 (%)' } } }, plugins: { title: { display: true, text: '股東權益報酬率 (ROE) (2024年)', font: { size: 16, family: 'Noto Sans TC' } }, legend: { display: false } }, ...chartTooltipConfig }
+                });
+            }
 
-            const currentCtx = document.getElementById('currentRatioChart')?.getContext('2d');
-            if(!currentCtx) return;
-            if (currentRatioChartInstance) currentRatioChartInstance.destroy();
-            currentRatioChartInstance = new Chart(currentCtx, {
-                type: 'bar',
-                data: {
-                    labels: companyDisplayData.map(co => wrapLabel(co.name)),
-                    datasets: [{ label: `流動比率 (倍) - ${year}年`, data: companyDisplayData.map(co => co[currentKey]), backgroundColor: companyDisplayData.map(co => co.color) }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '倍數' } } }, plugins: { title: { display: true, text: `流動比率 (${year}年)`, font: { size: 16, family: 'Noto Sans TC' } }, legend: { display: false } }, ...chartTooltipConfig }
-            });
-        }
-        
-        function createRDChart() {
-            const ctx = document.getElementById('rdInvestmentChart')?.getContext('2d');
-            if(!ctx) return;
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: companyDisplayData.map(co => wrapLabel(co.name)),
-                    datasets: [{ label: '研發費用佔營收比 (%)', data: companyDisplayData.map(co => co.rdRatio2024), backgroundColor: companyDisplayData.map(co => co.color) }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '百分比 (%)' } } }, plugins: { title: { display: true, text: '研發投入佔營收比重 (2024年)', font: { size: 16, family: 'Noto Sans TC' } }, legend: { display: false } }, ...chartTooltipConfig }
-            });
-        }
+            function createFinancialStructureCharts(year) {
+                const debtKey = `debtEquity${year}`;
+                const capKey = `capitalization${year}`;
+                const currentKey = `currentRatio${year}`;
 
-        function createAccordions() {
-            const container = document.getElementById('accordionContainer');
-            if (!container) return;
-            container.innerHTML = ''; // Clear previous accordions
-            marketInsightsData.forEach(item => {
-                const btn = document.createElement('div');
-                btn.className = 'accordion-btn';
-                btn.innerHTML = `<span>${item.title}</span><span class="arrow text-xl transition-transform duration-300">&#9660;</span>`; // Down arrow
-                const panel = document.createElement('div');
-                panel.className = 'accordion-panel';
-                panel.innerHTML = `<p class="text-slate-600">${item.content}</p>`;
-                container.appendChild(btn);
-                container.appendChild(panel);
-                btn.addEventListener('click', () => {
-                    const isActive = panel.classList.contains('active');
-                    // Close all other panels
-                    document.querySelectorAll('.accordion-panel.active').forEach(p => {
-                        if (p !== panel) {
-                            p.classList.remove('active');
-                            p.style.maxHeight = null;
-                            p.previousElementSibling.querySelector('.arrow').style.transform = 'rotate(0deg)';
+                const debtCtx = document.getElementById('debtRatiosChart')?.getContext('2d');
+                if(!debtCtx) return;
+                if (debtRatiosChartInstance) debtRatiosChartInstance.destroy();
+                debtRatiosChartInstance = new Chart(debtCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: [wrapLabel(companyRawData.lg.name + ' (負債權益比)'), wrapLabel(companyRawData.sunny.name + ' (資本化比率)'), wrapLabel(companyRawData.cowell.name + ' (資本化比率)')],
+                        datasets: [{ label: `負債相關比率 (%) - ${year}年`, data: [companyRawData.lg[debtKey], companyRawData.sunny[capKey], companyRawData.cowell[capKey]], backgroundColor: [companyRawData.lg.color, companyRawData.sunny.color, companyRawData.cowell.color] }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '百分比 (%)' } } }, plugins: { title: { display: true, text: `負債結構比率 (${year}年)`, font: { size: 16, family: 'Noto Sans TC' } }, legend: { display: false } }, ...chartTooltipConfig }
+                });
+
+                const currentCtx = document.getElementById('currentRatioChart')?.getContext('2d');
+                if(!currentCtx) return;
+                if (currentRatioChartInstance) currentRatioChartInstance.destroy();
+                currentRatioChartInstance = new Chart(currentCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: companyDisplayData.map(co => wrapLabel(co.name)),
+                        datasets: [{ label: `流動比率 (倍) - ${year}年`, data: companyDisplayData.map(co => co[currentKey]), backgroundColor: companyDisplayData.map(co => co.color) }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '倍數' } } }, plugins: { title: { display: true, text: `流動比率 (${year}年)`, font: { size: 16, family: 'Noto Sans TC' } }, legend: { display: false } }, ...chartTooltipConfig }
+                });
+            }
+            
+            function createRDChart() {
+                const ctx = document.getElementById('rdInvestmentChart')?.getContext('2d');
+                if(!ctx) return;
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: companyDisplayData.map(co => wrapLabel(co.name)),
+                        datasets: [{ label: '研發費用佔營收比 (%)', data: companyDisplayData.map(co => co.rdRatio2024), backgroundColor: companyDisplayData.map(co => co.color) }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: '百分比 (%)' } } }, plugins: { title: { display: true, text: '研發投入佔營收比重 (2024年)', font: { size: 16, family: 'Noto Sans TC' } }, legend: { display: false } }, ...chartTooltipConfig }
+                });
+            }
+
+            function createAccordions() {
+                const container = document.getElementById('accordionContainer');
+                if (!container) return;
+                container.innerHTML = ''; // Clear previous accordions
+                marketInsightsData.forEach(item => {
+                    const btn = document.createElement('div');
+                    btn.className = 'accordion-btn';
+                    btn.innerHTML = `<span>${item.title}</span><span class="arrow text-xl transition-transform duration-300">&#9660;</span>`; // Down arrow
+                    const panel = document.createElement('div');
+                    panel.className = 'accordion-panel';
+                    panel.innerHTML = `<p class="text-slate-600">${item.content}</p>`;
+                    container.appendChild(btn);
+                    container.appendChild(panel);
+                    btn.addEventListener('click', () => {
+                        const isActive = panel.classList.contains('active');
+                        document.querySelectorAll('.accordion-panel.active').forEach(p => {
+                            if (p !== panel) {
+                                p.classList.remove('active');
+                                p.style.maxHeight = null;
+                                p.previousElementSibling.querySelector('.arrow').style.transform = 'rotate(0deg)';
+                            }
+                        });
+                        panel.classList.toggle('active');
+                        btn.querySelector('.arrow').style.transform = panel.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+                        if (panel.classList.contains('active')) {
+                            panel.style.maxHeight = panel.scrollHeight + "px";
+                        } else {
+                            panel.style.maxHeight = null;
                         }
                     });
-                    // Toggle current panel
-                    panel.classList.toggle('active');
-                    btn.querySelector('.arrow').style.transform = panel.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
-                    if (panel.classList.contains('active')) {
-                        panel.style.maxHeight = panel.scrollHeight + "px";
-                    } else {
-                        panel.style.maxHeight = null;
-                    }
                 });
-            });
-        }
-        
-        function updateFinancialStructureTable(year) {
-            const dataArray = [
-                { company: companyRawData.lg.name, debtRatio: companyRawData.lg[year === 2024 ? 'debtEquity2024' : 'debtEquity2023'], currentRatio: companyRawData.lg[year === 2024 ? 'currentRatio2024' : 'currentRatio2023'] },
-                { company: companyRawData.sunny.name, debtRatio: companyRawData.sunny[year === 2024 ? 'capitalization2024' : 'capitalization2023'], currentRatio: companyRawData.sunny[year === 2024 ? 'currentRatio2024' : 'currentRatio2023'] },
-                { company: companyRawData.cowell.name, debtRatio: companyRawData.cowell[year === 2024 ? 'capitalization2024' : 'capitalization2023'], currentRatio: companyRawData.cowell[year === 2024 ? 'currentRatio2024' : 'currentRatio2023'] }
-            ];
-            const dataKeys = [
-                { key: 'company' },
-                { key: 'debtRatio', suffix: '%' },
-                { key: 'currentRatio' }
-            ];
-            populateTable('financialStructureTableBody', dataArray, dataKeys);
-        }
+            }
+            
+            function updateFinancialStructureTable(year) {
+                const dataArray = [
+                    { company: companyRawData.lg.name, debtRatio: companyRawData.lg[year === 2024 ? 'debtEquity2024' : 'debtEquity2023'], currentRatio: companyRawData.lg[year === 2024 ? 'currentRatio2024' : 'currentRatio2023'] },
+                    { company: companyRawData.sunny.name, debtRatio: companyRawData.sunny[year === 2024 ? 'capitalization2024' : 'capitalization2023'], currentRatio: companyRawData.sunny[year === 2024 ? 'currentRatio2024' : 'currentRatio2023'] },
+                    { company: companyRawData.cowell.name, debtRatio: companyRawData.cowell[year === 2024 ? 'capitalization2024' : 'capitalization2023'], currentRatio: companyRawData.cowell[year === 2024 ? 'currentRatio2024' : 'currentRatio2023'] }
+                ];
+                const dataKeys = [
+                    { key: 'company' },
+                    { key: 'debtRatio', suffix: '%' },
+                    { key: 'currentRatio' }
+                ];
+                populateTable('financialStructureTableBody', dataArray, dataKeys);
+            }
 
-        function populateOverviewCards() {
-            document.getElementById('overview-lg-revenue').textContent = `US$${companyRawData.lg.revenue2024USD_Billion.toFixed(2)}十億`;
-            document.getElementById('overview-lg-npm').textContent = `${companyRawData.lg.npm2024.toFixed(2)}%`;
-            document.getElementById('overview-lg-npm').classList.toggle('positive', companyRawData.lg.npm2024 > 0);
-            document.getElementById('overview-lg-npm').classList.toggle('negative', companyRawData.lg.npm2024 < 0);
-            document.getElementById('overview-lg-roe').textContent = `${companyRawData.lg.roe2024.toFixed(2)}%`;
-            document.getElementById('overview-lg-roe').classList.toggle('positive', companyRawData.lg.roe2024 > 5);
-            document.getElementById('overview-lg-roe').classList.toggle('negative', companyRawData.lg.roe2024 < 5);
+            function populateOverviewCards() {
+                document.getElementById('overview-lg-revenue').textContent = `US$${companyRawData.lg.revenue2024USD_Billion.toFixed(2)}十億`;
+                document.getElementById('overview-lg-npm').textContent = `${companyRawData.lg.npm2024.toFixed(2)}%`;
+                document.getElementById('overview-lg-npm').classList.toggle('positive', companyRawData.lg.npm2024 > 0);
+                document.getElementById('overview-lg-npm').classList.toggle('negative', companyRawData.lg.npm2024 < 0);
+                document.getElementById('overview-lg-roe').textContent = `${companyRawData.lg.roe2024.toFixed(2)}%`;
+                document.getElementById('overview-lg-roe').classList.toggle('positive', companyRawData.lg.roe2024 > 5);
+                document.getElementById('overview-lg-roe').classList.toggle('negative', companyRawData.lg.roe2024 < 5);
 
-            document.getElementById('overview-sunny-revenue').textContent = `US$${companyRawData.sunny.revenue2024USD_Billion.toFixed(2)}十億`;
-            document.getElementById('overview-sunny-npm').textContent = `${companyRawData.sunny.npm2024.toFixed(2)}%`;
-            document.getElementById('overview-sunny-npm').classList.toggle('positive', companyRawData.sunny.npm2024 > 0);
-            document.getElementById('overview-sunny-npm').classList.toggle('negative', companyRawData.sunny.npm2024 < 0);
-            document.getElementById('overview-sunny-roe').textContent = `${companyRawData.sunny.roe2024.toFixed(2)}%`;
-            document.getElementById('overview-sunny-roe').classList.toggle('positive', companyRawData.sunny.roe2024 > 5);
-            document.getElementById('overview-sunny-roe').classList.toggle('negative', companyRawData.sunny.roe2024 < 5);
+                document.getElementById('overview-sunny-revenue').textContent = `US$${companyRawData.sunny.revenue2024USD_Billion.toFixed(2)}十億`;
+                document.getElementById('overview-sunny-npm').textContent = `${companyRawData.sunny.npm2024.toFixed(2)}%`;
+                document.getElementById('overview-sunny-npm').classList.toggle('positive', companyRawData.sunny.npm2024 > 0);
+                document.getElementById('overview-sunny-npm').classList.toggle('negative', companyRawData.sunny.npm2024 < 0);
+                document.getElementById('overview-sunny-roe').textContent = `${companyRawData.sunny.roe2024.toFixed(2)}%`;
+                document.getElementById('overview-sunny-roe').classList.toggle('positive', companyRawData.sunny.roe2024 > 5);
+                document.getElementById('overview-sunny-roe').classList.toggle('negative', companyRawData.sunny.roe2024 < 5);
 
-            document.getElementById('overview-cowell-revenue').textContent = `US$${companyRawData.cowell.revenue2024USD_Billion.toFixed(2)}十億`;
-            document.getElementById('overview-cowell-npm').textContent = `${companyRawData.cowell.npm2024.toFixed(2)}%`;
-            document.getElementById('overview-cowell-npm').classList.toggle('positive', companyRawData.cowell.npm2024 > 0);
-            document.getElementById('overview-cowell-npm').classList.toggle('negative', companyRawData.cowell.npm2024 < 0);
-            document.getElementById('overview-cowell-roe').textContent = `${companyRawData.cowell.roe2024.toFixed(2)}%`;
-            document.getElementById('overview-cowell-roe').classList.toggle('positive', companyRawData.cowell.roe2024 > 5);
-            document.getElementById('overview-cowell-roe').classList.toggle('negative', companyRawData.cowell.roe2024 < 5);
-        }
-        
-        // --- Main Execution Block ---
-        // Using an IIFE to ensure code runs after DOM is parsed, as the script is at the end of the body.
-        (function() {
+                document.getElementById('overview-cowell-revenue').textContent = `US$${companyRawData.cowell.revenue2024USD_Billion.toFixed(2)}十億`;
+                document.getElementById('overview-cowell-npm').textContent = `${companyRawData.cowell.npm2024.toFixed(2)}%`;
+                document.getElementById('overview-cowell-npm').classList.toggle('positive', companyRawData.cowell.npm2024 > 0);
+                document.getElementById('overview-cowell-npm').classList.toggle('negative', companyRawData.cowell.npm2024 < 0);
+                document.getElementById('overview-cowell-roe').textContent = `${companyRawData.cowell.roe2024.toFixed(2)}%`;
+                document.getElementById('overview-cowell-roe').classList.toggle('positive', companyRawData.cowell.roe2024 > 5);
+                document.getElementById('overview-cowell-roe').classList.toggle('negative', companyRawData.cowell.roe2024 < 5);
+            }
+            
+            // --- Main Execution Block ---
             populateOverviewCards();
             createRevenueChart();
             createProfitabilityCharts();
@@ -583,7 +579,6 @@
                 window.addEventListener('scroll', changeActiveLink);
             }
 
-
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -599,7 +594,10 @@
                     }
                 });
             });
-        })();
+        }
+        
+        // Use window.onload to ensure all external scripts like Chart.js are loaded
+        window.onload = initializeApp;
     </script>
 </body>
 </html>
