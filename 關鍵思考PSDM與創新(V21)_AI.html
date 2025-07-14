@@ -77,11 +77,8 @@
             min-height: 100px;
             white-space: pre-wrap;
             font-family: 'Noto Sans TC', sans-serif;
-            overflow-x: auto;
         }
-        .ai-output table { margin-top: 1rem; margin-bottom: 1rem; border-collapse: collapse; width: 100%; }
-        .ai-output th, .ai-output td { border: 1px solid #ddd; padding: 8px; text-align: left;}
-        .ai-output th { background-color: #f2f2f2; }
+        .ai-output table { margin-top: 1rem; margin-bottom: 1rem; }
         .ai-output h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; }
         .ai-output ul { list-style-type: disc; padding-left: 1.5rem; }
         .ai-output ol { list-style-type: decimal; padding-left: 1.5rem; }
@@ -197,63 +194,45 @@
             </div>
         </section>
 
-        <!-- ### FINAL AI INTERACTION SECTION ### -->
+        <!-- ### UPDATED API KEY INPUT SECTION ### -->
         <section class="mb-12">
             <div class="max-w-2xl mx-auto p-6 bg-yellow-100 border-2 border-yellow-300 rounded-lg">
                 <h3 class="text-xl font-bold text-yellow-800 text-center mb-4">啟動 AI 互動功能</h3>
+                <p class="text-center text-yellow-700 mb-4">為了使用下方的 AI 實戰演練，請選擇您的 AI 服務並貼上對應的 API 金鑰。</p>
                 
-                <div class="flex justify-center space-x-8 mb-4 border-b border-yellow-300 pb-4">
-                    <label class="cursor-pointer font-semibold text-yellow-800">
-                        <input type="radio" name="api-mode" value="no-key" checked class="mr-2">無需 API 金鑰
-                    </label>
-                    <label class="cursor-pointer font-semibold text-yellow-800">
-                        <input type="radio" name="api-mode" value="user-key" class="mr-2">自備 API 金鑰
-                    </label>
+                <div class="mb-4">
+                    <span class="block mb-2 font-semibold text-gray-700 text-center">1. 選擇 AI 服務提供商:</span>
+                    <div class="flex justify-center flex-wrap gap-x-6 gap-y-2">
+                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="gemini" checked> Google Gemini</label>
+                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="deepseek"> Deepseek</label>
+                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="chatgpt"> ChatGPT (OpenAI)</label>
+                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="copilot"> Copilot (Microsoft)</label>
+                    </div>
                 </div>
 
-                <!-- Section for No-Key mode info -->
-                <div id="no-key-info" class="text-center text-yellow-700 mt-4">
-                    <p>本課程互動練習區，直接連線免費 AI。如遇流量高峰，請稍候再試。</p>
+                <div>
+                    <span class="block mb-2 font-semibold text-gray-700 text-center">2. 輸入您的 API 金鑰:</span>
+                    <div class="flex items-center">
+                        <input type="password" id="api-key-input" class="w-full p-2 border border-yellow-400 rounded-l-md focus:ring-2 focus:ring-yellow-500" placeholder="在此貼上您選擇的服務金鑰...">
+                        <button onclick="saveApiKey()" class="px-4 py-2 bg-yellow-500 text-white font-semibold rounded-r-md hover:bg-yellow-600">儲存</button>
+                    </div>
+                </div>
+                
+                <div id="copilot-endpoint-container" class="hidden mt-4">
+                    <span class="block mb-2 font-semibold text-gray-700 text-center">3. 輸入您的 Azure Endpoint:</span>
+                    <div class="flex items-center">
+                        <input type="text" id="endpoint-url-input" class="w-full p-2 border border-yellow-400 rounded-md focus:ring-2 focus:ring-yellow-500" placeholder="例如: https://your-resource.openai.azure.com/">
+                    </div>
+                     <p class="text-xs text-center text-yellow-600 mt-1">請確認 Endpoint 包含完整的部署名稱，例如 `.../deployments/your-deployment-name`</p>
                 </div>
 
-                <!-- Section for user-provided API key -->
-                <div id="user-api-section" class="hidden mt-4">
-                    <p class="text-center text-yellow-700 mb-4">為了使用下方的 AI 實戰演練，請選擇您的 AI 服務並貼上對應的 API 金鑰。</p>
-                
-                    <div class="mb-4">
-                        <span class="block mb-2 font-semibold text-gray-700 text-center">1. 選擇 AI 服務提供商:</span>
-                        <div class="flex justify-center flex-wrap gap-x-6 gap-y-2">
-                            <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="gemini" checked> Google Gemini</label>
-                            <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="deepseek"> Deepseek</label>
-                            <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="chatgpt"> ChatGPT (OpenAI)</label>
-                            <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="copilot"> Copilot (Microsoft)</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <span class="block mb-2 font-semibold text-gray-700 text-center">2. 輸入您的 API 金鑰:</span>
-                        <div class="flex items-center">
-                            <input type="password" id="api-key-input" class="w-full p-2 border border-yellow-400 rounded-l-md focus:ring-2 focus:ring-yellow-500" placeholder="在此貼上您選擇的服務金鑰...">
-                            <button onclick="saveApiKey()" class="px-4 py-2 bg-yellow-500 text-white font-semibold rounded-r-md hover:bg-yellow-600">儲存</button>
-                        </div>
-                    </div>
-                    
-                    <div id="copilot-endpoint-container" class="hidden mt-4">
-                        <span class="block mb-2 font-semibold text-gray-700 text-center">3. 輸入您的 Azure Endpoint:</span>
-                        <div class="flex items-center">
-                            <input type="text" id="endpoint-url-input" class="w-full p-2 border border-yellow-400 rounded-md focus:ring-2 focus:ring-yellow-500" placeholder="例如: https://your-resource.openai.azure.com/">
-                        </div>
-                         <p class="text-xs text-center text-yellow-600 mt-1">請確認 Endpoint 包含完整的部署名稱，例如 `.../deployments/your-deployment-name`</p>
-                    </div>
-
-                    <div class="text-xs text-center text-yellow-600 mt-2 space-y-1">
-                        <p>您的金鑰只會儲存在您目前的瀏覽器中。可從 <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline hover:text-yellow-800">Google AI Studio</a>, <a href="https://platform.deepseek.com/api_keys" target="_blank" class="underline hover:text-yellow-800">Deepseek</a>, 或 <a href="https://platform.openai.com/api-keys" target="_blank" class="underline hover:text-yellow-800">OpenAI/Azure</a> 免費取得。</p>
-                        <p class="font-bold">請注意：部分服務在免費額度用完後，可能需要您在該平台設定付款方式或儲值才能繼續使用。</p>
-                    </div>
+                <div class="text-xs text-center text-yellow-600 mt-2 space-y-1">
+                    <p>您的金鑰只會儲存在您目前的瀏覽器中。可從 <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline hover:text-yellow-800">Google AI Studio</a>, <a href="https://platform.deepseek.com/api_keys" target="_blank" class="underline hover:text-yellow-800">Deepseek</a>, 或 <a href="https://platform.openai.com/api-keys" target="_blank" class="underline hover:text-yellow-800">OpenAI/Azure</a> 免費取得。</p>
+                    <p class="font-bold">請注意：部分服務在免費額度用完後，可能需要您在該平台設定付款方式或儲值才能繼續使用。</p>
                 </div>
             </div>
         </section>
-        <!-- ### END OF FINAL SECTION ### -->
+        <!-- ### END OF API KEY INPUT SECTION ### -->
 
 
         <!-- 5 Modules Overview -->
@@ -410,7 +389,7 @@
                     </div>
                 </div>
 
-                <!-- Interactive AI Section for PA -->
+                <!-- ### UPDATED Interactive AI Section for PA ### -->
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-green-700">PA 實戰演練</h3>
                     <div class="ai-card bg-green-50 border-green-200">
@@ -527,7 +506,7 @@
                                 <li>- <b>Wants (想要條件):</b> 多多益善的加分項，用來「評分」。必須給予每個 Want 不同的「權重(Weight)」，以體現其相對重要性。</li>
                             </ul>
                         </li>
-                        <li><b>2. 發展選項 (Do):</b> 進行評分與計算。先用 Musts 篩掉不合格的選項。然後為剩下的選項，根據 Wants 逐項評分 (1-10分)，再將分數乘以權重，得出每個選項の加權總分。</li>
+                        <li><b>2. 發展選項 (Do):</b> 進行評分與計算。先用 Musts 篩掉不合格的選項。然後為剩下的選項，根據 Wants 逐項評分 (1-10分)，再將分數乘以權重，得出每個選項的加權總分。</li>
                         <li><b>3. 了解風險 (Check):</b> 分數不是一切。針對分數最高的幾個選項，必須冷靜地分析其潛在的負面風險 (Adverse Consequences)。一個高分但風險極大的選項，未必是最佳選擇。</li>
                         <li><b>4. 執行決策 (Action):</b> 做出最終選擇。理想的選擇是「加權分數最高」且「風險可控」的選項。一旦做出決定，就要為可能的風險制定應對計畫。</li>
                     </ul>
@@ -684,46 +663,27 @@
     </footer>
 
 <script>
-    // --- Global variables for API mode ---
-    let apiMode = 'no-key'; // 'no-key' or 'user-key'
+    // --- API Key Logic ---
     let userApiKey = '';
-    let apiProvider = 'gemini'; // Default provider for user-key mode
-    let userEndpointUrl = '';
+    let apiProvider = 'gemini'; // Default provider
+    let userEndpointUrl = ''; // For Azure/Copilot
 
-    // --- Event Listeners for mode selection ---
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('input[name="api-mode"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                apiMode = this.value;
-                const userApiSection = document.getElementById('user-api-section');
-                const noKeyInfo = document.getElementById('no-key-info');
-                if (apiMode === 'user-key') {
-                    userApiSection.classList.remove('hidden');
-                    noKeyInfo.classList.add('hidden');
-                } else {
-                    userApiSection.classList.add('hidden');
-                    noKeyInfo.classList.remove('hidden');
-                }
-            });
-        });
-
-        document.querySelectorAll('input[name="api-provider"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const endpointContainer = document.getElementById('copilot-endpoint-container');
-                apiProvider = this.value;
-                if (apiProvider === 'copilot') {
-                    endpointContainer.classList.remove('hidden');
-                } else {
-                    endpointContainer.classList.add('hidden');
-                }
-            });
+    document.querySelectorAll('input[name="api-provider"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const endpointContainer = document.getElementById('copilot-endpoint-container');
+            if (this.value === 'copilot') {
+                endpointContainer.classList.remove('hidden');
+            } else {
+                endpointContainer.classList.add('hidden');
+            }
         });
     });
 
     function saveApiKey() {
         const keyInput = document.getElementById('api-key-input');
         const endpointInput = document.getElementById('endpoint-url-input');
-        
+        apiProvider = document.querySelector('input[name="api-provider"]:checked').value;
+
         if (keyInput.value.trim()) {
             userApiKey = keyInput.value.trim();
             if (apiProvider === 'copilot') {
@@ -743,141 +703,100 @@
         }
     }
 
-    /**
-     * Calls the default, keyless AI service.
-     * @param {string} prompt The user's prompt.
-     * @returns {Promise<string>} The AI's response text.
-     */
-    async function callAIDefault(prompt) {
-        const apiKey = ""; 
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-        
-        const headers = { 'Content-Type': 'application/json' };
-        const body = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+    // --- AI Interaction Logic ---
 
-        try {
-            const response = await fetch(apiUrl, { method: 'POST', headers, body: JSON.stringify(body) });
-            if (!response.ok) {
-                const errorBody = await response.text();
-                throw new Error(`API 請求失敗: ${response.status}. ${errorBody}`);
-            }
-            const result = await response.json();
-            if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
-                return result.candidates[0].content.parts[0].text;
-            }
-            console.error("Unexpected API response structure:", result);
-            if (result.error) return `發生錯誤：${result.error.message}`;
-            if (result.promptFeedback?.blockReason) return `您的請求被阻擋，原因：${result.promptFeedback.blockReason}.`;
-            return "抱歉，AI 回應的格式有誤，請稍後再試。";
-        } catch (error) {
-            console.error("Error calling default AI API:", error);
-            return `無法連接至預設 AI 服務。請檢查您的網路連線。\n錯誤詳情: ${error.message}`;
-        }
-    }
-
-    /**
-     * Calls the user-selected AI provider with their own API key.
-     * @param {string} prompt The user's prompt.
-     * @param {string} apiKey The user's API key.
-     * @param {string} provider The selected AI provider ('gemini', 'deepseek', etc.).
-     * @param {string} endpoint The endpoint URL for Azure/Copilot.
-     * @returns {Promise<string>} The AI's response text.
-     */
-    async function callAIWithProvider(prompt, apiKey, provider, endpoint) {
+    // Generic function to call the selected AI API
+    async function callAI(prompt, apiKey, provider, endpoint) {
         let apiUrl = '';
         let headers = { 'Content-Type': 'application/json' };
         let body = {};
 
+        // Prepare the request based on the provider
         if (provider === 'gemini') {
             apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
             body = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
         } else if (provider === 'deepseek') {
             apiUrl = 'https://api.deepseek.com/v1/chat/completions';
             headers['Authorization'] = `Bearer ${apiKey}`;
-            body = { model: "deepseek-chat", messages: [{ role: "system", content: "你是一位專業的顧問，請使用繁體中文回答。" }, { role: "user", content: prompt }] };
+            body = {
+                model: "deepseek-chat",
+                messages: [
+                    { role: "system", content: "你是一位專業的顧問，請使用繁體中文回答。" },
+                    { role: "user", content: prompt }
+                ]
+            };
         } else if (provider === 'chatgpt') {
             apiUrl = 'https://api.openai.com/v1/chat/completions';
             headers['Authorization'] = `Bearer ${apiKey}`;
-            body = { model: "gpt-3.5-turbo", messages: [{ role: "system", content: "You are a helpful assistant. Please respond in Traditional Chinese." }, { role: "user", content: prompt }] };
+            body = {
+                model: "gpt-3.5-turbo",
+                messages: [
+                    { role: "system", content: "You are a helpful assistant. Please respond in Traditional Chinese." },
+                    { role: "user", content: prompt }
+                ]
+            };
         } else if (provider === 'copilot') {
-            apiUrl = endpoint;
+            apiUrl = endpoint; // The user provides the full endpoint URL
             headers['api-key'] = apiKey;
-            body = { messages: [{ role: "system", content: "You are a helpful assistant. Please respond in Traditional Chinese." }, { role: "user", content: prompt }] };
+            body = {
+                messages: [
+                    { role: "system", content: "You are a helpful assistant. Please respond in Traditional Chinese." },
+                    { role: "user", content: prompt }
+                ]
+            };
         }
 
+
         try {
-            const response = await fetch(apiUrl, { method: 'POST', headers, body: JSON.stringify(body) });
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(body)
+            });
+
             if (!response.ok) {
                 const errorBody = await response.text();
-                throw new Error(`API 請求失敗: ${response.status}. ${errorBody}`);
+                throw new Error(`API 請求失敗，狀態碼： ${response.status}. ${errorBody}`);
             }
+
             const result = await response.json();
+            
+            // Parse the response based on the provider
             if (provider === 'gemini') {
-                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) return result.candidates[0].content.parts[0].text;
+                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
+                    return result.candidates[0].content.parts[0].text;
+                }
             } else if (provider === 'deepseek' || provider === 'chatgpt' || provider === 'copilot') {
-                if (result.choices && result.choices[0]?.message?.content) return result.choices[0].message.content;
+                if (result.choices && result.choices[0]?.message?.content) {
+                    return result.choices[0].message.content;
+                }
             }
+            
+            // Handle unexpected structures or errors
             console.error("Unexpected API response structure:", result);
             if (result.error) return `發生錯誤：${result.error.message}`;
             if (result.promptFeedback?.blockReason) return `您的請求被阻擋，原因：${result.promptFeedback.blockReason}.`;
             return "抱歉，AI 回應的格式有誤，請稍後再試。";
+
         } catch (error) {
-            console.error("Error calling user-provided AI API:", error);
-            return `無法連接至 ${provider.toUpperCase()} 服務。請檢查您的網路、API 金鑰或 Endpoint 是否正確。\n錯誤詳情: ${error.message}`;
+            console.error("Error calling AI API:", error);
+            return `無法連接至 AI 服務。請檢查您的網路連線或 API 金鑰是否正確。\n錯誤詳情: ${error.message}`;
         }
     }
 
-    /**
-     * Creates the appropriate prompt based on the analysis type and user input.
-     * @param {string} type The type of analysis (e.g., 'sa', 'pa').
-     * @param {string} userInput The user's text input.
-     * @returns {string} The constructed prompt.
-     */
-    function createPrompt(type, userInput) {
-        let prompt = '';
-        switch (type) {
-            case 'sa':
-                prompt = `你是一位頂尖的管理顧問，請使用 SA (Situation Appraisal) 的 MECE 原則，將以下複雜情況拆解為具體的議題 (Issues) 與關注點 (Concerns)。請將結果以條列式清單呈現，並為每個議題評估其嚴重性、緊急性與未來性。請用繁體中文回答。\n\n使用者情境：${userInput}`;
-                break;
-            case 'pa':
-                const selectedPaMethod = document.querySelector('input[name="pa-method"]:checked').value;
-                const paPrompts = {
-                    'isisnot': `你是一位經驗豐富的品管專家，請使用 Kepner-Tregoe 的 IS/IS NOT 方法，分析以下問題描述。請根據提供的資訊，歸納出最可能的根本原因 (Most Probable Cause)，並詳細解釋你的推理過程。請用繁體中文回答。\n\n使用者問題描述：${userInput}`,
-                    'whywhy': `你是一位經驗豐富的根本原因分析(RCA)專家。請針對以下問題，使用 3x5 Why 分析法，從三個構面進行深入探討：\n1. 發生 (Occurrence): 為什麼問題會發生？(探討物理或技術原因)\n2. 逃逸 (Escape): 為什麼問題沒有在發生點被偵測到或預防？(探討控制或檢測系統的失效)\n3. 系統 (System): 為什麼我們的管理系統或流程允許這個問題發生？(探討流程、標準或管理上的根本原因)\n請為每個構面都進行至少三層的 Why-Why 分析，並以結構化的方式呈現結果。請用繁體中文回答。\n\n使用者問題描述：${userInput}`,
-                    'pmanalysis': `你是一位精通 PM 分析 (Physical Mechanical Analysis) 的設備工程專家。請針對以下使用者描述的重複性故障問題，引導他完成 PM 分析的六個步驟：\n1. 明確故障現象\n2. 物理原理分析\n3. 成立條件探討\n4. 多角度原因列舉 (4M1E)\n5. 主因驗證方法建議\n6. 改善方案建議\n請以結構化的方式，引導使用者思考並提供分析。請用繁體中文回答。\n\n使用者問題描述：${userInput}`,
-                    'datadriven': `你是一位精通數據科學與作業研究的專家，特別擅長供應鏈管理與預測模型。請針對以下使用者描述的問題與數據，執行數據驅動的問題分析。\n\n你的任務是：\n1. **識別模型：** 根據問題情境，判斷最適合使用以下哪一種模型：\n    * **報童模型 (Newsvendor Model):** 適用於解決單期、有時效性、需求不確定的庫存問題（例如：報紙、季節性商品）。\n    * **經濟訂購量/再訂購點/安全庫存 (EOQ/ROP/SS):** 適用於持續性的庫存管理問題。\n    * **克羅斯頓法 (Croston's Method):** 適用於間歇性、偶發性需求的預測問題（例如：備品、慢動物料）。\n    * **巴斯擴散模型 (Bass Diffusion Model):** 適用於預測新產品或新技術的市場擴散與採用過程。\n2. **要求數據：** 如果使用者提供的數據不足以運行你選擇的模型，請明確地、條列式地向使用者提問，告知需要哪些具體的數據點（例如：平均需求、需求標準差、訂購成本、持有成本、缺貨成本等）。\n3. **執行分析：** 如果數據充足，請執行計算，並清楚地展示計算結果（例如：最佳訂購量、再訂購點、安全庫存量、預測值等）。\n4. **提出洞見：** 不僅僅是給出數字，更要用簡潔的語言解釋這些數字背後的商業意涵，並提出具體的管理建議。\n\n請以結構化、條列式的方式呈現完整的分析。請用繁體中文回答。\n\n使用者問題與數據：${userInput}`,
-                    '8dreport': `你是一位資深的品質管理專家，精通 8D (8 Disciplines) 問題解決流程。請針對以下使用者描述的問題，引導他完成一份完整的 8D 報告。\n\n你的任務是，根據使用者提供的初步問題，逐步引導他思考並填寫 D1 到 D8 的內容：\n- D1: 建立團隊 (Establish the Team)\n- D2: 描述問題 (Describe the Problem) - (可以利用使用者初步的描述)\n- D3: 實施臨時圍堵措施 (Implement Interim Containment Actions)\n- D4: 確定與驗證根本原因 (Determine and Verify Root Causes)\n- D5: 選擇與驗證永久對策 (Choose and Verify Permanent Corrective Actions)\n- D6: 實施與驗證永久對策 (Implement and Validate Permanent Corrective Actions)\n- D7: 防止再發生 (Prevent Recurrence)\n- D8: 團隊肯定 (Congratulate the Team)\n\n請以結構化、條列式的方式，一步步提出問題或建議，最終生成一份看起來像正式報告的文件。請用繁體中文回答。\n\n使用者問題描述：${userInput}`
-                };
-                prompt = paPrompts[selectedPaMethod];
-                break;
-            case 'ppa':
-                prompt = `你是一位資深的風險管理師，請使用 PPA (Potential Problem Analysis) / FMEA 方法，為以下計畫進行風險分析。請識別至少三個潛在風險，評估其嚴重性(S)、發生性(O)與難檢性(D) (1-10分)，計算 RPN，並為最高風險的項目提出預防行動 (Plan A) 與應變行動 (Plan B)。請將結果以 Markdown 表格形式呈現。請用繁體中文回答。\n\n使用者計畫：${userInput}`;
-                break;
-            case 'da':
-                prompt = `你是一位理性的決策分析專家，請使用 DA (Decision Analysis) 方法，協助我做決定。請根據我提供的選項與加權標準，建立一個決策矩陣，為每個選項評分(1-10分)，計算加權總分，並分析高分選項的潛在風險，最後給我一個明確的決策建議。請將決策矩陣以 Markdown 表格呈現。請用繁體中文回答。\n\n使用者決策情境：${userInput}`;
-                break;
-            case 'ca':
-                const selectedCaMethod = document.querySelector('input[name="ca-method"]:checked').value;
-                const caPrompts = {
-                    'scamper': `你是一位充滿創意的創新顧問，請使用 SCAMPER 方法，針對以下主題，發想創新的點子或商業模式。請針對 SCAMPER 的每個字母 (Substitute, Combine, Adapt, Modify, Put to other use, Eliminate, Reverse) 都提出至少一個想法。請用繁體中文回答。\n\n使用者主題：${userInput}`,
-                    'triz': `你是一位精通 TRIZ (發明性問題解決理論) 的創新專家。針對以下主題，請先識別其核心的「技術矛盾」(例如：想要A變好，但B卻變差了)。然後，請應用 TRIZ 的40個發明原則中的幾個，提出解決此矛盾的創新概念。請用繁體中文回答。\n\n使用者主題：${userInput}`,
-                    'sixhats': `你是一位熟練的主持人，請使用愛德華·德·波諾的「六頂思考帽」方法，引導我對以下議題進行全面探討。請分別從白帽(事實)、紅帽(情感)、黑帽(風險)、黃帽(利益)、綠帽(創意)、藍帽(流程)的角度，提出觀點或問題。請將分析結果以結構化的方式呈現。請用繁體中文回答。\n\n使用者議題：${userInput}`,
-                    'designthinking': `你是一位專業的設計思維(Design Thinking)引導師。請針對以下主題，引導我走過設計思維的五個階段：1. 同理(Empathize), 2. 定義(Define), 3. 發想(Ideate), 4. 原型(Prototype), 5. 測試(Test)。請為每個階段提出具體的引導問題或建議行動，幫助我發展出以使用者為中心的創新方案。請用繁體中文回答。\n\n使用者主題：${userInput}`,
-                    'vpc': `你是一位市場策略專家，請使用價值主張圖 (Value Proposition Canvas) 的框架，針對以下主題進行分析。請先分析右側的「顧客輪廓」(Customer Profile)，包含：\n1. 顧客任務 (Customer Jobs)\n2. 痛點 (Pains)\n3. 獲益 (Gains)\n\n接著，請設計左側的「價值地圖」(Value Map)，提出對應的解決方案，包含：\n1. 產品與服務 (Products & Services)\n2. 痛點解方 (Pain Relievers)\n3. 獲益創造者 (Gain Creators)\n請以結構化、條列式的方式呈現完整的分析。請用繁體中文回答。\n\n使用者主題：${userInput}`,
-                    'bmc': `你是一位商業模式顧問，請使用商業模式圖 (Business Model Canvas) 的框架，為以下主題規劃一個完整的商業模式。請分別闡述九個構成要素：\n1. 目標客層 (Customer Segments)\n2. 價值主張 (Value Propositions)\n3. 通路 (Channels)\n4. 顧客關係 (Customer Relationships)\n5. 收益流 (Revenue Streams)\n6. 關鍵活動 (Key Activities)\n7. 關鍵資源 (Key Resources)\n8. 關鍵合作夥伴 (Key Partnerships)\n9. 成本結構 (Cost Structure)\n請以結構化、條列式的方式呈現完整的分析。請用繁體中文回答。\n\n使用者主題：${userInput}`,
-                    'pyramid': `你是一位精通芭芭拉·明托 (Barbara Minto)「金字塔原理」(The Pyramid Principle) 的溝通與邏輯專家。請針對以下使用者想闡述的核心思想或主題，引導他建立一個清晰的金字塔結構。\n\n你的任務是：\n1. **確認頂層結論：** 首先，幫助使用者將他的核心思想精煉成一個明確、單一的頂層結論。\n2. **發展主要論點：** 引導使用者思考支持這個結論的 3 到 5 個主要論點。這些論點必須符合 MECE (相互獨立，完全窮盡) 原則。\n3. **展開支撐數據/事實：** 對於每一個主要論點，再往下引導使用者提出具體的數據、事實或案例來支撐。\n4. **產出結構化報告：** 最後，將整個思考過程整理成一個清晰的金字塔結構報告，從頂層結論開始，逐層向下展開。\n\n請以結構化、條列式的方式呈現完整的分析。請用繁體中文回答。\n\n使用者想表達的主題或結論：${userInput}`
-                };
-                prompt = caPrompts[selectedCaMethod];
-                break;
-        }
-        return prompt;
-    }
-
-    /**
-     * Main handler for all AI interaction buttons.
-     * @param {string} type The type of analysis (e.g., 'sa', 'pa').
-     */
+    // Main handler for single-turn AI interactions
     async function handleAI(type) {
+        if (apiProvider === 'copilot' && (!userApiKey || !userEndpointUrl)) {
+            alert('請先在頁面上方的「啟動 AI 互動功能」區塊輸入並儲存您的 API 金鑰與 Azure Endpoint！');
+            document.getElementById('api-key-input').focus();
+            return;
+        }
+        if (apiProvider !== 'copilot' && !userApiKey) {
+            alert('請先在頁面上方的「啟動 AI 互動功能」區塊輸入並儲存您的 API 金鑰！');
+            document.getElementById('api-key-input').focus();
+            return;
+        }
+
         const inputElement = document.getElementById(`${type}-input`);
         const outputElement = document.getElementById(`${type}-output`);
         const userInput = inputElement.value.trim();
@@ -890,27 +809,52 @@
         outputElement.innerHTML = '<div class="loader"></div>';
         outputElement.classList.remove('hidden');
 
-        const prompt = createPrompt(type, userInput);
-        let aiResponse = '';
-
-        if (apiMode === 'no-key') {
-            aiResponse = await callAIDefault(prompt);
-        } else { // 'user-key' mode
-            if (apiProvider === 'copilot' && (!userApiKey || !userEndpointUrl)) {
-                 alert('請先在上方區塊輸入並儲存您的 API 金鑰與 Azure Endpoint！');
-                 outputElement.classList.add('hidden');
-                 outputElement.innerHTML = '';
-                 return;
-            }
-            if (apiProvider !== 'copilot' && !userApiKey) {
-                alert('請先在上方區塊輸入並儲存您的 API 金鑰！');
-                outputElement.classList.add('hidden');
-                outputElement.innerHTML = '';
-                return;
-            }
-            aiResponse = await callAIWithProvider(prompt, userApiKey, apiProvider, userEndpointUrl);
+        let prompt = '';
+        switch (type) {
+            case 'sa':
+                prompt = `你是一位頂尖的管理顧問，請使用 SA (Situation Appraisal) 的 MECE 原則，將以下複雜情況拆解為具體的議題 (Issues) 與關注點 (Concerns)。請將結果以條列式清單呈現，並為每個議題評估其嚴重性、緊急性與未來性。請用繁體中文回答。\n\n使用者情境：${userInput}`;
+                break;
+            case 'pa':
+                const selectedPaMethod = document.querySelector('input[name="pa-method"]:checked').value;
+                if (selectedPaMethod === 'isisnot') {
+                    prompt = `你是一位經驗豐富的品管專家，請使用 Kepner-Tregoe 的 IS/IS NOT 方法，分析以下問題描述。請根據提供的資訊，歸納出最可能的根本原因 (Most Probable Cause)，並詳細解釋你的推理過程。請用繁體中文回答。\n\n使用者問題描述：${userInput}`;
+                } else if (selectedPaMethod === 'whywhy') {
+                    prompt = `你是一位經驗豐富的根本原因分析(RCA)專家。請針對以下問題，使用 3x5 Why 分析法，從三個構面進行深入探討：\n1. 發生 (Occurrence): 為什麼問題會發生？(探討物理或技術原因)\n2. 逃逸 (Escape): 為什麼問題沒有在發生點被偵測到或預防？(探討控制或檢測系統的失效)\n3. 系統 (System): 為什麼我們的管理系統或流程允許這個問題發生？(探討流程、標準或管理上的根本原因)\n請為每個構面都進行至少三層的 Why-Why 分析，並以結構化的方式呈現結果。請用繁體中文回答。\n\n使用者問題描述：${userInput}`;
+                } else if (selectedPaMethod === 'pmanalysis') {
+                    prompt = `你是一位精通 PM 分析 (Physical Mechanical Analysis) 的設備工程專家。請針對以下使用者描述的重複性故障問題，引導他完成 PM 分析的六個步驟：\n1. 明確故障現象\n2. 物理原理分析\n3. 成立條件探討\n4. 多角度原因列舉 (4M1E)\n5. 主因驗證方法建議\n6. 改善方案建議\n請以結構化的方式，引導使用者思考並提供分析。請用繁體中文回答。\n\n使用者問題描述：${userInput}`;
+                } else if (selectedPaMethod === 'datadriven') {
+                    prompt = `你是一位精通數據科學與作業研究的專家，特別擅長供應鏈管理與預測模型。請針對以下使用者描述的問題與數據，執行數據驅動的問題分析。\n\n你的任務是：\n1. **識別模型：** 根據問題情境，判斷最適合使用以下哪一種模型：\n    * **報童模型 (Newsvendor Model):** 適用於解決單期、有時效性、需求不確定的庫存問題（例如：報紙、季節性商品）。\n    * **經濟訂購量/再訂購點/安全庫存 (EOQ/ROP/SS):** 適用於持續性的庫存管理問題。\n    * **克羅斯頓法 (Croston's Method):** 適用於間歇性、偶發性需求的預測問題（例如：備品、慢動物料）。\n    * **巴斯擴散模型 (Bass Diffusion Model):** 適用於預測新產品或新技術的市場擴散與採用過程。\n2. **要求數據：** 如果使用者提供的數據不足以運行你選擇的模型，請明確地、條列式地向使用者提問，告知需要哪些具體的數據點（例如：平均需求、需求標準差、訂購成本、持有成本、缺貨成本等）。\n3. **執行分析：** 如果數據充足，請執行計算，並清楚地展示計算結果（例如：最佳訂購量、再訂購點、安全庫存量、預測值等）。\n4. **提出洞見：** 不僅僅是給出數字，更要用簡潔的語言解釋這些數字背後的商業意涵，並提出具體的管理建議。\n\n請以結構化、條列式的方式呈現完整的分析。請用繁體中文回答。\n\n使用者問題與數據：${userInput}`;
+                } else if (selectedPaMethod === '8dreport') {
+                    prompt = `你是一位資深的品質管理專家，精通 8D (8 Disciplines) 問題解決流程。請針對以下使用者描述的問題，引導他完成一份完整的 8D 報告。\n\n你的任務是，根據使用者提供的初步問題，逐步引導他思考並填寫 D1 到 D8 的內容：\n- D1: 建立團隊 (Establish the Team)\n- D2: 描述問題 (Describe the Problem) - (可以利用使用者初步的描述)\n- D3: 實施臨時圍堵措施 (Implement Interim Containment Actions)\n- D4: 確定與驗證根本原因 (Determine and Verify Root Causes)\n- D5: 選擇與驗證永久對策 (Choose and Verify Permanent Corrective Actions)\n- D6: 實施與驗證永久對策 (Implement and Validate Permanent Corrective Actions)\n- D7: 防止再發生 (Prevent Recurrence)\n- D8: 團隊肯定 (Congratulate the Team)\n\n請以結構化、條列式的方式，一步步提出問題或建議，最終生成一份看起來像正式報告的文件。請用繁體中文回答。\n\n使用者問題描述：${userInput}`;
+                }
+                break;
+            case 'ppa':
+                prompt = `你是一位資深的風險管理師，請使用 PPA (Potential Problem Analysis) / FMEA 方法，為以下計畫進行風險分析。請識別至少三個潛在風險，評估其嚴重性(S)、發生性(O)與難檢性(D) (1-10分)，計算 RPN，並為最高風險的項目提出預防行動 (Plan A) 與應變行動 (Plan B)。請將結果以 Markdown 表格形式呈現。請用繁體中文回答。\n\n使用者計畫：${userInput}`;
+                break;
+            case 'da':
+                prompt = `你是一位理性的決策分析專家，請使用 DA (Decision Analysis) 方法，協助我做決定。請根據我提供的選項與加權標準，建立一個決策矩陣，為每個選項評分(1-10分)，計算加權總分，並分析高分選項的潛在風險，最後給我一個明確的決策建議。請將決策矩陣以 Markdown 表格呈現。請用繁體中文回答。\n\n使用者決策情境：${userInput}`;
+                break;
+            case 'ca':
+                const selectedCaMethod = document.querySelector('input[name="ca-method"]:checked').value;
+                if (selectedCaMethod === 'scamper') {
+                    prompt = `你是一位充滿創意的創新顧問，請使用 SCAMPER 方法，針對以下主題，發想創新的點子或商業模式。請針對 SCAMPER 的每個字母 (Substitute, Combine, Adapt, Modify, Put to other use, Eliminate, Reverse) 都提出至少一個想法。請用繁體中文回答。\n\n使用者主題：${userInput}`;
+                } else if (selectedCaMethod === 'triz') {
+                    prompt = `你是一位精通 TRIZ (發明性問題解決理論) 的創新專家。針對以下主題，請先識別其核心的「技術矛盾」(例如：想要A變好，但B卻變差了)。然後，請應用 TRIZ 的40個發明原則中的幾個，提出解決此矛盾的創新概念。請用繁體中文回答。\n\n使用者主題：${userInput}`;
+                } else if (selectedCaMethod === 'sixhats') {
+                    prompt = `你是一位熟練的主持人，請使用愛德華·德·波諾的「六頂思考帽」方法，引導我對以下議題進行全面探討。請分別從白帽(事實)、紅帽(情感)、黑帽(風險)、黃帽(利益)、綠帽(創意)、藍帽(流程)的角度，提出觀點或問題。請將分析結果以結構化的方式呈現。請用繁體中文回答。\n\n使用者議題：${userInput}`;
+                } else if (selectedCaMethod === 'designthinking') {
+                    prompt = `你是一位專業的設計思維(Design Thinking)引導師。請針對以下主題，引導我走過設計思維的五個階段：1. 同理(Empathize), 2. 定義(Define), 3. 發想(Ideate), 4. 原型(Prototype), 5. 測試(Test)。請為每個階段提出具體的引導問題或建議行動，幫助我發展出以使用者為中心的創新方案。請用繁體中文回答。\n\n使用者主題：${userInput}`;
+                } else if (selectedCaMethod === 'vpc') {
+                    prompt = `你是一位市場策略專家，請使用價值主張圖 (Value Proposition Canvas) 的框架，針對以下主題進行分析。請先分析右側的「顧客輪廓」(Customer Profile)，包含：\n1. 顧客任務 (Customer Jobs)\n2. 痛點 (Pains)\n3. 獲益 (Gains)\n\n接著，請設計左側的「價值地圖」(Value Map)，提出對應的解決方案，包含：\n1. 產品與服務 (Products & Services)\n2. 痛點解方 (Pain Relievers)\n3. 獲益創造者 (Gain Creators)\n請以結構化、條列式的方式呈現完整的分析。請用繁體中文回答。\n\n使用者主題：${userInput}`;
+                } else if (selectedCaMethod === 'bmc') {
+                    prompt = `你是一位商業模式顧問，請使用商業模式圖 (Business Model Canvas) 的框架，為以下主題規劃一個完整的商業模式。請分別闡述九個構成要素：\n1. 目標客層 (Customer Segments)\n2. 價值主張 (Value Propositions)\n3. 通路 (Channels)\n4. 顧客關係 (Customer Relationships)\n5. 收益流 (Revenue Streams)\n6. 關鍵活動 (Key Activities)\n7. 關鍵資源 (Key Resources)\n8. 關鍵合作夥伴 (Key Partnerships)\n9. 成本結構 (Cost Structure)\n請以結構化、條列式的方式呈現完整的分析。請用繁體中文回答。\n\n使用者主題：${userInput}`;
+                } else if (selectedCaMethod === 'pyramid') {
+                    prompt = `你是一位精通芭芭拉·明托 (Barbara Minto)「金字塔原理」(The Pyramid Principle) 的溝通與邏輯專家。請針對以下使用者想闡述的核心思想或主題，引導他建立一個清晰的金字塔結構。\n\n你的任務是：\n1. **確認頂層結論：** 首先，幫助使用者將他的核心思想精煉成一個明確、單一的頂層結論。\n2. **發展主要論點：** 引導使用者思考支持這個結論的 3 到 5 個主要論點。這些論點必須符合 MECE (相互獨立，完全窮盡) 原則。\n3. **展開支撐數據/事實：** 對於每一個主要論點，再往下引導使用者提出具體的數據、事實或案例來支撐。\n4. **產出結構化報告：** 最後，將整個思考過程整理成一個清晰的金字塔結構報告，從頂層結論開始，逐層向下展開。\n\n請以結構化、條列式的方式呈現完整的分析。請用繁體中文回答。\n\n使用者想表達的主題或結論：${userInput}`;
+                }
+                break;
         }
-
+        
+        const aiResponse = await callAI(prompt, userApiKey, apiProvider, userEndpointUrl);
         outputElement.innerHTML = marked.parse(aiResponse);
     }
 
@@ -928,10 +872,6 @@
         'q2-ca': 'SCAMPER是一個腦力激盪的檢查表，C代表Combine(結合)，鼓勵我們思考能否將不同的事物、功能或點子結合在一起，創造出新的價值。'
     };
 
-    /**
-     * Handles the submission of a quiz section.
-     * @param {string} type The type of quiz (e.g., 'sa', 'pa').
-     */
     function submitQuiz(type) {
         const quizContainer = document.getElementById(`quiz-${type}`);
         const questions = quizContainer.querySelectorAll('.quiz-question');
