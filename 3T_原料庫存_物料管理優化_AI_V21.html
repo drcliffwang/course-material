@@ -196,44 +196,63 @@
             </div>
         </section>
 
-        <!-- API Key Input Section -->
+        <!-- ### NEW AI INTERACTION SECTION ### -->
         <section class="mb-12">
             <div class="max-w-2xl mx-auto p-6 bg-yellow-100 border-2 border-yellow-300 rounded-lg">
                 <h3 class="text-xl font-bold text-yellow-800 text-center mb-4">啟動 AI 互動功能</h3>
-                <p class="text-center text-yellow-700 mb-4">為了使用下方的 AI 實戰演練，請選擇您的 AI 服務並貼上對應的 API 金鑰。</p>
                 
-                <div class="mb-4">
-                    <span class="block mb-2 font-semibold text-gray-700 text-center">1. 選擇 AI 服務提供商:</span>
-                    <div class="flex justify-center flex-wrap gap-x-6 gap-y-2">
-                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="gemini" checked> Google Gemini</label>
-                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="deepseek"> Deepseek</label>
-                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="chatgpt"> ChatGPT (OpenAI)</label>
-                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="copilot"> Copilot (Microsoft)</label>
-                    </div>
+                <div class="flex justify-center space-x-8 mb-4 border-b border-yellow-300 pb-4">
+                    <label class="cursor-pointer font-semibold text-yellow-800">
+                        <input type="radio" name="api-mode" value="no-key" checked class="mr-2">無需 API 金鑰
+                    </label>
+                    <label class="cursor-pointer font-semibold text-yellow-800">
+                        <input type="radio" name="api-mode" value="user-key" class="mr-2">自備 API 金鑰
+                    </label>
                 </div>
 
-                <div>
-                    <span class="block mb-2 font-semibold text-gray-700 text-center">2. 輸入您的 API 金鑰:</span>
-                    <div class="flex items-center">
-                        <input type="password" id="api-key-input" class="w-full p-2 border border-yellow-400 rounded-l-md focus:ring-2 focus:ring-yellow-500" placeholder="在此貼上您選擇的服務金鑰...">
-                        <button onclick="saveApiKey()" class="px-4 py-2 bg-yellow-500 text-white font-semibold rounded-r-md hover:bg-yellow-600">儲存</button>
-                    </div>
-                </div>
-                
-                <div id="copilot-endpoint-container" class="hidden mt-4">
-                    <span class="block mb-2 font-semibold text-gray-700 text-center">3. 輸入您的 Azure Endpoint:</span>
-                    <div class="flex items-center">
-                        <input type="text" id="endpoint-url-input" class="w-full p-2 border border-yellow-400 rounded-md focus:ring-2 focus:ring-yellow-500" placeholder="例如: https://your-resource.openai.azure.com/">
-                    </div>
-                     <p class="text-xs text-center text-yellow-600 mt-1">請確認 Endpoint 包含完整的部署名稱，例如 `.../deployments/your-deployment-name`</p>
+                <!-- Section for No-Key mode info -->
+                <div id="no-key-info" class="text-center text-yellow-700 mt-4">
+                    <p>本課程互動練習區，直接連線免費 AI。如遇流量高峰，請稍候再試。</p>
                 </div>
 
-                <div class="text-xs text-center text-yellow-600 mt-2 space-y-1">
-                    <p>您的金鑰只會儲存在您目前的瀏覽器中。可從 <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline hover:text-yellow-800">Google AI Studio</a>, <a href="https://platform.deepseek.com/api_keys" target="_blank" class="underline hover:text-yellow-800">Deepseek</a>, 或 <a href="https://platform.openai.com/api-keys" target="_blank" class="underline hover:text-yellow-800">OpenAI/Azure</a> 免費取得。</p>
-                    <p class="font-bold">請注意：部分服務在免費額度用完後，可能需要您在該平台設定付款方式或儲值才能繼續使用。</p>
+                <!-- Section for user-provided API key -->
+                <div id="user-api-section" class="hidden mt-4">
+                    <p class="text-center text-yellow-700 mb-4">為了使用下方的 AI 實戰演練，請選擇您的 AI 服務並貼上對應的 API 金鑰。</p>
+                
+                    <div class="mb-4">
+                        <span class="block mb-2 font-semibold text-gray-700 text-center">1. 選擇 AI 服務提供商:</span>
+                        <div class="flex justify-center flex-wrap gap-x-6 gap-y-2">
+                            <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="gemini" checked> Google Gemini</label>
+                            <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="deepseek"> Deepseek</label>
+                            <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="chatgpt"> ChatGPT (OpenAI)</label>
+                            <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="copilot"> Copilot (Microsoft)</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="block mb-2 font-semibold text-gray-700 text-center">2. 輸入您的 API 金鑰:</span>
+                        <div class="flex items-center">
+                            <input type="password" id="api-key-input" class="w-full p-2 border border-yellow-400 rounded-l-md focus:ring-2 focus:ring-yellow-500" placeholder="在此貼上您選擇的服務金鑰...">
+                            <button onclick="saveApiKey()" class="px-4 py-2 bg-yellow-500 text-white font-semibold rounded-r-md hover:bg-yellow-600">儲存</button>
+                        </div>
+                    </div>
+                    
+                    <div id="copilot-endpoint-container" class="hidden mt-4">
+                        <span class="block mb-2 font-semibold text-gray-700 text-center">3. 輸入您的 Azure Endpoint:</span>
+                        <div class="flex items-center">
+                            <input type="text" id="endpoint-url-input" class="w-full p-2 border border-yellow-400 rounded-md focus:ring-2 focus:ring-yellow-500" placeholder="例如: https://your-resource.openai.azure.com/">
+                        </div>
+                         <p class="text-xs text-center text-yellow-600 mt-1">請確認 Endpoint 包含完整的部署名稱，例如 `.../deployments/your-deployment-name`</p>
+                    </div>
+
+                    <div class="text-xs text-center text-yellow-600 mt-2 space-y-1">
+                        <p>您的金鑰只會儲存在您目前的瀏覽器中。可從 <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline hover:text-yellow-800">Google AI Studio</a>, <a href="https://platform.deepseek.com/api_keys" target="_blank" class="underline hover:text-yellow-800">Deepseek</a>, 或 <a href="https://platform.openai.com/api-keys" target="_blank" class="underline hover:text-yellow-800">OpenAI/Azure</a> 免費取得。</p>
+                        <p class="font-bold">請注意：部分服務在免費額度用完後，可能需要您在該平台設定付款方式或儲值才能繼續使用。</p>
+                    </div>
                 </div>
             </div>
         </section>
+        <!-- ### END OF NEW SECTION ### -->
 
         <!-- 5 Modules Overview -->
         <section class="mb-24">
@@ -304,7 +323,7 @@
                         <div class="quiz-question" data-correct="a">
                             <p>2. 課程中提到的「3T」管理指標主要包含哪三項？</p>
                             <div class="quiz-options">
-                                <label><input type="radio" name="q2-strategy" value="a"> A. 前置時間(Lead Time)、在製品/週轉率(WIP/Turnover)、生產力(Productivity)</label>
+                                <label><input type="radio" name="q2-strategy" value="a"> A. 前置時間(Lead Time)、在制品/週轉率(WIP/Turnover)、生產力(Productivity)</label>
                                 <label><input type="radio" name="q2-strategy" value="b"> B. TPS、TPM、TQM</label>
                                 <label><input type="radio" name="q2-strategy" value="c"> C. 時間(Time)、團隊(Team)、目標(Target)</label>
                                 <label><input type="radio" name="q2-strategy" value="d"> D. 技術(Technology)、人才(Talent)、資金(Treasure)</label>
@@ -661,27 +680,46 @@
     </footer>
 
 <script>
-    // --- API Key Logic ---
+    // --- Global variables for API mode ---
+    let apiMode = 'no-key'; // 'no-key' or 'user-key'
     let userApiKey = '';
-    let apiProvider = 'gemini'; // Default provider
-    let userEndpointUrl = ''; // For Azure/Copilot
+    let apiProvider = 'gemini'; // Default provider for user-key mode
+    let userEndpointUrl = '';
 
-    document.querySelectorAll('input[name="api-provider"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            const endpointContainer = document.getElementById('copilot-endpoint-container');
-            if (this.value === 'copilot') {
-                endpointContainer.classList.remove('hidden');
-            } else {
-                endpointContainer.classList.add('hidden');
-            }
+    // --- Event Listeners for mode selection ---
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('input[name="api-mode"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                apiMode = this.value;
+                const userApiSection = document.getElementById('user-api-section');
+                const noKeyInfo = document.getElementById('no-key-info');
+                if (apiMode === 'user-key') {
+                    userApiSection.classList.remove('hidden');
+                    noKeyInfo.classList.add('hidden');
+                } else {
+                    userApiSection.classList.add('hidden');
+                    noKeyInfo.classList.remove('hidden');
+                }
+            });
+        });
+
+        document.querySelectorAll('input[name="api-provider"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const endpointContainer = document.getElementById('copilot-endpoint-container');
+                apiProvider = this.value;
+                if (apiProvider === 'copilot') {
+                    endpointContainer.classList.remove('hidden');
+                } else {
+                    endpointContainer.classList.add('hidden');
+                }
+            });
         });
     });
 
     function saveApiKey() {
         const keyInput = document.getElementById('api-key-input');
         const endpointInput = document.getElementById('endpoint-url-input');
-        apiProvider = document.querySelector('input[name="api-provider"]:checked').value;
-
+        
         if (keyInput.value.trim()) {
             userApiKey = keyInput.value.trim();
             if (apiProvider === 'copilot') {
@@ -701,16 +739,56 @@
         }
     }
 
-    // --- AI Interaction Logic ---
+    /**
+     * Calls the default, keyless AI service.
+     * @param {string} prompt The user's prompt.
+     * @returns {Promise<string>} The AI's response text.
+     */
+    async function callAIDefault(prompt) {
+        const apiKey = ""; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+        const system_prompt = "你是一位精通供應鏈管理、庫存優化與數據科學的頂尖顧問，請使用繁體中文，以專業、結構化的方式回答使用者的問題。";
+        
+        const headers = { 'Content-Type': 'application/json' };
+        const body = { 
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            systemInstruction: { parts: [{ text: system_prompt }] }
+        };
 
-    // Generic function to call the selected AI API
-    async function callAI(prompt, apiKey, provider, endpoint) {
+        try {
+            const response = await fetch(apiUrl, { method: 'POST', headers, body: JSON.stringify(body) });
+            if (!response.ok) {
+                const errorBody = await response.text();
+                throw new Error(`API 請求失敗: ${response.status}. ${errorBody}`);
+            }
+            const result = await response.json();
+            if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
+                return result.candidates[0].content.parts[0].text;
+            }
+            console.error("Unexpected API response structure:", result);
+            if (result.error) return `發生錯誤：${result.error.message}`;
+            if (result.promptFeedback?.blockReason) return `您的請求被阻擋，原因：${result.promptFeedback.blockReason}.`;
+            return "抱歉，AI 回應的格式有誤，請稍後再試。";
+        } catch (error) {
+            console.error("Error calling default AI API:", error);
+            return `無法連接至預設 AI 服務。請檢查您的網路連線。\n錯誤詳情: ${error.message}`;
+        }
+    }
+
+    /**
+     * Calls the user-selected AI provider with their own API key.
+     * @param {string} prompt The user's prompt.
+     * @param {string} apiKey The user's API key.
+     * @param {string} provider The selected AI provider ('gemini', 'deepseek', etc.).
+     * @param {string} endpoint The endpoint URL for Azure/Copilot.
+     * @returns {Promise<string>} The AI's response text.
+     */
+    async function callAIWithProvider(prompt, apiKey, provider, endpoint) {
         let apiUrl = '';
         let headers = { 'Content-Type': 'application/json' };
         let body = {};
         const system_prompt = "你是一位精通供應鏈管理、庫存優化與數據科學的頂尖顧問，請使用繁體中文，以專業、結構化的方式回答使用者的問題。";
 
-        // Prepare the request based on the provider
         if (provider === 'gemini') {
             apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             body = { 
@@ -720,97 +798,46 @@
         } else if (provider === 'deepseek') {
             apiUrl = 'https://api.deepseek.com/v1/chat/completions';
             headers['Authorization'] = `Bearer ${apiKey}`;
-            body = {
-                model: "deepseek-chat",
-                messages: [
-                    { role: "system", content: system_prompt },
-                    { role: "user", content: prompt }
-                ]
-            };
+            body = { model: "deepseek-chat", messages: [{ role: "system", content: system_prompt }, { role: "user", content: prompt }] };
         } else if (provider === 'chatgpt') {
             apiUrl = 'https://api.openai.com/v1/chat/completions';
             headers['Authorization'] = `Bearer ${apiKey}`;
-            body = {
-                model: "gpt-4o",
-                messages: [
-                    { role: "system", content: system_prompt },
-                    { role: "user", content: prompt }
-                ]
-            };
+            body = { model: "gpt-4o", messages: [{ role: "system", content: system_prompt }, { role: "user", content: prompt }] };
         } else if (provider === 'copilot') {
-            apiUrl = endpoint; // The user provides the full endpoint URL
+            apiUrl = endpoint;
             headers['api-key'] = apiKey;
-            body = {
-                messages: [
-                    { role: "system", content: system_prompt },
-                    { role: "user", content: prompt }
-                ]
-            };
+            body = { messages: [{ role: "system", content: system_prompt }, { role: "user", content: prompt }] };
         }
 
-
         try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(body)
-            });
-
+            const response = await fetch(apiUrl, { method: 'POST', headers, body: JSON.stringify(body) });
             if (!response.ok) {
                 const errorBody = await response.text();
-                throw new Error(`API 請求失敗，狀態碼： ${response.status}. ${errorBody}`);
+                throw new Error(`API 請求失敗: ${response.status}. ${errorBody}`);
             }
-
             const result = await response.json();
-            
-            // Parse the response based on the provider
             if (provider === 'gemini') {
-                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
-                    return result.candidates[0].content.parts[0].text;
-                }
+                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) return result.candidates[0].content.parts[0].text;
             } else if (provider === 'deepseek' || provider === 'chatgpt' || provider === 'copilot') {
-                if (result.choices && result.choices[0]?.message?.content) {
-                    return result.choices[0].message.content;
-                }
+                if (result.choices && result.choices[0]?.message?.content) return result.choices[0].message.content;
             }
-            
-            // Handle unexpected structures or errors
             console.error("Unexpected API response structure:", result);
             if (result.error) return `發生錯誤：${result.error.message}`;
             if (result.promptFeedback?.blockReason) return `您的請求被阻擋，原因：${result.promptFeedback.blockReason}.`;
             return "抱歉，AI 回應的格式有誤，請稍後再試。";
-
         } catch (error) {
-            console.error("Error calling AI API:", error);
-            return `無法連接至 AI 服務。請檢查您的網路連線或 API 金鑰是否正確。\n錯誤詳情: ${error.message}`;
+            console.error("Error calling user-provided AI API:", error);
+            return `無法連接至 ${provider.toUpperCase()} 服務。請檢查您的網路、API 金鑰或 Endpoint 是否正確。\n錯誤詳情: ${error.message}`;
         }
     }
 
-    // Main handler for single-turn AI interactions
-    async function handleAI(type) {
-        if (apiProvider === 'copilot' && (!userApiKey || !userEndpointUrl)) {
-            alert('請先在頁面上方的「啟動 AI 互動功能」區塊輸入並儲存您的 API 金鑰與 Azure Endpoint！');
-            document.getElementById('api-key-input').focus();
-            return;
-        }
-        if (apiProvider !== 'copilot' && !userApiKey) {
-            alert('請先在頁面上方的「啟動 AI 互動功能」區塊輸入並儲存您的 API 金鑰！');
-            document.getElementById('api-key-input').focus();
-            return;
-        }
-
-        const inputElement = document.getElementById(`${type}-input`);
-        const outputElement = document.getElementById(`${type}-output`);
-        const userInput = inputElement.value.trim();
-
-        if (!userInput) {
-            alert("請先輸入您的情境或問題！");
-            return;
-        }
-
-        outputElement.innerHTML = '<div class="loader"></div>';
-        outputElement.classList.remove('hidden');
-
+    /**
+     * Creates the appropriate prompt based on the analysis type and user input.
+     * @param {string} type The type of analysis (e.g., 'strategy', 'analysis').
+     * @param {string} userInput The user's text input.
+     * @returns {string} The constructed prompt.
+     */
+    function createPrompt(type, userInput) {
         let prompt = '';
         switch (type) {
             case 'strategy':
@@ -834,8 +861,47 @@
                 prompt = `你是一位資深的品質與流程改善顧問，精通 8D 問題解決流程。現在有一個客戶正為了一個反覆發生的庫存問題所苦。請你根據他描述的問題，引導他走完 8D 的每一個步驟。\n請從 D1 (建立團隊) 和 D2 (描述問題) 開始，提出具體的引導問題或建議，並以結構化的報告形式呈現。\n\n客戶描述的問題：\n${userInput}`;
                 break;
         }
-        
-        const aiResponse = await callAI(prompt, userApiKey, apiProvider, userEndpointUrl);
+        return prompt;
+    }
+
+    /**
+     * Main handler for all AI interaction buttons.
+     * @param {string} type The type of analysis (e.g., 'strategy', 'analysis').
+     */
+    async function handleAI(type) {
+        const inputElement = document.getElementById(`${type}-input`);
+        const outputElement = document.getElementById(`${type}-output`);
+        const userInput = inputElement.value.trim();
+
+        if (!userInput) {
+            alert("請先輸入您的情境或問題！");
+            return;
+        }
+
+        outputElement.innerHTML = '<div class="loader"></div>';
+        outputElement.classList.remove('hidden');
+
+        const prompt = createPrompt(type, userInput);
+        let aiResponse = '';
+
+        if (apiMode === 'no-key') {
+            aiResponse = await callAIDefault(prompt);
+        } else { // 'user-key' mode
+            if (apiProvider === 'copilot' && (!userApiKey || !userEndpointUrl)) {
+                 alert('請先在上方區塊輸入並儲存您的 API 金鑰與 Azure Endpoint！');
+                 outputElement.classList.add('hidden');
+                 outputElement.innerHTML = '';
+                 return;
+            }
+            if (apiProvider !== 'copilot' && !userApiKey) {
+                alert('請先在上方區塊輸入並儲存您的 API 金鑰！');
+                outputElement.classList.add('hidden');
+                outputElement.innerHTML = '';
+                return;
+            }
+            aiResponse = await callAIWithProvider(prompt, userApiKey, apiProvider, userEndpointUrl);
+        }
+
         outputElement.innerHTML = marked.parse(aiResponse);
     }
 
