@@ -274,6 +274,16 @@
                             </div>
                             <div class="quiz-feedback hidden"></div>
                         </div>
+                        <div class="quiz-question" data-correct="c">
+                            <p>2. 在專案管理中，被稱為「三重限制 (Triple Constraint)」的三個關鍵要素是什麼？</p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="q2-overview" value="a"> A. 風險、品質、溝通</label>
+                                <label><input type="radio" name="q2-overview" value="b"> B. 團隊、資源、時程</label>
+                                <label><input type="radio" name="q2-overview" value="c"> C. 範疇、時程、成本</label>
+                                <label><input type="radio" name="q2-overview" value="d"> D. 範疇、風險、利害關係人</label>
+                            </div>
+                            <div class="quiz-feedback hidden"></div>
+                        </div>
                         <button onclick="submitQuiz('overview')" class="mt-4 px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700">提交答案</button>
                         <div id="score-overview" class="mt-4 font-bold"></div>
                     </div>
@@ -302,6 +312,33 @@
                         <li><b>預算與時程概估 (Budget & Milestones):</b> 大概需要多少錢？重要的時間節點為何？</li>
                     </ul>
                 </div>
+                <div class="quiz-section">
+                    <h3 class="card-subtitle text-gray-800">起始流程測驗</h3>
+                    <div id="quiz-initiating" class="quiz-container">
+                        <div class="quiz-question" data-correct="a">
+                            <p>1. 專案章程 (Project Charter) 的最主要作用是什麼？</p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="q1-initiating" value="a"> A. 正式授權專案的存在，並賦予專案經理權力。</label>
+                                <label><input type="radio" name="q1-initiating" value="b"> B. 詳細列出每一個專案任務的執行步驟。</label>
+                                <label><input type="radio" name="q1-initiating" value="c"> C. 作為與供應商簽訂合約的法律文件。</label>
+                                <label><input type="radio" name="q1-initiating" value="d"> D. 記錄每日的專案會議內容。</label>
+                            </div>
+                            <div class="quiz-feedback hidden"></div>
+                        </div>
+                        <div class="quiz-question" data-correct="d">
+                            <p>2. 下列何者「不」是專案章程 (Project Charter) 通常會包含的內容？</p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="q2-initiating" value="a"> A. 專案的高階目標與範疇。</label>
+                                <label><input type="radio" name="q2-initiating" value="b"> B. 已辨識出的主要利害關係人。</label>
+                                <label><input type="radio" name="q2-initiating" value="c"> C. 專案的預算概估。</label>
+                                <label><input type="radio" name="q2-initiating" value="d"> D. 詳細的工作分解結構 (WBS)。</label>
+                            </div>
+                            <div class="quiz-feedback hidden"></div>
+                        </div>
+                        <button onclick="submitQuiz('initiating')" class="mt-4 px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700">提交答案</button>
+                        <div id="score-initiating" class="mt-4 font-bold"></div>
+                    </div>
+                </div>
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-green-700">AI 輔助撰寫專案章程</h3>
                     <div class="ai-card bg-green-50 border-green-200">
@@ -328,6 +365,41 @@
                     <h4>工作分解結構 (Work Breakdown Structure, WBS)</h4>
                     <p>WBS 是規劃流程的核心工具之一。它將專案的總體工作，依循 MECE (相互獨立，完全窮盡) 原則，層層分解成更小、更易於管理的工作包 (Work Package)。這有助於更準確地估算時程、成本與資源。</p>
                 </div>
+                 <div class="content-block mt-8">
+                    <h4>風險管理：潛在問題分析 (Potential Problem Analysis, PPA)</h4>
+                    <p>專案管理是管理不確定性，而風險管理就是其具體實踐。PPA 是一種「超前部署」的思維，分為 Plan A (預防行動) 和 Plan B (應變行動)。</p>
+                    <ul>
+                        <li><b>Plan A (預防行動):</b> 針對「未來可能的原因 (Likely Causes)」，採取措施降低其發生機率。</li>
+                        <li><b>Plan B (應變行動):</b> 針對「未來可能的後果 (Likely Effects)」，預先設定好觸發點 (Trigger) 與應對方案，以減輕衝擊。</li>
+                    </ul>
+                </div>
+                <div class="quiz-section">
+                    <h3 class="card-subtitle text-gray-800">規劃流程測驗</h3>
+                    <div id="quiz-planning" class="quiz-container">
+                        <div class="quiz-question" data-correct="c">
+                            <p>1. 在建立 WBS 時，MECE 原則指的是什麼？</p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="q1-planning" value="a"> A. 越多越好，越詳細越好</label>
+                                <label><input type="radio" name="q1-planning" value="b"> B. 由上而下，由外而內</label>
+                                <label><input type="radio" name="q1-planning" value="c"> C. 相互獨立，完全窮盡 (不重複、不遺漏)</label>
+                                <label><input type="radio" name="q1-planning" value="d"> D. 最小化、效率化、集中化</label>
+                            </div>
+                            <div class="quiz-feedback hidden"></div>
+                        </div>
+                        <div class="quiz-question" data-correct="a">
+                            <p>2. 在 PPA 風險分析中，「為可能發生的原因，預先採取預防措施」屬於哪一類行動？</p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="q2-planning" value="a"> A. Plan A (預防行動)</label>
+                                <label><input type="radio" name="q2-planning" value="b"> B. Plan B (應變行動)</label>
+                                <label><input type="radio" name="q2-planning" value="c"> C. 風險轉移</label>
+                                <label><input type="radio" name="q2-planning" value="d"> D. 風險接受</label>
+                            </div>
+                            <div class="quiz-feedback hidden"></div>
+                        </div>
+                        <button onclick="submitQuiz('planning')" class="mt-4 px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700">提交答案</button>
+                        <div id="score-planning" class="mt-4 font-bold"></div>
+                    </div>
+                </div>
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-purple-700">AI 輔助建立 WBS</h3>
                     <div class="ai-card bg-purple-50 border-purple-200">
@@ -338,14 +410,6 @@
                         </button>
                         <div id="planning-wbs-output" class="ai-output hidden"></div>
                     </div>
-                </div>
-                <div class="content-block mt-8">
-                    <h4>風險管理：潛在問題分析 (Potential Problem Analysis, PPA)</h4>
-                    <p>專案管理是管理不確定性，而風險管理就是其具體實踐。PPA 是一種「超前部署」的思維，分為 Plan A (預防行動) 和 Plan B (應變行動)。</p>
-                    <ul>
-                        <li><b>Plan A (預防行動):</b> 針對「未來可能的原因 (Likely Causes)」，採取措施降低其發生機率。</li>
-                        <li><b>Plan B (應變行動):</b> 針對「未來可能的後果 (Likely Effects)」，預先設定好觸發點 (Trigger) 與應對方案，以減輕衝擊。</li>
-                    </ul>
                 </div>
                  <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-purple-700">AI 輔助風險分析 (PPA)</h3>
@@ -380,6 +444,33 @@
                         <li><b>成本績效指標 (CPI = EV / AC):</b> 小於 1 代表成本超支。</li>
                     </ul>
                     <p class="text-sm text-gray-500 mt-2">註：PV (計劃值), EV (實獲值), AC (實際成本)</p>
+                </div>
+                <div class="quiz-section">
+                    <h3 class="card-subtitle text-gray-800">監控流程測驗</h3>
+                    <div id="quiz-controlling" class="quiz-container">
+                        <div class="quiz-question" data-correct="d">
+                            <p>1. 在 EVM 中，如果你的專案成本績效指標 (CPI) 為 0.8，這代表什麼？</p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="q1-controlling" value="a"> A. 專案進度超前 20%。</label>
+                                <label><input type="radio" name="q1-controlling" value="b"> B. 專案成本節省了 20%。</label>
+                                <label><input type="radio" name="q1-controlling" value="c"> C. 專案進度落後 20%。</label>
+                                <label><input type="radio" name="q1-controlling" value="d"> D. 專案成本超支了，每花 1 元只產生 0.8 元的價值。</label>
+                            </div>
+                            <div class="quiz-feedback hidden"></div>
+                        </div>
+                        <div class="quiz-question" data-correct="b">
+                            <p>2. 如果專案的時程變異 (SV) 為負值 (-10,000)，這明確表示？</p>
+                            <div class="quiz-options">
+                                <label><input type="radio" name="q2-controlling" value="a"> A. 專案成本超支 10,000 元。</label>
+                                <label><input type="radio" name="q2-controlling" value="b"> B. 專案進度落後於原訂計畫。</label>
+                                <label><input type="radio" name="q2-controlling" value="c"> C. 專案進度超前於原訂計畫。</label>
+                                <label><input type="radio" name="q2-controlling" value="d"> D. 專案品質未達標。</label>
+                            </div>
+                            <div class="quiz-feedback hidden"></div>
+                        </div>
+                        <button onclick="submitQuiz('controlling')" class="mt-4 px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700">提交答案</button>
+                        <div id="score-controlling" class="mt-4 font-bold"></div>
+                    </div>
                 </div>
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-yellow-700">AI 輔助 EVM 分析</h3>
@@ -436,7 +527,7 @@
             <div class="card max-w-4xl mx-auto">
                 <div class="mb-6">
                     <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/Mermaid%20PM.png" target="_blank" title="點擊放大">
-                        <img src="https://raw.githubusercontent.com/drcliffwang/course-material/main/Mermaid%20PM.png" alt="專案管理總結心智圖" class="w-full rounded-lg shadow-lg cursor-pointer" onerror="this.onerror=null;this.src='https://placehold.co/800x400/f0f0f0/999999?text=Mindmap+Not+Found';">
+                        <img src="https://raw.githubusercontent.com/drcliffwang/course-material/main/Mermaid%20PM.png" alt="專案管理總結心智圖" class="max-w-xl mx-auto rounded-lg shadow-lg cursor-pointer" onerror="this.onerror=null;this.src='https://placehold.co/800x400/f0f0f0/999999?text=Mindmap+Not+Found';">
                     </a>
                     <p class="text-center text-sm text-gray-500 mt-2">課程總結心智圖 (點擊放大)</p>
                 </div>
@@ -594,8 +685,9 @@
             }
         } else {
             // Handle non-toolbox sections
-            inputElementId = `${type}-input` in window ? `${type}-input` : `${type}-${type.split('-')[1]}-input`;
-            outputElementId = `${type}-output` in window ? `${type}-output` : `${type}-${type.split('-')[1]}-output`;
+            let baseType = type.split('-')[0];
+            inputElementId = `${type}-input`;
+            outputElementId = `${type}-output`;
             userInput = document.getElementById(inputElementId).value.trim();
 
             if (!userInput) {
@@ -630,6 +722,13 @@
     // --- Quiz Logic ---
     const quizExplanations = {
         'q1-overview': '敏捷式開發 (Agile) 專為應對需求不確定、變化快速的環境而設計。它透過短週期的迭代與持續回饋，讓團隊能靈活調整方向，逐步貼近市場真實需求。',
+        'q2-overview': '範疇(Scope)、時程(Schedule)、成本(Cost)是專案管理中最經典的三重限制，它們相互影響，共同決定了專案的品質。',
+        'q1-initiating': '專案章程是專案的「出生證明」，它由發起人簽署，正式宣告專案的開始，並賦予專案經理調動組織資源的權力。',
+        'q2-initiating': '詳細的 WBS 是在「規劃」階段才會產出的成果，專案章程在「起始」階段只會定義高階的範疇與交付成果。',
+        'q1-planning': 'MECE (Mutually Exclusive, Collectively Exhaustive) 是確保工作分解時，各個工作包之間沒有重疊 (相互獨立)，且所有工作都被包含在內 (完全窮盡)，避免混亂與遺漏。',
+        'q2-planning': 'PPA 的核心是「超前部署」。Plan A (預防行動) 旨在從源頭降低風險發生的可能性，是針對「原因」的對策。',
+        'q1-controlling': 'CPI = EV / AC。CPI 小於 1 代表成本績效不佳，實際花費 (AC) 高於工作所產生的價值 (EV)，也就是超支。CPI=0.8 意味著每花 1 元，只完成了價值 0.8 元的工作。',
+        'q2-controlling': 'SV = EV - PV。SV 是衡量時程績效的指標，與成本無關。負值代表實獲值 (EV) 小於計畫值 (PV)，表示實際完成的工作量落後於原訂計畫。'
     };
 
     function submitQuiz(type) {
