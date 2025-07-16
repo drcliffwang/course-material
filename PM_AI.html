@@ -149,6 +149,25 @@
             background-color: #fee2e2;
             color: #991b1b;
         }
+        /* Style for the new "Load Example" button */
+        .load-example-btn {
+            position: absolute;
+            top: 2.5rem; /* Positioned to align with the top of the textarea */
+            right: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem; /* 12px */
+            background-color: #e5e7eb; /* gray-200 */
+            color: #4b5563; /* gray-600 */
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            z-index: 10;
+        }
+        .load-example-btn:hover {
+            background-color: #d1d5db; /* gray-300 */
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -342,8 +361,11 @@
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-green-700">AI 輔助撰寫專案章程</h3>
                     <div class="ai-card bg-green-50 border-green-200">
-                        <label for="initiating-input" class="block mb-2 font-semibold text-gray-700">請簡單描述您想發起的專案：</label>
-                        <textarea id="initiating-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500" rows="4" placeholder="例如：為公司導入一套新的 CRM 客戶關係管理系統，預計半年內上線..."></textarea>
+                        <div class="relative">
+                            <label for="initiating-input" class="block mb-2 font-semibold text-gray-700">請簡單描述您想發起的專案：</label>
+                            <textarea id="initiating-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500" rows="4" placeholder="例如：為公司導入一套新的 CRM 客戶關係管理系統，預計半年內上線..."></textarea>
+                            <button onclick="loadExample('initiating-input')" class="load-example-btn">載入範例</button>
+                        </div>
                         <button onclick="handleAI('initiating')" class="mt-4 px-6 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 草擬章程
                         </button>
@@ -403,8 +425,11 @@
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-purple-700">AI 輔助建立 WBS</h3>
                     <div class="ai-card bg-purple-50 border-purple-200">
-                        <label for="planning-wbs-input" class="block mb-2 font-semibold text-gray-700">請輸入您的專案目標，AI 將協助您分解工作：</label>
-                        <textarea id="planning-wbs-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder="例如：舉辦一場 200 人的線上技術研討會..."></textarea>
+                        <div class="relative">
+                            <label for="planning-wbs-input" class="block mb-2 font-semibold text-gray-700">請輸入您的專案目標，AI 將協助您分解工作：</label>
+                            <textarea id="planning-wbs-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder="例如：舉辦一場 200 人的線上技術研討會..."></textarea>
+                            <button onclick="loadExample('planning-wbs-input')" class="load-example-btn">載入範例</button>
+                        </div>
                         <button onclick="handleAI('planning-wbs')" class="mt-4 px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 分解工作
                         </button>
@@ -414,8 +439,11 @@
                  <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-purple-700">AI 輔助風險分析 (PPA)</h3>
                     <div class="ai-card bg-purple-50 border-purple-200">
-                        <label for="planning-ppa-input" class="block mb-2 font-semibold text-gray-700">請描述您的專案或計畫，AI 將協助您進行 PPA 風險分析：</label>
-                        <textarea id="planning-ppa-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder="例如：計畫在三個月內將公司所有伺服器遷移到雲端..."></textarea>
+                        <div class="relative">
+                            <label for="planning-ppa-input" class="block mb-2 font-semibold text-gray-700">請描述您的專案或計畫，AI 將協助您進行 PPA 風險分析：</label>
+                            <textarea id="planning-ppa-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder="例如：計畫在三個月內將公司所有伺服器遷移到雲端..."></textarea>
+                            <button onclick="loadExample('planning-ppa-input')" class="load-example-btn">載入範例</button>
+                        </div>
                         <button onclick="handleAI('planning-ppa')" class="mt-4 px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 風險分析
                         </button>
@@ -475,8 +503,11 @@
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-yellow-700">AI 輔助 EVM 分析</h3>
                     <div class="ai-card bg-yellow-50 border-yellow-200">
-                        <label for="controlling-input" class="block mb-2 font-semibold text-gray-700">請輸入您的專案 EVM 數據：</label>
-                        <textarea id="controlling-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500" rows="5" placeholder="範例格式：&#10;專案總預算 (BAC): 200萬&#10;計劃值 (PV): 140萬&#10;實獲值 (EV): 120萬&#10;實際成本 (AC): 150萬"></textarea>
+                        <div class="relative">
+                            <label for="controlling-input" class="block mb-2 font-semibold text-gray-700">請輸入您的專案 EVM 數據：</label>
+                            <textarea id="controlling-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500" rows="5" placeholder="範例格式：&#10;專案總預算 (BAC): 200萬&#10;計劃值 (PV): 140萬&#10;實獲值 (EV): 120萬&#10;實際成本 (AC): 150萬"></textarea>
+                            <button onclick="loadExample('controlling-input')" class="load-example-btn">載入範例</button>
+                        </div>
                         <button onclick="handleAI('controlling')" class="mt-4 px-6 py-2 bg-yellow-600 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 分析與建議
                         </button>
@@ -510,8 +541,11 @@
                                 <label class="cursor-pointer"><input class="mr-1" type="radio" name="analysis-type" value="stakeholder"> 利害關係人溝通策略</label>
                             </div>
                         </div>
-                        <label id="ai_toolbox-label" for="ai_toolbox-input" class="block mb-2 font-semibold text-gray-700">請在此輸入您的分析數據或情境：</label>
-                        <textarea id="ai_toolbox-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500" rows="6" placeholder=""></textarea>
+                        <div class="relative">
+                            <label id="ai_toolbox-label" for="ai_toolbox-input" class="block mb-2 font-semibold text-gray-700">請在此輸入您的分析數據或情境：</label>
+                            <textarea id="ai_toolbox-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500" rows="6" placeholder=""></textarea>
+                            <button onclick="loadExample('ai_toolbox-input')" class="load-example-btn">載入範例</button>
+                        </div>
                         <button onclick="handleAI('ai_toolbox')" class="mt-4 px-6 py-2 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 專案分析
                         </button>
@@ -662,8 +696,16 @@
             userInput = document.getElementById(inputElementId).value.trim();
             
             if (!userInput) {
-                alert("請先輸入您的情境或問題！");
-                return;
+                // If the input is empty, maybe they just wanted to load the example.
+                // Let's check if the placeholder has content. If so, use it.
+                const textarea = document.getElementById(inputElementId);
+                if (textarea.placeholder && !textarea.value) {
+                     userInput = textarea.placeholder;
+                     textarea.value = userInput; // Put it in the box so they see what's being sent
+                } else if (!userInput) {
+                    alert("請先輸入您的情境或問題！");
+                    return;
+                }
             }
 
             switch (selectedAnalysisModel) {
@@ -717,6 +759,14 @@
         
         const aiResponse = await callAI(prompt, userApiKey, apiProvider, userEndpointUrl);
         outputElement.innerHTML = marked.parse(aiResponse);
+    }
+
+    // --- New function to load example from placeholder ---
+    function loadExample(textareaId) {
+        const textarea = document.getElementById(textareaId);
+        if (textarea && textarea.placeholder) {
+            textarea.value = textarea.placeholder;
+        }
     }
 
     // --- Quiz Logic ---
