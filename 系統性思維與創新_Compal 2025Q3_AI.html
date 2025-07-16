@@ -476,7 +476,7 @@
                 <div class="content-block">
                     <h4 data-lang-key="idea_a_h4_2">關鍵行動工具</h4>
                     <ul>
-                        <li data-lang-key="idea_a_li_1"><b>設計思維 (Design Thinking):</b> 這是一套以「人」為中心的迭代流程（同理->定義->發想->原型->測試）。它強調快速做出最小可行性產品(MVP)，并透過真實用戶的回饋來不斷修正，降低開發風險，確保最終產品是市場所需的。</li>
+                        <li data-lang-key="idea_a_li_1"><b>設計思維 (Design Thinking):</b> 這是一套以「人」為中心的迭代流程（同理->定義->發想->原型->測試）。它強調快速做出最小可行性產品(MVP)，並透過真實用戶的回饋來不斷修正，降低開發風險，確保最終產品是市場所需的。</li>
                         <li data-lang-key="idea_a_li_2"><b>價值主張圖 (Value Proposition Canvas, VPC):</b> 這是確保「產品」與「市場」適配(Fit)的利器。它將「顧客輪廓」(Jobs, Pains, Gains)與「價值地圖」(Products, Pain Relievers, Gain Creators)並列檢視，確保我們提供的方案，能真正解決顧客的痛點、創造顧客的爽點。</li>
                         <li data-lang-key="idea_a_li_3"><b>商業模式圖 (Business Model Canvas, BMC):</b> 這是將創新轉化為商業的全盤計畫。它用九個格子（目標客層、價值主張、通路、顧客關係、收益流、關鍵活動、關鍵資源、關鍵夥伴、成本結構），讓我們系統性地思考如何創造、傳遞並獲取價值。</li>
                     </ul>
@@ -554,7 +554,10 @@
                         </div>
                         <div class="mb-4">
                             <label for="toolbox-input" class="block mb-2 font-semibold text-gray-700" data-lang-key="toolbox_input_label">2. 請在此輸入您的情境、問題或主題：</label>
-                            <textarea id="toolbox-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" rows="5" data-lang-key="toolbox_placeholder" placeholder="例如：公司產品線過多，資源分散... (用於SA) 或 傳統的雨傘... (用於SCAMPER)"></textarea>
+                            <div class="relative">
+                                <textarea id="toolbox-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" rows="5"></textarea>
+                                <button onclick="loadExample()" class="absolute top-2 right-2 px-3 py-1 bg-gray-200 text-gray-700 text-xs font-semibold rounded hover:bg-gray-300 transition-colors" data-lang-key="toolbox_load_example_btn">載入範例</button>
+                            </div>
                         </div>
                         <button onclick="handleAIToolbox()" class="mt-2 px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75" data-lang-key="toolbox_submit_btn">
                             ✨ 啟動 AI 分析
@@ -721,7 +724,7 @@
             'toolbox_optgroup_1': '系統性問題解決',
             'toolbox_optgroup_2': '創新與策略規劃',
             'toolbox_input_label': '2. 請在此輸入您的情境、問題或主題：',
-            'toolbox_placeholder': '例如：公司產品線過多，資源分散... (用於SA) 或 傳統的雨傘... (用於SCAMPER)',
+            'toolbox_load_example_btn': '載入範例',
             'toolbox_submit_btn': '✨ 啟動 AI 分析',
             'conclusion_title': '結論與討論',
             'conclusion_map_title': '課程架構心智圖總覽',
@@ -870,7 +873,7 @@
             'toolbox_optgroup_1': '系统性问题解决',
             'toolbox_optgroup_2': '创新与策略规划',
             'toolbox_input_label': '2. 请在此输入您的情境、问题或主题：',
-            'toolbox_placeholder': '例如：公司产品线过多，资源分散... (用于SA) 或 传统的雨伞... (用于SCAMPER)',
+            'toolbox_load_example_btn': '载入范例',
             'toolbox_submit_btn': '✨ 启动 AI 分析',
             'conclusion_title': '结论与讨论',
             'conclusion_map_title': '课程架构心智图总览',
@@ -897,6 +900,44 @@
         }
     };
     
+    // --- Placeholders for AI Toolbox ---
+    const aiToolPlaceholders = {
+        'zh-TW': {
+            'sa': '公司最近三個月的客訴案件暴增50%，尤其集中在A產品的售後服務，造成客服部門人力不堪負荷，客戶滿意度也顯著下滑。請協助進行狀況評估。',
+            'pa_isisnot': '問題：今年第一季度的網站跳出率從平均40%飆升至70%。\n發生時間：主要從一月十五日開始。\n發生地點：主要影響來自行動裝置的用戶，特別是使用iOS系統的用戶。\n問題程度：新用戶的跳出率高達85%，舊用戶則維持在45%左右。',
+            'pa_whywhy': '問題：我們新上市的App，在一個月內用戶流失率高達80%。',
+            'pa_8d': '產品型號 ABC-123 在客戶端發生無法開機的故障。',
+            'pa_5c': '問題：生產線上的產品不良率，在過去一週內從 1% 上升到 5%。',
+            'pa_dmaic': '我們的客服中心平均電話等待時間過長，目標是將平均等待時間從目前的5分鐘降低到2分鐘以內。',
+            'ppa': '我們計畫在下個季度推出一個全新的線上協作平台。',
+            'da': '公司正在考慮是否要投資一百萬美元，從目前的供應商A轉移到新的供應商B。供應商B的單價較低，但穩定性未知。\n決策標準與權重：成本(5), 品質(4), 交貨速度(3), 供應商關係(2)。',
+            'ca_pyramid': '主題：向公司管理層提議，我們應該投資開發一款新的AI客戶服務聊天機器人。',
+            'ca_scamper': '分析一個傳統的「馬克杯」。',
+            'ca_triz': '我想要設計一款更輕便的筆記型電腦，但又必須維持高電池續航力。（矛盾：減輕重量 vs. 維持電池容量）',
+            'ca_sixhats': '我們公司是否應該全面推行「週休三日」的制度？',
+            'ca_designthinking': '為經常需要獨自用餐的都市上班族，設計一款改善用餐體驗的App。',
+            'ca_vpc': '目標客群：對於環境保護有高度意識，但生活忙碌的年輕家庭。\n我們的產品：一款訂閱制的環保清潔用品補充包服務。',
+            'ca_bmc': '一個提供個人化健身計畫與營養建議的線上平台。'
+        },
+        'zh-CN': {
+            'sa': '公司最近三个月的客诉案件暴增50%，尤其集中在A产品的售后服务，造成客服部门人力不堪负荷，客户满意度也显著下滑。请协助进行状况评估。',
+            'pa_isisnot': '问题：今年第一季度的网站跳出率从平均40%飙升至70%。\n发生时间：主要从一月十五日开始。\n发生地点：主要影响来自移动装置的用户，特别是使用iOS系统的用户。\n问题程度：新用户的跳出率高达85%，旧用户则维持在45%左右。',
+            'pa_whywhy': '问题：我们新上市的App，在一个月内用户流失率高达80%。',
+            'pa_8d': '产品型号 ABC-123 在客户端发生无法开机的故障。',
+            'pa_5c': '问题：生产线上的产品不良率，在过去一周内从 1% 上升到 5%。',
+            'pa_dmaic': '我们的客服中心平均电话等待时间过长，目标是将平均等待时间从目前的5分钟降低到2分钟以内。',
+            'ppa': '我们计画在下个季度推出一个全新的线上协作平台。',
+            'da': '公司正在考虑是否要投资一百万美元，从目前的供应商A转移到新的供应商B。供应商B的单价较低，但稳定性未知。\n决策标准与权重：成本(5), 品质(4), 交货速度(3), 供应商关系(2)。',
+            'ca_pyramid': '主题：向公司管理层提议，我们应该投资开发一款新的AI客户服务聊天机器人。',
+            'ca_scamper': '分析一个传统的「马克杯」。',
+            'ca_triz': '我想要设计一款更轻便的笔记型电脑，但又必须维持高电池续航力。（矛盾：减轻重量 vs. 维持电池容量）',
+            'ca_sixhats': '我们公司是否应该全面推行「周休三日」的制度？',
+            'ca_designthinking': '为经常需要独自用餐的都市上班族，设计一款改善用餐体验的App。',
+            'ca_vpc': '目标客群：对于环境保护有高度意识，但生活忙碌的年轻家庭。\n我们的产品：一款订阅制的环保清洁用品补充包服务。',
+            'ca_bmc': '一个提供个人化健身计画与营养建议的线上平台。'
+        }
+    };
+
     let currentLang = 'zh-TW';
 
     // --- API Key Logic ---
@@ -1074,9 +1115,7 @@
         document.querySelectorAll('[data-lang-key]').forEach(element => {
             const key = element.getAttribute('data-lang-key');
             if (translations[lang] && translations[lang][key]) {
-                if (element.hasAttribute('placeholder')) {
-                    element.placeholder = translations[lang][key];
-                } else if (element.tagName === 'OPTGROUP') {
+                 if (element.tagName === 'OPTGROUP') {
                     element.label = translations[lang][key];
                 }
                 else {
@@ -1097,10 +1136,32 @@
         // Update active button style
         document.getElementById('lang-tw').classList.toggle('active', lang === 'zh-TW');
         document.getElementById('lang-cn').classList.toggle('active', lang === 'zh-CN');
+        
+        // Update placeholder after language switch
+        updatePlaceholder();
+    }
+
+    // --- New functions for placeholder and example loading ---
+    function updatePlaceholder() {
+        const toolSelect = document.getElementById('ai-tool-select');
+        const textarea = document.getElementById('toolbox-input');
+        const selectedTool = toolSelect.value;
+        if (aiToolPlaceholders[currentLang] && aiToolPlaceholders[currentLang][selectedTool]) {
+            textarea.placeholder = aiToolPlaceholders[currentLang][selectedTool];
+        } else {
+            textarea.placeholder = ''; // Default or empty
+        }
+    }
+
+    function loadExample() {
+        const textarea = document.getElementById('toolbox-input');
+        textarea.value = textarea.placeholder;
+        textarea.focus();
     }
 
     document.getElementById('lang-tw').addEventListener('click', () => switchLanguage('zh-TW'));
     document.getElementById('lang-cn').addEventListener('click', () => switchLanguage('zh-CN'));
+    document.getElementById('ai-tool-select').addEventListener('change', updatePlaceholder);
 
 
     // --- Quiz Logic ---
