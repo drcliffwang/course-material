@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3T 原料庫存與物料管理優化 + AI (互動版)</title>
+    <title>3T 原料庫存與物料管理優化 + AI (互動更新版)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -320,7 +320,10 @@
                     <h3 class="card-subtitle text-blue-700">策略實戰演練</h3>
                     <div class="ai-card">
                         <label for="strategy-input" class="block mb-2 font-semibold text-gray-700">請描述您公司目前最主要的庫存管理痛點：</label>
-                        <textarea id="strategy-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" placeholder="例如：我們的備品倉庫呆滯料金額一直降不下來，但同時產線又時常因為缺料而停線..."></textarea>
+                        <div class="relative w-full">
+                            <textarea id="strategy-input" class="w-full p-2 pr-24 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" placeholder="例如：我們的備品倉庫呆滯料金額一直降不下來，但同時產線又時常因為缺料而停線..."></textarea>
+                            <button onclick="loadExample('strategy')" class="absolute top-2 right-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md">載入範例</button>
+                        </div>
                         <button onclick="handleAI('strategy')" class="mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 策略分析
                         </button>
@@ -406,7 +409,10 @@
                     <h3 class="card-subtitle text-green-700">分類實戰演練</h3>
                     <div class="ai-card bg-green-50 border-green-200">
                         <label for="analysis-input" class="block mb-2 font-semibold text-gray-700">請提供物料數據 (至少包含：物料編號、單價、過去12個月的月需求量)：</label>
-                        <textarea id="analysis-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500" rows="4" placeholder="例如：料號A, 單價$500, 需求[10,12,11,10,13,11,10,12,11,10,12,11]；料號B, 單價$5, 需求[0,0,20,0,0,30,0,0,0,15,0,0]..."></textarea>
+                        <div class="relative w-full">
+                            <textarea id="analysis-input" class="w-full p-2 pr-24 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500" rows="4" placeholder="例如：料號A, 單價$500, 需求[10,12,11,10,13,11,10,12,11,10,12,11]；料號B, 單價$5, 需求[0,0,20,0,0,30,0,0,0,15,0,0]..."></textarea>
+                            <button onclick="loadExample('analysis')" class="absolute top-2 right-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md">載入範例</button>
+                        </div>
                         <button onclick="handleAI('analysis')" class="mt-4 px-6 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 分類分析
                         </button>
@@ -486,7 +492,10 @@
                             </div>
                         </div>
                         <label for="forecasting-input" class="block mb-2 font-semibold text-gray-700">請根據您選擇的情境輸入數據：</label>
-                        <textarea id="forecasting-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder="歷史數據預測請提供過去至少12期的需求，例如：[120, 130, 100, 170, ...]；新產品預測請提供預估的市場潛力(m), 創新者係數(p), 模仿者係數(q)。"></textarea>
+                        <div class="relative w-full">
+                            <textarea id="forecasting-input" class="w-full p-2 pr-24 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder=""></textarea>
+                            <button onclick="loadExample('forecasting')" class="absolute top-2 right-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md">載入範例</button>
+                        </div>
                         <button onclick="handleAI('forecasting')" class="mt-4 px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 需求預測
                         </button>
@@ -558,7 +567,10 @@
                     <h3 class="card-subtitle text-yellow-700">訂購模型實戰演練</h3>
                     <div class="ai-card bg-yellow-50 border-yellow-200">
                         <label for="models-input" class="block mb-2 font-semibold text-gray-700">請提供物料的相關數據：</label>
-                        <textarea id="models-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500" rows="4" placeholder="例如：週平均需求200，週需求標準差50，前置時間2週，服務水準95% (Z=1.65)，年需求10000，單次訂購成本$50，單位年持有成本$2..."></textarea>
+                        <div class="relative w-full">
+                            <textarea id="models-input" class="w-full p-2 pr-24 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500" rows="4" placeholder="例如：週平均需求200，週需求標準差50，前置時間2週，服務水準95% (Z=1.65)，年需求10000，單次訂購成本$50，單位年持有成本$2..."></textarea>
+                            <button onclick="loadExample('models')" class="absolute top-2 right-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md">載入範例</button>
+                        </div>
                         <button onclick="handleAI('models')" class="mt-4 px-6 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 計算最佳訂購策略
                         </button>
@@ -628,7 +640,10 @@
                     <h3 class="card-subtitle text-red-700">8D 實戰演練</h3>
                     <div class="ai-card bg-red-50 border-red-200">
                         <label for="improvement-input" class="block mb-2 font-semibold text-gray-700">請簡要描述您公司一個反覆發生的庫存問題：</label>
-                        <textarea id="improvement-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500" rows="4" placeholder="例如：我們的A款馬達，每到年底都會多出一堆庫存，但到了隔年三月又會缺貨，年年如此..."></textarea>
+                        <div class="relative w-full">
+                            <textarea id="improvement-input" class="w-full p-2 pr-24 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500" rows="4" placeholder="例如：我們的A款馬達，每到年底都會多出一堆庫存，但到了隔年三月又會缺貨，年年如此..."></textarea>
+                            <button onclick="loadExample('improvement')" class="absolute top-2 right-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md">載入範例</button>
+                        </div>
                         <button onclick="handleAI('improvement')" class="mt-4 px-6 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 引導 8D 分析
                         </button>
@@ -700,6 +715,42 @@
             alert('請輸入有效的 API 金鑰。');
         }
     }
+
+    // --- NEW: Load Example Text Logic ---
+    function loadExample(type) {
+        const inputElement = document.getElementById(`${type}-input`);
+        if (inputElement) {
+            const placeholderText = inputElement.getAttribute('placeholder');
+            inputElement.value = placeholderText;
+            inputElement.focus(); // Focus the textarea after loading
+        }
+    }
+
+    // --- NEW: Dynamic Placeholder for Forecasting ---
+    const forecastPlaceholders = {
+        'time-series': "歷史數據預測請提供過去至少12期的需求，例如：[120, 130, 100, 170, ...]",
+        'new-product': "新產品預測請提供預估的市場潛力(m), 創新者係數(p), 模仿者係數(q)。例如：m=10000, p=0.01, q=0.2"
+    };
+
+    const forecastingInput = document.getElementById('forecasting-input');
+
+    function updateForecastPlaceholder() {
+        const selectedMethod = document.querySelector('input[name="forecast-method"]:checked').value;
+        if (forecastingInput) {
+            forecastingInput.placeholder = forecastPlaceholders[selectedMethod];
+        }
+    }
+
+    document.querySelectorAll('input[name="forecast-method"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+             updateForecastPlaceholder();
+             forecastingInput.value = ''; // Clear input when changing method
+        });
+    });
+    
+    // Set initial placeholder on page load
+    document.addEventListener('DOMContentLoaded', updateForecastPlaceholder);
+
 
     // --- AI Interaction Logic ---
 
