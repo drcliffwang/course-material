@@ -310,7 +310,13 @@
                     <h3 class="card-subtitle text-blue-700">當責情境實戰演練</h3>
                     <div class="ai-card">
                         <label for="core-input" class="block mb-2 font-semibold text-gray-700">請描述一個您在工作中遇到的跨部門難題：</label>
-                        <textarea id="core-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" placeholder="例如：行銷部門抱怨研發的新產品不符合市場需求，而研發部門覺得行銷部門沒有能力賣高階產品..."></textarea>
+                        <!-- Updated Textarea with Load Example Button -->
+                        <div class="relative w-full">
+                            <textarea id="core-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" placeholder="例如：行銷部門抱怨研發的新產品不符合市場需求，而研發部門覺得行銷部門沒有能力賣高階產品..."></textarea>
+                            <button onclick="loadExample('core')" class="absolute top-2 right-2 px-2 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded hover:bg-gray-300 transition-colors">
+                                載入範例
+                            </button>
+                        </div>
                         <button onclick="handleAI('core')" class="mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 顧問分析
                         </button>
@@ -427,7 +433,13 @@
                     <h3 class="card-subtitle text-purple-700">活動分類實戰演練</h3>
                     <div class="ai-card bg-purple-50 border-purple-200">
                         <label for="pillars-input" class="block mb-2 font-semibold text-gray-700">請輸入一項公司活動，讓 AI 幫您判斷分類：</label>
-                        <textarea id="pillars-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder="例如：我們公司最近償還了一筆為期五年的銀行貸款..."></textarea>
+                        <!-- Updated Textarea with Load Example Button -->
+                        <div class="relative w-full">
+                            <textarea id="pillars-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder="例如：我們公司最近償還了一筆為期五年的銀行貸款..."></textarea>
+                            <button onclick="loadExample('pillars')" class="absolute top-2 right-2 px-2 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded hover:bg-gray-300 transition-colors">
+                                載入範例
+                            </button>
+                        </div>
                         <button onclick="handleAI('pillars')" class="mt-4 px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 分類
                         </button>
@@ -541,7 +553,13 @@
                             </div>
                         </div>
                         <label id="ai_toolbox-label" for="ai_toolbox-input" class="block mb-2 font-semibold text-gray-700">請在此輸入您的分析數據：</label>
-                        <textarea id="ai_toolbox-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500" rows="6" placeholder=""></textarea>
+                        <!-- Updated Textarea with Load Example Button -->
+                        <div class="relative w-full">
+                            <textarea id="ai_toolbox-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500" rows="6" placeholder=""></textarea>
+                            <button onclick="loadExample('ai_toolbox')" class="absolute top-2 right-2 px-2 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded hover:bg-gray-300 transition-colors">
+                                載入範例
+                            </button>
+                        </div>
                         <button id="ai_toolbox-button" onclick="handleAI('ai_toolbox')" class="mt-4 px-6 py-2 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 財務分析
                         </button>
@@ -581,10 +599,19 @@
     </footer>
 
 <script>
-    // --- API Key Logic ---
+    // --- Global Variables & API Key Logic ---
     let userApiKey = '';
     let apiProvider = 'gemini'; // Default provider
     let userEndpointUrl = ''; // For Azure/Copilot
+
+    // Moved placeholders to global scope for access by multiple functions
+    const placeholders = {
+        dupont: "杜邦分析範例：\n公司A\n銷貨收入: 1000\n稅後淨利: 80\n總資產: 2000\n總股東權益: 1200",
+        bep: "BEP範例：\n總固定成本: 350000\n單位售價: 10\n單位變動成本: 5.5\n預期銷售量: 100000",
+        payback: "Payback範例：\n初始投資: 1000000\n每年淨現金流入: 300000",
+        competitor: "此模式將直接開啟一個已完成的分析報告範例，無需輸入。",
+        apple: "此模式將直接開啟一個已完成的分析報告範例，無需輸入。"
+    };
 
     document.querySelectorAll('input[name="api-provider"]').forEach(radio => {
         radio.addEventListener('change', function() {
@@ -618,6 +645,31 @@
             keyInput.value = ''; // Clear for security
         } else {
             alert('請輸入有效的 API 金鑰。');
+        }
+    }
+    
+    // --- NEW: Load Example Logic ---
+    function loadExample(type) {
+        const inputElement = document.getElementById(`${type}-input`);
+        if (!inputElement) return;
+
+        let exampleText = '';
+        if (type === 'ai_toolbox') {
+            const selectedValue = document.querySelector('input[name="analysis-type"]:checked').value;
+            // Do not load text for modes that open a new window
+            if (selectedValue === 'competitor' || selectedValue === 'apple') {
+                return;
+            }
+            exampleText = placeholders[selectedValue] || '';
+        } else {
+            // For other sections, get the placeholder directly
+            exampleText = inputElement.placeholder;
+        }
+
+        if (exampleText) {
+            inputElement.value = exampleText;
+            // Optional: focus the textarea after loading
+            inputElement.focus();
         }
     }
 
@@ -726,7 +778,6 @@
                 } else if (selectedAnalysisModel === 'payback') {
                     prompt = `你是一位財務分析專家，請使用簡易投資回收期 (Payback Period) 分析法，評估以下投資案。請計算出：\n1. 每年的淨現金流入\n2. 投資回收期 (請計算到小數點後兩位，並換算成年/月)\n\n請以 Markdown 表格呈現計算過程與結果，並提供簡潔的投資建議。請用繁體中文回答。\n\n使用者數據：${userInput}`;
                 }
-                // The 'competitor' and 'apple' cases are handled at the beginning of the function
                 break;
         }
         
@@ -784,24 +835,19 @@
         const analysisInput = document.getElementById('ai_toolbox-input');
         const analysisButton = document.getElementById('ai_toolbox-button');
         const analysisOutput = document.getElementById('ai_toolbox-output');
-
-        const placeholders = {
-            dupont: "杜邦分析範例：\n公司A\n銷貨收入: 1000\n稅後淨利: 80\n總資產: 2000\n總股東權益: 1200",
-            bep: "BEP範例：\n總固定成本: 350000\n單位售價: 10\n單位變動成本: 5.5\n預期銷售量: 100000",
-            payback: "Payback範例：\n初始投資: 1000000\n每年淨現金流入: 300000",
-            competitor: "此模式將直接開啟一個已完成的分析報告範例，無需輸入。",
-            apple: "此模式將直接開啟一個已完成的分析報告範例，無需輸入。"
-        };
+        const toolboxInputWrapper = analysisInput.parentElement; // Get the wrapper div
 
         function updateAnalysisUI() {
             const selectedValue = document.querySelector('input[name="analysis-type"]:checked').value;
             
             analysisInput.placeholder = placeholders[selectedValue];
+            analysisInput.value = ''; // Clear textarea on change
+            analysisOutput.classList.add('hidden'); // Hide output on change
 
             if (selectedValue === 'competitor' || selectedValue === 'apple') {
                 analysisInputLabel.style.display = 'none';
-                analysisInput.style.display = 'none';
-                analysisOutput.classList.add('hidden');
+                toolboxInputWrapper.style.display = 'none'; // Hide the whole wrapper
+                
                 if (selectedValue === 'competitor') {
                     analysisButton.textContent = '開啟競爭者分析觀摩 (新視窗)';
                 } else {
@@ -809,7 +855,7 @@
                 }
             } else {
                 analysisInputLabel.style.display = 'block';
-                analysisInput.style.display = 'block';
+                toolboxInputWrapper.style.display = 'block'; // Show the whole wrapper
                 analysisButton.textContent = '✨ 啟動 AI 財務分析';
             }
         }
