@@ -45,6 +45,40 @@
             </p>
         </header>
 
+        <!-- API Key Input Section for this page -->
+        <section class="mb-12">
+            <div class="max-w-2xl mx-auto p-6 bg-yellow-100 border-2 border-yellow-300 rounded-lg">
+                <h3 class="text-xl font-bold text-yellow-800 text-center mb-4">啟動 AI 互動功能</h3>
+                <p class="text-center text-yellow-700 mb-4">為了使用本頁的 AI 實作功能，請選擇您的 AI 服務並貼上對應的 API 金鑰。</p>
+                
+                <div class="mb-4">
+                    <span class="block mb-2 font-semibold text-gray-700 text-center">1. 選擇 AI 服務提供商:</span>
+                    <div class="flex justify-center flex-wrap gap-x-6 gap-y-2">
+                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider-blueprint" value="gemini" checked> Google Gemini</label>
+                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider-blueprint" value="deepseek"> Deepseek</label>
+                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider-blueprint" value="chatgpt"> ChatGPT (OpenAI)</label>
+                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider-blueprint" value="copilot"> Copilot (Microsoft)</label>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="block mb-2 font-semibold text-gray-700 text-center">2. 輸入您的 API 金鑰:</span>
+                    <div class="flex items-center">
+                        <input type="password" id="api-key-input-blueprint" class="w-full p-2 border border-yellow-400 rounded-l-md focus:ring-2 focus:ring-yellow-500" placeholder="在此貼上您選擇的服務金鑰...">
+                        <button id="save-api-key-blueprint" class="px-4 py-2 bg-yellow-500 text-white font-semibold rounded-r-md hover:bg-yellow-600">儲存</button>
+                    </div>
+                </div>
+                
+                <div id="copilot-endpoint-container-blueprint" class="hidden mt-4">
+                    <span class="block mb-2 font-semibold text-gray-700 text-center">3. 輸入您的 Azure Endpoint:</span>
+                    <div class="flex items-center">
+                        <input type="text" id="endpoint-url-input-blueprint" class="w-full p-2 border border-yellow-400 rounded-md focus:ring-2 focus:ring-yellow-500" placeholder="例如: https://your-resource.openai.azure.com/">
+                    </div>
+                     <p class="text-xs text-center text-yellow-600 mt-1">請確認 Endpoint 包含完整的部署名稱。</p>
+                </div>
+            </div>
+        </section>
+
         <nav class="mb-10 bg-white p-2 rounded-xl shadow-md sticky top-4 z-20">
             <ul class="flex flex-wrap justify-center gap-2 md:gap-4">
                 <li><button class="nav-tab text-sm md:text-base font-semibold px-4 py-2.5 rounded-lg border-b-2 transition-all duration-200" data-target="strategy">🎯 策略框架</button></li>
@@ -56,6 +90,7 @@
         </nav>
 
         <main>
+            <!-- Sections remain the same as the previous version -->
             <!-- Section 1: Strategy Framework -->
             <section id="strategy" class="content-section">
                 <div class="text-center mb-12">
@@ -354,20 +389,33 @@
     let apiProvider = 'gemini';
     let userEndpointUrl = '';
     
-    function loadApiKey(key, provider, endpoint) {
-        userApiKey = key;
-        apiProvider = provider || 'gemini'; // Default to gemini if provider is not passed
-        if (endpoint) {
-            userEndpointUrl = endpoint;
-        }
-        
-        sessionStorage.setItem('userApiKey', userApiKey);
-        sessionStorage.setItem('apiProvider', apiProvider);
-        if (userEndpointUrl) {
-            sessionStorage.setItem('userEndpointUrl', userEndpointUrl);
-        }
+    function saveApiKey() {
+        const keyInput = document.getElementById('api-key-input-blueprint');
+        const endpointInput = document.getElementById('endpoint-url-input-blueprint');
+        apiProvider = document.querySelector('input[name="api-provider-blueprint"]:checked').value;
 
-        showToast(`API 金鑰已從主課程頁面載入！`);
+        if (keyInput.value.trim()) {
+            userApiKey = keyInput.value.trim();
+            sessionStorage.setItem('userApiKey', userApiKey);
+            sessionStorage.setItem('apiProvider', apiProvider);
+
+            if (apiProvider === 'copilot') {
+                if (endpointInput.value.trim()) {
+                    userEndpointUrl = endpointInput.value.trim();
+                    sessionStorage.setItem('userEndpointUrl', userEndpointUrl);
+                    showToast(`API 金鑰與 Endpoint 已儲存！`);
+                } else {
+                    showToast('使用 Copilot (Azure) 時，請務必輸入您的 Endpoint URL。', true);
+                    return;
+                }
+            } else {
+                 sessionStorage.removeItem('userEndpointUrl');
+                 showToast(`API 金鑰已儲存！`);
+            }
+            keyInput.value = ''; // Clear for security
+        } else {
+            showToast('請輸入有效的 API 金鑰。', true);
+        }
     }
 
 
@@ -436,9 +484,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let charts = {};
 
-    function init() {
-        // This is the main initialization function.
-        // It's called AFTER the API key check.
+    function initializePage() {
+        handleApiKeyTransfer();
         setupNavigation();
         populateToolbox();
         populateVSMSteps();
@@ -460,18 +507,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const endpoint = params.get('endpoint');
 
         if (apiKey && provider) {
-            loadApiKey(apiKey, provider, endpoint);
+            userApiKey = apiKey;
+            apiProvider = provider;
+            if(endpoint) userEndpointUrl = endpoint;
+            
+            sessionStorage.setItem('userApiKey', userApiKey);
+            sessionStorage.setItem('apiProvider', apiProvider);
+            if (userEndpointUrl) sessionStorage.setItem('userEndpointUrl', userEndpointUrl);
+
+            showToast(`API 金鑰已從主課程頁面載入！`);
         } else {
-            // Also check sessionStorage in case the page is reloaded
             const storedKey = sessionStorage.getItem('userApiKey');
             const storedProvider = sessionStorage.getItem('apiProvider');
             if(storedKey && storedProvider) {
-                loadApiKey(storedKey, storedProvider, sessionStorage.getItem('userEndpointUrl'));
+                userApiKey = storedKey;
+                apiProvider = storedProvider;
+                userEndpointUrl = sessionStorage.getItem('userEndpointUrl') || '';
             }
         }
     }
 
     function setupNavigation() {
+        document.getElementById('save-api-key-blueprint').addEventListener('click', saveApiKey);
+        
+        document.querySelectorAll('input[name="api-provider-blueprint"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const endpointContainer = document.getElementById('copilot-endpoint-container-blueprint');
+                endpointContainer.classList.toggle('hidden', this.value !== 'copilot');
+            });
+        });
+
         const navTabs = document.querySelectorAll('.nav-tab');
         navTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.target)));
 
@@ -492,8 +557,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.content-section').forEach(section => {
             section.classList.toggle('hidden', section.id !== targetId);
             if (section.id === targetId) {
-                section.classList.remove('section-fade-in'); // remove first to re-trigger animation
-                void section.offsetWidth; // trigger reflow
+                section.classList.remove('section-fade-in');
+                void section.offsetWidth;
                 section.classList.add('section-fade-in');
             }
         });
@@ -528,7 +593,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function callAI(prompt, button) {
         if (!userApiKey) {
-            showToast('錯誤：API 金鑰未設定。請從主課程頁面進入，或檢查 URL 參數。', true);
+            showToast('錯誤：API 金鑰未設定。請在本頁上方輸入您的金鑰。', true);
             return null;
         }
 
@@ -898,9 +963,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // The script now starts by checking for API keys, then initializes the rest of the page.
-    handleApiKeyTransfer();
-    init();
+    initializePage();
 
 });
 </script>
