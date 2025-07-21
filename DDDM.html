@@ -295,8 +295,8 @@
                         <h3 class="card-subtitle text-gray-800">兩種決策邏輯: 歸納與演繹</h3>
                         <!-- Image removed as requested -->
                         <ul>
-                            <li><b>歸納 (Inductive):</b> 從觀察到的結果(Y)反推可能的原因(X)。從特殊到一般，常用於探索與假設生成。<b>(由果推因)</b></li>
-                            <li><b>演繹 (Deductive):</b> 從已知的原因(X)或普遍法則，推導出特定的結果(Y)。從一般到特殊，常用於驗證與預測。<b>(由因推果)</b></li>
+                            <li><b>歸納 (Inductive):</b> 從觀察到的結果(Y)反推可能的原因(X)。從特殊到一般，常用於探索與假設生成, 大部分的大數據分析均是歸納分析, 例如廻歸分析 Regression。<b>(由果推因)</b></li>
+                            <li><b>演繹 (Deductive):</b> 從已知的原因(X)或普遍法則，推導出特定的結果(Y)。常用於驗證與預測, 例如實驗計畫 DOE。<b>(由因推果)</b></li>
                         </ul>
                     </div>
                 </div>
@@ -378,16 +378,12 @@
             <h2 class="section-title">AI 與數據驅動決策</h2>
             <div class="card">
                 <div class="content-block">
-                    <h4>AI 如何賦能決策流程</h4>
-                    <p>人工智慧，特別是機器學習與生成式 AI，正在徹底改變數據驅動決策的模式。AI 不僅能處理龐大且複雜的數據，更能從中自動學習、識別模式、生成洞見，甚至提出建議方案。</p>
-                </div>
-                <div class="content-block">
                     <h4>描述統計</h4>
-                    <p>描述統計是數據分析的基礎，幫助我們理解數據的集中趨勢與離散程度。</p>
+                    <p>描述統計是數據分析的基礎，幫助我們理解數據的集中趨勢與離散程度 (包含計量型與計數型數據)。</p>
                     <ul>
                         <li><b>平均數、中位數：</b>衡量資料的中心點。</li>
-                        <li><b>標準差：</b>衡量資料的分散程度。</li>
-                        <li><b>分布概況：</b>了解資料是否符合常態分布等特定模式。</li>
+                        <li><b>標準差、四分位距：</b>衡量資料的分散程度。</li>
+                        <li><b>分布概況：</b>了解資料是否符合常態(計量型), 布阿松(計數型)等特定模式。</li>
                     </ul>
                 </div>
                  <div class="content-block">
@@ -395,7 +391,7 @@
                     <p>推論統計讓我們能從樣本數據推斷母體的特徵，是科學決策的關鍵。</p>
                     <ul>
                         <li><b>假設檢定與 p-value：</b>判斷觀察到的差異是真實效果還是隨機偶然。</li>
-                        <li><b>信賴區間：</b>估計母體參數可能所在的範圍。</li>
+                        <li><b>信賴區間：</b>估計母體參數可能所在的範圍, 例如 95% (對應 p-value 5%)。</li>
                     </ul>
                 </div>
                  <div class="content-block">
@@ -411,19 +407,20 @@
                         <a href="SEBS OAR.html" target="_blank" class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
                             開啟「吸油率優化」觀摩範例 (新視窗)
                         </a>
-                        <a href="https://github.com/drcliffwang/course-material/raw/main/Example.xlsx" target="_blank" class="inline-block px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600">
-                            下載 Excel 練習檔 (Example.xlsx)
-                        </a>
                     </div>
                 </div>
                 <div class="content-block">
                     <h4>機器學習基礎模型</h4>
                     <p>利用演算法讓電腦從數據中學習，進行預測與分類。</p>
                     <ul>
-                        <li><b>線性回歸：</b>建立變數間的線性關係，進行數值預測。</li>
+                        <li><b>線性迴歸：</b>建立變數間的線性關係，進行數值預測。</li>
                         <li><b>決策樹：</b>透過樹狀結構進行分層決策，模型解釋性強。</li>
-                        <li><b>分群分析：</b>在沒有標籤的數據中，自動找出相似的群體。</li>
+                        <li><b>分群分析：</b>在沒有標籤的數據中，自動找出相似的群體 ，是非監督式學習。</li>
                     </ul>
+                </div>
+                <div class="content-block">
+                    <h4>AI 如何賦能決策流程</h4>
+                    <p>人工智慧，特別是機器學習與生成式 AI，正在徹底改變數據驅動決策的模式。AI 不僅能處理龐大且複雜的數據，更能從中自動學習、識別模式、生成洞見，甚至提出建議方案。</p>
                 </div>
                 <div class="content-block mt-8 bg-red-50 p-6 rounded-lg border border-red-200">
                     <h4 class="text-red-700">AI 的挑戰與陷阱 (Pitfall)</h4>
@@ -493,7 +490,10 @@
                     <p class="text-center text-sm text-gray-500 mt-2">課程總結心智圖 (點擊放大)</p>
                 </div>
                 <div class="mt-6 pt-6 border-t border-gray-200">
-                    <p class="font-bold text-xl text-gray-800">最終目標：以人腦的智慧與批判性思維為主導，駕馭 AI 的強大分析能力，將數據轉化為驅動企業成長的競爭優勢。</p>
+                    <p class="font-bold text-xl text-gray-800 mb-6">最終目標：以人腦的智慧與批判性思維為主導，駕馭 AI 的強大分析能力，將數據轉化為驅動企業成長的競爭優勢。</p>
+                    <a href="https://github.com/drcliffwang/course-material/raw/main/Example.xlsx" target="_blank" class="inline-block px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600">
+                        下載 Excel 練習檔 (Example.xlsx)
+                    </a>
                 </div>
             </div>
         </section>
@@ -765,7 +765,7 @@
                     const corr = stats.correlation(arrX, arrY);
                     const reg = stats.linearRegression(arrX, arrY);
 
-                    prompt = `你是一位專業的數據科學家。請分析以下兩組數據 (X 和 Y) 的關聯性。\n\n以下是預先計算好的統計結果：\n- **相關係數 (Correlation Coefficient):** ${corr.toFixed(4)}\n- **線性回歸公式:** Y = ${reg.a.toFixed(4)}X + ${reg.b.toFixed(4)}\n\n請完成以下任務：\n1. 以 Markdown 表格清晰呈現相關係數與線性回歸公式。\n2. **解讀相關係數:** 說明這個數值代表的關聯強度 (例如: 高度正相關、弱負相關、無相關) 與方向。\n3. **解讀線性公式:** 解釋這個公式的商業意涵，也就是 X 每變動一個單位，Y 大約會如何變動。\n4. **提供洞見與預測:** 基於此關聯性，提出一個簡潔的商業洞見或預測。例如，如果 X 是廣告花費，Y 是銷售額，可以預測投入更多廣告費用可能帶來的效果。\n\n請用繁體中文回答。`;
+                    prompt = `你是一位專業的數據科學家。請分析以下兩組數據 (X 和 Y) 的關聯性。\n\n以下是預先計算好的統計結果：\n- **相關係數 (Correlation Coefficient):** ${corr.toFixed(4)}\n- **線性迴歸公式:** Y = ${reg.a.toFixed(4)}X + ${reg.b.toFixed(4)}\n\n請完成以下任務：\n1. 以 Markdown 表格清晰呈現相關係數與線性迴歸公式。\n2. **解讀相關係數:** 說明這個數值代表的關聯強度 (例如: 高度正相關、弱負相關、無相關) 與方向。\n3. **解讀線性公式:** 解釋這個公式的商業意涵，也就是 X 每變動一個單位，Y 大約會如何變動。\n4. **提供洞見與預測:** 基於此關聯性，提出一個簡潔的商業洞見或預測。例如，如果 X 是廣告花費，Y 是銷售額，可以預測投入更多廣告費用可能帶來的效果。\n\n請用繁體中文回答。`;
                 } else if (selectedAnalysisModel === 'control') {
                     prompt = `你是一位專業的品質工程師與數據科學家，精通實驗設計 (DOE)。請分析以下使用者提供的簡易實驗設計數據。\n\n使用者數據與情境:\n${userInput}\n\n請完成以下任務:\n1. **識別因子與水準:** 從使用者描述中，識別出實驗的因子 (Factors)、每個因子的水準 (Levels)，以及反應變數 (Response)。\n2. **分析主要效應:** 計算每個因子對反應變數的「主效應」(Main Effect)，判斷哪個因子的影響最顯著。\n3. **分析交互效應:** 如果是多因子實驗，請計算因子之間的「交互效應」(Interaction Effect)，判斷因子組合是否存在加乘或抵銷效果。\n4. **呈現結果:** 以 Markdown 表格清晰呈現主效應與交互效應的分析結果。\n5. **提供結論與建議:** 根據分析結果，提供明確的結論。為了使反應變數達到最佳化（例如最大化良率或最小化成本），每個因子應該設定在哪個水準？總結出最佳的參數組合建議。\n\n請用繁體中文回答。`;
                 } else if (selectedAnalysisModel === 'forecasting') {
