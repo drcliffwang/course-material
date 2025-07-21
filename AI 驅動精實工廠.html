@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI驅動的精實工廠：互動式策略藍圖 (Gemini整合版)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: "Foundry Blue" - A professional and industrial-inspired palette using deep blues, cool greys, and a warm sand accent to convey technological precision and human-centric design. -->
+    <!-- Application Structure Plan: The SPA is architected as a four-part interactive journey, mirroring the report's logical flow but enhancing it with a task-oriented navigation. The top tabs—'策略框架', '實踐工具箱', '產業藍圖', '賦能指南'—allow users to dive into the 'Why', 'How', 'What', and 'Who' of Lean+AI. This structure serves diverse user roles: a manager can focus on Strategy and Implementation, while an engineer might explore the Toolbox and Blueprint sections first. This non-linear exploration path is superior to a simple document scroll, fostering deeper engagement and knowledge retention by aligning content with user intent. -->
+    <!-- Visualization & Content Choices: 
+        - Goal: Explain Lean+AI synergy -> Viz: Interactive cards for the 5 Lean Principles linked to a dynamic bar chart showing AI's impact on eliminating wastes. Interaction: Clicking a principle updates the chart and descriptive text. Justification: Visually connects abstract principles to tangible outcomes. Library: Chart.js.
+        - Goal: Detail AI-powered IE tools -> Viz: A responsive grid of "before/after" comparison cards for the 7 IE Tools. For VSM-AI, a clickable step-by-step process diagram paired with a donut chart that quantifies process time vs. waste. Justification: Clearly contrasts traditional vs. AI methods, making benefits concrete. Library: Chart.js.
+        - Goal: Showcase real-world applications -> Viz: A tabbed interface for Quality, PdM, and Design. Visualizations include a line chart showing defect rate reduction, another line chart illustrating PdM's impact on machine uptime, and a CSS-based visual for Generative Design's weight/strength improvements. Justification: Provides tangible evidence and visual proof of AI's impact. Library: Chart.js.
+        - Goal: Provide actionable guidance -> Viz: An accordion for engineer prompts and a CSS-based vertical timeline for the manager's roadmap. A pie chart visualizes ROI components for the business case. Justification: Delivers practical, easy-to-digest tools and frameworks. Library: Chart.js.
+        - Goal: Add LLM features -> Viz: Added two interactive modules. 1) A Kaizen idea generator where users input a problem and Gemini provides suggestions. 2) An SOP drafter where users input key steps and Gemini generates a formatted document. Justification: Provides direct, practical value and demonstrates the power of generative AI within the application's context.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8f9fa; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 45vh; }
+        @media (min-width: 768px) { .chart-container { height: 350px; max-height: 40vh; } }
+        .nav-tab-active { border-color: #0d6efd; color: #0d6efd; background-color: #e7f1ff; }
+        .nav-tab-inactive { border-color: transparent; color: #495057; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
+        .section-fade-in { animation: fadeIn 0.6s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .card-hover { transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #0d6efd; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .gemini-output { white-space: pre-wrap; background-color: #ffffff; border: 1px solid #dee2e6; border-radius: 0.5rem; padding: 1rem; margin-top: 1rem; max-height: 400px; overflow-y: auto; }
+        #toast-message { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background-color: #dc3545; color: white; padding: 1rem 1.5rem; border-radius: 0.5rem; transition: bottom 0.5s ease-in-out; z-index: 100; }
+        #toast-message.show { bottom: 20px; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div id="toast-message"></div>
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-3">AI驅動的精實工廠</h1>
+            <p class="text-lg md:text-xl text-blue-700 font-semibold">台灣機械零組件產業的互動式策略藍圖</p>
+            <p class="max-w-3xl mx-auto mt-4 text-gray-600">
+                本藍圖旨在闡述精實管理如何與AI深度融合。傳統精實擅長消除「可見浪費」，而AI則能挖掘隱藏在數據中的「不可見浪費」。請透過下方互動模組，探索AI如何賦能精實的每一個環節，將您的工廠從「可視化」推向「可預測化」與「自主優化」。
+            </p>
+        </header>
+
+        <nav class="mb-10 bg-white p-2 rounded-xl shadow-md sticky top-4 z-20">
+            <ul class="flex flex-wrap justify-center gap-2 md:gap-4">
+                <li><button class="nav-tab text-sm md:text-base font-semibold px-4 py-2.5 rounded-lg border-b-2 transition-all duration-200" data-target="strategy">🎯 策略框架</button></li>
+                <li><button class="nav-tab text-sm md:text-base font-semibold px-4 py-2.5 rounded-lg border-b-2 transition-all duration-200" data-target="toolbox">🛠️ 實踐工具箱</button></li>
+                <li><button class="nav-tab text-sm md:text-base font-semibold px-4 py-2.5 rounded-lg border-b-2 transition-all duration-200" data-target="blueprint">🗺️ 產業藍圖</button></li>
+                <li><button class="nav-tab text-sm md:text-base font-semibold px-4 py-2.5 rounded-lg border-b-2 transition-all duration-200" data-target="guide">📖 賦能指南</button></li>
+            </ul>
+        </nav>
+
+        <main>
+            <!-- Section 1: Strategy Framework -->
+            <section id="strategy" class="content-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800">策略框架：AI賦能精實五大原則</h2>
+                    <p class="max-w-3xl mx-auto mt-3 text-gray-600">精實管理的五大原則構成一個持續創造價值的循環。本節將展示AI如何在每個原則中扮演催化劑的角色，將傳統方法提升至全新維度。點擊下方任一原則，查看AI的具體應用及其對消除浪費的影響。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8 text-center">
+                    <button class="lean-principle-btn p-4 bg-white rounded-xl shadow-sm card-hover" data-principle="value">
+                        <div class="text-4xl mb-2">💎</div>
+                        <h3 class="font-bold text-blue-800">1. 定義價值</h3>
+                        <p class="text-xs text-gray-500">Specify Value</p>
+                    </button>
+                    <button class="lean-principle-btn p-4 bg-white rounded-xl shadow-sm card-hover" data-principle="stream">
+                        <div class="text-4xl mb-2">🌊</div>
+                        <h3 class="font-bold text-blue-800">2. 繪製價值流</h3>
+                        <p class="text-xs text-gray-500">Map Value Stream</p>
+                    </button>
+                    <button class="lean-principle-btn p-4 bg-white rounded-xl shadow-sm card-hover" data-principle="flow">
+                        <div class="text-4xl mb-2">⚡</div>
+                        <h3 class="font-bold text-blue-800">3. 創造暢流</h3>
+                        <p class="text-xs text-gray-500">Create Flow</p>
+                    </button>
+                    <button class="lean-principle-btn p-4 bg-white rounded-xl shadow-sm card-hover" data-principle="pull">
+                        <div class="text-4xl mb-2">🎣</div>
+                        <h3 class="font-bold text-blue-800">4. 建立後拉</h3>
+                        <p class="text-xs text-gray-500">Establish Pull</p>
+                    </button>
+                    <button class="lean-principle-btn p-4 bg-white rounded-xl shadow-sm card-hover" data-principle="perfection">
+                        <div class="text-4xl mb-2">🎯</div>
+                        <h3 class="font-bold text-blue-800">5. 追求完善</h3>
+                        <p class="text-xs text-gray-500">Seek Perfection</p>
+                    </button>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 id="principle-title" class="text-xl font-bold text-gray-900 mb-2 text-center">AI對消除七大浪費的影響力分析</h3>
+                    <div id="principle-details" class="mb-6 text-center text-gray-600 min-h-[4rem] max-w-2xl mx-auto">點擊上方任一原則以查看詳細說明與對應的浪費消除效益。</div>
+                    <div class="chart-container">
+                        <canvas id="wasteChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Toolbox -->
+            <section id="toolbox" class="content-section hidden">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800">實踐工具箱：AI強化工業工程</h2>
+                    <p class="max-w-3xl mx-auto mt-3 text-gray-600">本節為工程師提供實用工具，展示AI如何將經典的工業工程（IE）手法從定性經驗升級為定量科學，並將價值流分析轉變為動態的數位化管理。</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">以AI重塑IE七大手法</h3>
+                    <div id="ie-tools-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <!-- IE Tools Cards will be injected here by JS -->
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">✨ AI改善提案生成器</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="kaizen-problem" class="block text-sm font-medium text-gray-700">描述您在產線上遇到的問題或痛點：</label>
+                            <textarea id="kaizen-problem" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="例如：CNC加工後的零件表面常有刮痕，導致不良率偏高。"></textarea>
+                        </div>
+                        <div class="flex items-center justify-end">
+                            <button id="generate-kaizen-ideas" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <span class="gemini-button-text">✨ 產生改善點子</span>
+                                <div class="loader hidden ml-2"></div>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="kaizen-output" class="gemini-output hidden"></div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">數據驅動的價值流：VSM-AI整合指南</h3>
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="w-full md:w-1/2">
+                           <div id="vsm-steps" class="space-y-3">
+                               <!-- VSM Steps will be injected here -->
+                           </div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <div id="vsm-step-description" class="text-gray-700 mb-4 p-5 bg-gray-50 rounded-lg min-h-[120px] border border-gray-200">點擊左側步驟，查看詳細說明。</div>
+                            <div class="chart-container" style="height:250px; max-height: 250px;">
+                                <canvas id="vsmChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Blueprint -->
+            <section id="blueprint" class="content-section hidden">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800">產業藍圖：AI落地實踐案例</h2>
+                    <p class="max-w-3xl mx-auto mt-3 text-gray-600">本節展示AI在台灣機械零組件產業的具體應用案例，從品質、維護到設計，看見技術如何轉化為真實的商業價值與競爭優勢。</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg">
+                    <div class="border-b border-gray-200">
+                        <nav class="flex flex-wrap -mb-px p-2" aria-label="Tabs">
+                            <button class="blueprint-tab w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm md:text-base" data-bptarget="quality">🔬 智慧品質</button>
+                            <button class="blueprint-tab w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm md:text-base" data-bptarget="proactive">🏭 預應式工廠</button>
+                            <button class="blueprint-tab w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm md:text-base" data-bptarget="generative">💡 生成式設計</button>
+                        </nav>
+                    </div>
+                    <div class="p-6">
+                        <div id="quality" class="blueprint-content">
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">AI驅動的自動化檢測 (AOI+AI)</h3>
+                            <p class="text-gray-600 mb-4">透過深度學習，AI視覺檢測能識別傳統AOI難以判斷的複雜瑕疵（如鑄件細微裂紋），並大幅降低誤報率。更重要的是，它能將瑕疵數據回饋至製程，實現從「檢測」到「預防」的閉環管理。</p>
+                            <div class="chart-container">
+                                <canvas id="qualityChart"></canvas>
+                            </div>
+                        </div>
+                        <div id="proactive" class="blueprint-content hidden">
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">預測性維護 (PdM) 與智慧排程</h3>
+                            <p class="text-gray-600 mb-4">AI分析機台感測器數據（如震動、溫度），預測潛在故障與剩餘壽命(RUL)，將非計畫停機轉為計畫維修。此預測結果進一步優化生產排程，打造反應敏捷的「預應式工廠」。</p>
+                            <div class="chart-container">
+                                <canvas id="pdmChart"></canvas>
+                            </div>
+                        </div>
+                        <div id="generative" class="blueprint-content hidden">
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">AI在零組件設計與材料科學的應用</h3>
+                            <p class="text-gray-600 mb-4">生成式設計由AI自主探索數千種設計方案，創造出超越人類想像的輕量化、高強度仿生結構，從源頭顛覆產品的性能與成本。</p>
+                            <div class="flex flex-col md:flex-row gap-6 items-stretch justify-center text-center">
+                                <div class="w-full md:w-1/2 p-5 border border-gray-200 rounded-lg flex flex-col justify-between">
+                                    <h4 class="font-bold text-gray-700 mb-2">傳統設計</h4>
+                                    <div class="w-32 h-32 bg-gray-300 mx-auto flex items-center justify-center font-mono text-gray-500 rounded-lg">[8 零件]</div>
+                                    <p class="mt-3 text-sm text-gray-600">多零件組裝，結構冗餘，開發週期長。</p>
+                                </div>
+                                <div class="w-full md:w-1/2 p-5 border-2 border-blue-500 bg-blue-50 rounded-lg flex flex-col justify-between">
+                                    <h4 class="font-bold text-blue-800 mb-2">生成式設計 (AI)</h4>
+                                    <div class="w-32 h-32 bg-blue-200 mx-auto flex items-center justify-center font-mono text-blue-700 rounded-lg" style="clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);">[1 零件]</div>
+                                    <p class="mt-3 text-sm text-blue-700 font-semibold">單一部件，重量-40%，強度+20%，加速創新。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Guide -->
+            <section id="guide" class="content-section hidden">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800">賦能指南：人機協作的未來</h2>
+                    <p class="max-w-3xl mx-auto mt-3 text-gray-600">AI的成功導入，終究取決於「人」。本節為工程師與管理者提供具體的行動指南與策略劇本，並探討如何建立以人為本、與AI共學的健康文化。</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">👨‍💻 工程師的AI副駕 (Copilot)</h3>
+                        <p class="text-gray-600 mb-4">掌握與大型語言模型(LLM)溝通的「提示工程」技巧是提升生產力的關鍵。利用RTF框架（角色、任務、格式）來獲取高品質的回答。</p>
+                        <div id="accordion-container" class="space-y-3">
+                            <!-- Accordion items injected here -->
+                        </div>
+                         <div class="bg-white p-6 rounded-xl shadow-lg mt-8">
+                            <h3 class="text-xl font-bold text-gray-900 mb-6">✨ AI標準作業程序(SOP)草擬助理</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="sop-task" class="block text-sm font-medium text-gray-700">作業名稱</label>
+                                    <input type="text" id="sop-task" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="例如：CNC機台開機檢查">
+                                </div>
+                                <div>
+                                    <label for="sop-steps" class="block text-sm font-medium text-gray-700">關鍵步驟 (請條列式輸入)</label>
+                                    <textarea id="sop-steps" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="1. 確認緊急停止按鈕已復歸。&#10;2. 開啟總電源。&#10;3. 檢查油壓、氣壓錶數值。"></textarea>
+                                </div>
+                                <div>
+                                    <label for="sop-safety" class="block text-sm font-medium text-gray-700">安全注意事項 (請條列式輸入)</label>
+                                    <textarea id="sop-safety" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="- 操作時務必配戴護目鏡。&#10;- 清潔機台時需先斷電。"></textarea>
+                                </div>
+                                <div class="flex items-center justify-end">
+                                    <button id="generate-sop" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                                        <span class="gemini-button-text">✨ 生成SOP草稿</span>
+                                        <div class="loader hidden ml-2"></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="sop-output-container" class="hidden mt-4">
+                                <div id="sop-output" class="gemini-output"></div>
+                                <button id="copy-sop" class="mt-4 inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50">複製內容</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">📈 管理者的AI劇本 (Playbook)</h3>
+                         <p class="text-gray-600 mb-4">管理者需建立清晰的商業案例、分階段的導入路線圖，並培育數據驅動的文化，以避免「試點煉獄」並確保投資回報。</p>
+                        <div class="chart-container mb-6" style="height:250px; max-height: 250px;">
+                            <canvas id="roiChart"></canvas>
+                        </div>
+                         <div>
+                            <h4 class="font-semibold text-center mb-3">四階段AI導入路線圖</h4>
+                            <div class="relative text-sm pl-6">
+                                <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200 ml-1.5"></div>
+                                <!-- Timeline items injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-12 pt-8 border-t border-gray-200">
+            <p class="text-sm text-gray-500">&copy; 2024 AI驅動的精實工廠策略藍圖。專為課程設計，整合自學術與產業報告。</p>
+        </footer>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const appData = {
+        principles: {
+            value: { 
+                title: '定義價值', 
+                details: '透過生成式AI與NLP分析顧客回饋，精準預測需求，從源頭創造更高價值，並利用生成式設計打造創新產品。',
+                wastes: { '不良/重工': 5, '生產過剩': 30, '等待': 5, '搬運': 5, '加工': 35, '庫存': 15, '動作': 5 } 
+            },
+            stream: { 
+                title: '繪製價值流', 
+                details: '利用流程探勘(Process Mining)自動、客觀地繪製真實流程，精準量化瓶頸與在製品(WIP)等候的浪費。',
+                wastes: { '不良/重工': 5, '生產過剩': 10, '等待': 40, '搬運': 10, '加工': 5, '庫存': 30, '動作': 0 } 
+            },
+            flow: { 
+                title: '創造暢流', 
+                details: '以AI排程優化與預測性維護，消除停滯與非計畫性停機，最大化產線流動效率。',
+                wastes: { '不良/重工': 10, '生產過剩': 5, '等待': 45, '搬運': 5, '加工': 15, '庫存': 15, '動作': 0 } 
+            },
+            pull: { 
+                title: '建立後拉', 
+                details: '藉由AI精準預測市場需求與優化庫存，實現更敏捷的後拉式生產(Pull System)，消除生產過剩。',
+                wastes: { '不良/重工': 5, '生產過剩': 45, '等待': 10, '搬運': 5, '加工': 5, '庫存': 25, '動作': 0 } 
+            },
+            perfection: { 
+                title: '追求完善', 
+                details: 'AI驅動的根本原因分析(RCA)能發掘深層次的因果關係，使持續改善(Kaizen)更有效，從源頭杜絕不良品。',
+                wastes: { '不良/重工': 50, '生產過剩': 5, '等待': 5, '搬運': 5, '加工': 15, '庫存': 5, '動作': 15 } 
+            }
+        },
+        ieTools: [
+            { name: '防呆法 (Poka-Yoke)', traditional: '物理治具、光電感測，缺乏彈性。', ai: '【數位防呆】利用電腦視覺即時監控，確保操作員使用正確工具與工件，彈性高。' },
+            { name: '動改法 (ECRS)', traditional: '依賴經驗進行流程刪、併、重、簡。', ai: '【AI模擬優化】在數位分身中，AI生成並評估數千種佈局與流程組合，找出最佳方案。' },
+            { name: '流程法 (Process Chart)', traditional: '手工繪製流程圖，靜態且可能與現實脫節。', ai: '【流程探勘】自動從系統日誌生成客觀、動態的數位流程圖，反映真實狀況。' },
+            { name: '連合法 (Man-Machine)', traditional: '手工繪製人機圖，分析人機閒置時間。', ai: '【AI資源調度】AI即時監控多機多人狀態，動態分配任務，最大化整體稼動率。' },
+            { name: '3x5 Why法', traditional: '反覆提問探究原因，深度受限於團隊知識。', ai: '【AI根本原因分析】AI分析歷史數據庫，找出問題背後隱藏的、跨維度的統計相關性。' },
+            { name: '雙手法 (Two-Handed)', traditional: '觀察記錄雙手動作，分析繁瑣且依賴專家。', ai: '【AI人因分析】透過攝影機與姿態估計，AI自動進行動作分析與人因工程風險評估。' },
+            { name: '抽查法 (Sampling)', traditional: '隨機抽樣觀察，可能錯過關鍵事件。', ai: '【智慧全檢】AI視覺檢測可實現100%全檢，取代抽樣；或透過異常偵測引導分析。' }
+        ],
+        vsmSteps: [
+            { name: '1. 奠定數據基礎', description: '首要任務是打通MES、ERP、IoT等數據孤島，並建立數據治理框架，確保數據的準確性與一致性。' },
+            { name: '2. 流程挖掘生成現況圖', description: '利用流程探勘技術，自動從系統日誌中提取數據，生成客觀、真實的現況價值流圖(VSM)，自動呈現流程變異。' },
+            { name: '3. 量化浪費與AI根本原因分析', description: '在AI生成的VSM上，瓶頸與等待時間一目了然。再利用AI進行根本原因分析(RCA)，找出造成延遲的根源。' },
+            { name: '4. 設計與模擬未來圖', description: '基於洞察設計改善方案，並在數位分身中進行模擬，預測改善效益、量化ROI，避免昂貴的實體試誤。' }
+        ],
+        prompts: [
+            { title: '根本原因分析 (RCA)', content: "扮演一位經驗豐富的品保專家。我們在[產品名稱]的[製程名稱]中遇到了[具體問題描述]的問題。已知潛在影響因素包含：[因素1], [因素2], [因素3]...。請根據這些資訊，(1) 創建一個魚骨圖（石川圖）來組織這些可能的原因。(2) 針對最重要的2-3個原因，設計一套「5個為什麼」的提問清單，以引導我們找到根本原因。請以繁體中文的專業術語回答。" },
+            { title: '標準作業程序 (SOP) 草擬', content: "扮演一位專業的技術文件撰寫者。請為我們的[機台名稱/型號]草擬一份「[作業名稱]」的標準作業程序(SOP)。這份SOP的目標讀者是新進操作員。關鍵步驟如下：[步驟1], [步驟2], [步驟3]...。請確保語言簡潔明瞭，並在文件末尾加上一個「安全注意事項」的章節。請以條列式編號格式呈現。" },
+            { title: '數據分析與視覺化', content: "我將提供一個CSV格式的生產數據集。欄位包含：[欄位A], [欄位B], [欄位C]...。請使用Python的pandas和matplotlib函式庫，分析[欄位X]與[欄位Y]之間的關係。請(1) 計算兩者的相關係數。(2) 繪製一個散點圖來視覺化這個關係。(3) 根據結果，用不超過100字的文字總結你的發現。" },
+            { title: '腦力激盪與改善提案', content: "我們正在進行一個針對[某個流程，如：倉庫領料]的改善(Kaizen)活動。目前的痛點是[痛點描述，如：領料耗時過長、常發生領錯料的情況]。請使用SCAMPER法（替代、結合、調整、修改、挪作他用、消除、重排），針對這個流程提出至少10個創新的改善點子。" }
+        ],
+        roadmap: [
+            { stage: '階段一 (1-3月): 定義與評估', tasks: '成立跨職能AI團隊、識別高價值場景、評估數據準備度。' },
+            { stage: '階段二 (3-6月): 試點與驗證', tasks: '從小處著手、快速取勝（如單一設備PdM），證明價值。' },
+            { stage: '階段三 (6-18月): 擴展與規模化', tasks: '建立可複製模式、投資平台化基礎設施（如MLOps）。' },
+            { stage: '階段四 (持續): 轉型與創新', tasks: '賦能全體員工、探索從「銷售產品」到「提供服務」的新商業模式。' }
+        ]
+    };
+
+    let charts = {};
+
+    function init() {
+        setupNavigation();
+        populateToolbox();
+        populateVSMSteps();
+        populateAccordion();
+        populateRoadmap();
+        createCharts();
+        setupGeminiFeatures();
+        
+        switchTab('strategy');
+        document.querySelector('.lean-principle-btn[data-principle="value"]').click();
+        document.querySelector('.blueprint-tab[data-bptarget="quality"]').click();
+        document.querySelector('.vsm-step-btn[data-index="0"]').click();
+        document.querySelector('.accordion-toggle').click();
+    }
+
+    function setupNavigation() {
+        const navTabs = document.querySelectorAll('.nav-tab');
+        navTabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.target)));
+
+        const principleBtns = document.querySelectorAll('.lean-principle-btn');
+        principleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                principleBtns.forEach(b => b.classList.remove('ring-2', 'ring-blue-500', 'ring-offset-2'));
+                btn.classList.add('ring-2', 'ring-blue-500', 'ring-offset-2');
+                updateWasteChart(btn.dataset.principle);
+            });
+        });
+
+        const blueprintTabs = document.querySelectorAll('.blueprint-tab');
+        blueprintTabs.forEach(tab => tab.addEventListener('click', () => switchBlueprintTab(tab.dataset.bptarget)));
+    }
+
+    function switchTab(targetId) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.toggle('hidden', section.id !== targetId);
+            if (section.id === targetId) section.classList.add('section-fade-in');
+        });
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            const isActive = tab.dataset.target === targetId;
+            tab.classList.toggle('nav-tab-active', isActive);
+            tab.classList.toggle('nav-tab-inactive', !isActive);
+        });
+    }
+    
+    function switchBlueprintTab(targetId) {
+        document.querySelectorAll('.blueprint-content').forEach(content => content.classList.toggle('hidden', content.id !== targetId));
+        document.querySelectorAll('.blueprint-tab').forEach(t => {
+            const isActive = t.dataset.bptarget === targetId;
+            t.classList.toggle('border-blue-600', isActive);
+            t.classList.toggle('text-blue-600', isActive);
+            t.classList.toggle('border-transparent', !isActive);
+            t.classList.toggle('text-gray-500', !isActive);
+        });
+    }
+    
+    function showToast(message) {
+        const toast = document.getElementById('toast-message');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    async function callGeminiAPI(prompt, button) {
+        const buttonText = button.querySelector('.gemini-button-text');
+        const loader = button.querySelector('.loader');
+        
+        buttonText.classList.add('hidden');
+        loader.classList.remove('hidden');
+        button.disabled = true;
+
+        try {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{
+                    role: "user",
+                    parts: [{ text: prompt }]
+                }]
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`API 請求失敗，狀態碼： ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.candidates && result.candidates.length > 0) {
+                 return result.candidates[0].content.parts[0].text;
+            } else {
+                 throw new Error('從API收到的回應無效。');
+            }
+        } catch (error) {
+            console.error('Gemini API 呼叫錯誤:', error);
+            showToast(error.message || '無法生成內容，請稍後再試。');
+            return null;
+        } finally {
+            buttonText.classList.remove('hidden');
+            loader.classList.add('hidden');
+            button.disabled = false;
+        }
+    }
+    
+    function setupGeminiFeatures() {
+        const kaizenButton = document.getElementById('generate-kaizen-ideas');
+        const kaizenProblem = document.getElementById('kaizen-problem');
+        const kaizenOutput = document.getElementById('kaizen-output');
+
+        kaizenButton.addEventListener('click', async () => {
+            if (!kaizenProblem.value.trim()) {
+                showToast('請先描述您遇到的問題。');
+                return;
+            }
+            
+            const prompt = `扮演一位精實生產專家。針對以下的製造業問題，請使用SCAMPER法（替代、結合、調整、修改、挪作他用、消除、重排），提出至少5個具體且創新的改善點子。請以條列式、繁體中文回答。\n\n問題描述：${kaizenProblem.value}`;
+            
+            const result = await callGeminiAPI(prompt, kaizenButton);
+
+            if(result) {
+                kaizenOutput.textContent = result;
+                kaizenOutput.classList.remove('hidden');
+            }
+        });
+
+        const sopButton = document.getElementById('generate-sop');
+        const sopTask = document.getElementById('sop-task');
+        const sopSteps = document.getElementById('sop-steps');
+        const sopSafety = document.getElementById('sop-safety');
+        const sopOutputContainer = document.getElementById('sop-output-container');
+        const sopOutput = document.getElementById('sop-output');
+        const copySopButton = document.getElementById('copy-sop');
+
+        sopButton.addEventListener('click', async () => {
+            if (!sopTask.value.trim() || !sopSteps.value.trim()) {
+                showToast('請填寫作業名稱與關鍵步驟。');
+                return;
+            }
+            
+            const prompt = `扮演一位專業的技術文件撰寫者。請為製造業現場草擬一份標準作業程序(SOP)。\n\n- **作業名稱**: ${sopTask.value}\n- **目標讀者**: 新進操作員\n- **關鍵步驟**:\n${sopSteps.value}\n- **安全注意事項**:\n${sopSafety.value || '無'}\n\n請根據以上資訊，生成一份結構完整、語言簡潔清晰的SOP文件。文件應包含目的、適用範圍、作業步驟、安全注意事項等章節。請以繁體中文的專業術語回答。`;
+            
+            const result = await callGeminiAPI(prompt, sopButton);
+
+            if(result) {
+                sopOutput.textContent = result;
+                sopOutputContainer.classList.remove('hidden');
+            }
+        });
+        
+        copySopButton.addEventListener('click', () => {
+             const textToCopy = sopOutput.textContent;
+             const textArea = document.createElement('textarea');
+             textArea.value = textToCopy;
+             document.body.appendChild(textArea);
+             textArea.select();
+             try {
+                 document.execCommand('copy');
+                 showToast('SOP內容已複製！');
+             } catch (err) {
+                 showToast('複製失敗，請手動複製。');
+             }
+             document.body.removeChild(textArea);
+        });
+    }
+
+    function populateToolbox() {
+        const container = document.getElementById('ie-tools-container');
+        container.innerHTML = appData.ieTools.map(tool => `
+            <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
+                <h4 class="font-bold text-gray-800">${tool.name}</h4>
+                <p class="text-sm text-gray-500 mt-2"><strong class="text-gray-700">傳統：</strong>${tool.traditional}</p>
+                <p class="text-sm text-blue-700 mt-2"><strong class="text-blue-800">AI增強：</strong>${tool.ai}</p>
+            </div>
+        `).join('');
+    }
+
+    function populateVSMSteps() {
+        const container = document.getElementById('vsm-steps');
+        const descriptionEl = document.getElementById('vsm-step-description');
+        container.innerHTML = appData.vsmSteps.map((step, index) => `
+            <button class="w-full text-left p-4 rounded-lg transition-all hover:bg-gray-100 vsm-step-btn border" data-index="${index}">
+                <span class="font-semibold text-blue-700">${step.name}</span>
+            </button>
+        `).join('');
+        
+        container.addEventListener('click', (e) => {
+            const button = e.target.closest('.vsm-step-btn');
+            if (button) {
+                const index = button.dataset.index;
+                descriptionEl.innerHTML = `<p>${appData.vsmSteps[index].description}</p>`;
+                descriptionEl.classList.add('section-fade-in');
+                setTimeout(() => descriptionEl.classList.remove('section-fade-in'), 500);
+                
+                document.querySelectorAll('.vsm-step-btn').forEach(btn => {
+                    btn.classList.remove('bg-blue-100', 'border-blue-400');
+                    btn.classList.add('border-gray-200');
+                });
+                button.classList.add('bg-blue-100', 'border-blue-400');
+                button.classList.remove('border-gray-200');
+            }
+        });
+    }
+    
+    function populateAccordion() {
+        const container = document.getElementById('accordion-container');
+        container.innerHTML = appData.prompts.map(prompt => `
+            <div>
+                <button class="accordion-toggle w-full flex justify-between items-center text-left p-4 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200">
+                    <span class="font-semibold text-gray-800">${prompt.title}</span>
+                    <span class="transform transition-transform duration-300 text-blue-600 font-bold text-lg">+</span>
+                </button>
+                <div class="accordion-content">
+                    <p class="p-4 text-sm bg-white border-l-4 border-blue-300 text-gray-700 mt-1">${prompt.content}</p>
+                </div>
+            </div>
+        `).join('');
+
+        container.addEventListener('click', e => {
+            const toggle = e.target.closest('.accordion-toggle');
+            if (toggle) {
+                const content = toggle.nextElementSibling;
+                const icon = toggle.querySelector('span:last-child');
+                const isOpening = !content.style.maxHeight;
+
+                document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                document.querySelectorAll('.accordion-toggle span:last-child').forEach(i => { i.textContent = '+'; i.style.transform = 'rotate(0deg)'; });
+
+                if (isOpening) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.textContent = '−';
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            }
+        });
+    }
+
+    function populateRoadmap() {
+        const container = document.querySelector('#guide .relative.text-sm');
+        container.innerHTML += appData.roadmap.map(item => `
+            <div class="relative mb-5 pl-8">
+                <div class="absolute left-0 top-1.5 w-4 h-4 bg-blue-600 rounded-full -ml-[1px] border-4 border-white"></div>
+                <p class="font-bold text-gray-800">${item.stage}</p>
+                <p class="text-gray-600">${item.tasks}</p>
+            </div>
+        `).join('');
+    }
+    
+    function updateWasteChart(principleKey) {
+        const principle = appData.principles[principleKey];
+        document.getElementById('principle-title').textContent = `AI在「${principle.title}」中對消除浪費的影響力`;
+        document.getElementById('principle-details').textContent = principle.details;
+        
+        charts.waste.data.datasets[0].data = Object.values(principle.wastes);
+        charts.waste.update();
+    }
+
+    function createCharts() {
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    titleFont: { size: 14 },
+                    bodyFont: { size: 12 },
+                    padding: 10,
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    formatter: (value) => value + '%',
+                    font: { weight: 'bold', size: 10 },
+                    color: '#4b5563'
+                }
+            },
+        };
+
+        const wasteCtx = document.getElementById('wasteChart').getContext('2d');
+        charts.waste = new Chart(wasteCtx, {
+            type: 'bar',
+            data: {
+                labels: ['不良/重工', '生產過剩', '等待', '搬運', '加工', '庫存', '動作'],
+                datasets: [{
+                    label: 'AI影響力',
+                    data: Object.values(appData.principles.value.wastes),
+                    backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1,
+                    borderRadius: 5
+                }]
+            },
+            options: { ...chartOptions, scales: { y: { beginAtZero: true, max: 55, ticks: { callback: value => value + '%' } } } }
+        });
+
+        const vsmCtx = document.getElementById('vsmChart').getContext('2d');
+        charts.vsm = new Chart(vsmCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['增值時間 (Value-Added)', '非增值浪費 (Waste)'],
+                datasets: [{ data: [15, 85], backgroundColor: ['#10b981', '#ef4444'], borderColor: '#fff', borderWidth: 2 }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'bottom' }, title: { display: true, text: '流程探勘揭示的典型時間分佈' } } }
+        });
+
+        const qualityCtx = document.getElementById('qualityChart').getContext('2d');
+        charts.quality = new Chart(qualityCtx, {
+            type: 'line',
+            data: {
+                labels: ['產品A', '產品B', '產品C', '產品D', '產品E'],
+                datasets: [
+                    { label: 'AI檢測不良率', data: [0.2, 0.1, 0.3, 0.1, 0.2], borderColor: '#0d6efd', tension: 0.3, fill: false },
+                    { label: '傳統AOI不良率', data: [5, 8, 4, 6, 7], borderColor: '#6c757d', tension: 0.3, fill: false }
+                ]
+            },
+            options: { ...chartOptions, plugins: {...chartOptions.plugins, legend: { display: true, position: 'bottom' }, title: { display: true, text: 'AI視覺檢測vs傳統AOI不良率 (%)' }}, scales: { y: { beginAtZero: true, ticks: { callback: value => value + '%' } } } }
+        });
+
+        const pdmCtx = document.getElementById('pdmChart').getContext('2d');
+        charts.pdm = new Chart(pdmCtx, {
+            type: 'line',
+            data: {
+                labels: ['第1週', '第2週', '第3週', '第4週', '第5週', '第6週', '第7週', '第8週'],
+                datasets: [{
+                    label: '設備健康度',
+                    data: [98, 95, 90, 82, 70, 60, 52, 45],
+                    borderColor: '#0d6efd',
+                    backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: { ...chartOptions, plugins: {...chartOptions.plugins, title: { display: true, text: '主軸剩餘壽命預測 (RUL)' }}, scales: { y: { min: 0, max: 100, ticks: { callback: value => value + '%' } } } }
+        });
+        
+        const roiCtx = document.getElementById('roiChart').getContext('2d');
+        charts.roi = new Chart(roiCtx, {
+            type: 'pie',
+            data: {
+                labels: ['降低維護成本', '減少停機損失', '提升產出品質', '節省能源'],
+                datasets: [{ data: [35, 30, 20, 15], backgroundColor: ['#0d6efd', '#6ea8fe', '#9ec5fe', '#c7dfff'], borderColor: '#fff', borderWidth: 2 }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, title: { display: true, text: '典型PdM專案投資回報(ROI)組成' } } }
+        });
+    }
+    
+    init();
+
+});
+</script>
+
+</body>
+</html>
