@@ -437,7 +437,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let charts = {};
 
     function init() {
-        handleApiKeyTransfer(); // Check for API key in URL first
+        // This is the main initialization function.
+        // It's called AFTER the API key check.
         setupNavigation();
         populateToolbox();
         populateVSMSteps();
@@ -897,6 +898,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // The script now starts by checking for API keys, then initializes the rest of the page.
+    handleApiKeyTransfer();
     init();
 
 });
