@@ -319,11 +319,11 @@
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-blue-700">策略實戰演練</h3>
                     <div class="ai-card">
-                        <label for="strategy-input" class="block mb-2 font-semibold text-gray-700">請描述您公司目前最主要的庫存管理痛點：</label>
-                        <div class="relative w-full">
-                            <textarea id="strategy-input" class="w-full p-2 pr-24 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" placeholder="例如：我們的備品倉庫呆滯料金額一直降不下來，但同時產線又時常因為缺料而停線..."></textarea>
-                            <button onclick="loadExample('strategy')" class="absolute top-2 right-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md">載入範例</button>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="strategy-input" class="font-semibold text-gray-700">請描述您公司目前最主要的庫存管理痛點：</label>
+                            <button onclick="loadExample('strategy')" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md shrink-0">載入範例</button>
                         </div>
+                        <textarea id="strategy-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" placeholder="例如：我們的備品倉庫呆滯料金額一直降不下來，但同時產線又時常因為缺料而停線..."></textarea>
                         <button onclick="handleAI('strategy')" class="mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 策略分析
                         </button>
@@ -408,11 +408,16 @@
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-green-700">分類實戰演練</h3>
                     <div class="ai-card bg-green-50 border-green-200">
-                        <label for="analysis-input" class="block mb-2 font-semibold text-gray-700">請提供物料數據 (至少包含：物料編號、單價、過去12個月的月需求量)：</label>
-                        <div class="relative w-full">
-                            <textarea id="analysis-input" class="w-full p-2 pr-24 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500" rows="4" placeholder="例如：料號A, 單價$500, 需求[10,12,11,10,13,11,10,12,11,10,12,11]；料號B, 單價$5, 需求[0,0,20,0,0,30,0,0,0,15,0,0]..."></textarea>
-                            <button onclick="loadExample('analysis')" class="absolute top-2 right-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md">載入範例</button>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="analysis-input" class="font-semibold text-gray-700">請提供物料數據：</label>
+                            <button onclick="loadExample('analysis')" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md shrink-0">載入範例</button>
                         </div>
+                        <textarea id="analysis-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500" rows="6" placeholder="請您以「料號, 單價, 需求 (以逗號分隔的 12 個月數據)」的格式提供數據，例如：
+料號A,500,10,12,11,10,13,11,10,12,11,10,12,11
+料號B,5,0,0,20,0,0,30,0,0,0,15,0,0
+料號C,100,20,22,31,11,15,19,15,18,12,11,13,15
+料號D,50,1,1,10,5,0,30,0,6,0,25,1,1
+請盡可能提供您所有物料的數據，數據越多，分析結果越精準。"></textarea>
                         <button onclick="handleAI('analysis')" class="mt-4 px-6 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 分類分析
                         </button>
@@ -491,11 +496,11 @@
                                 <label class="cursor-pointer"><input class="mr-1" type="radio" name="forecast-method" value="new-product"> 新產品預測</label>
                             </div>
                         </div>
-                        <label for="forecasting-input" class="block mb-2 font-semibold text-gray-700">請根據您選擇的情境輸入數據：</label>
-                        <div class="relative w-full">
-                            <textarea id="forecasting-input" class="w-full p-2 pr-24 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder=""></textarea>
-                            <button onclick="loadExample('forecasting')" class="absolute top-2 right-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md">載入範例</button>
+                        <div class="flex justify-between items-center mb-2">
+                             <label for="forecasting-input" class="font-semibold text-gray-700">請根據您選擇的情境輸入數據：</label>
+                             <button onclick="loadExample('forecasting')" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md shrink-0">載入範例</button>
                         </div>
+                        <textarea id="forecasting-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder=""></textarea>
                         <button onclick="handleAI('forecasting')" class="mt-4 px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 需求預測
                         </button>
@@ -523,13 +528,13 @@
                     <h4>關鍵模型與參數</h4>
                     <ul>
                         <li><b>安全庫存 (Safety Stock, SS):</b> 為了應對需求或前置時間的不確定性而保有的緩衝庫存。它是服務水準的直接體現。
-                            <p class="text-sm text-gray-500 mt-1">簡化公式: $ SS = Z \times \sigma_D \times \sqrt{\mu_L} $ (其中Z為服務水準對應的Z值, $\sigma_D$為需求標準差, $\mu_L$為平均前置時間)</p>
+                            <p class="text-sm text-gray-500 mt-1"><b>公式: 安全庫存 = 服務水準(Z) × 需求波動(σD) × √平均前置時間(μL)</b></p>
                         </li>
                         <li><b>再訂購點 (Re-Order Point, ROP):</b> 觸發訂購流程的庫存水位。當庫存量降到 ROP 時，就該下單了。
-                            <p class="text-sm text-gray-500 mt-1">公式: $ ROP = (\text{前置時間內的平均需求}) + SS $</p>
+                            <p class="text-sm text-gray-500 mt-1"><b>公式: 再訂購點 = 平均需求量 × 購備前置時間 + 安全庫存</b></p>
                         </li>
                         <li><b>經濟訂購量 (Economic Order Quantity, EOQ):</b> 計算能使「總庫存成本」(訂購成本+持有成本) 最小化的訂單數量。
-                             <p class="text-sm text-gray-500 mt-1">公式: $ EOQ = \sqrt{\frac{2DS}{H}} $ (其中D為年需求量, S為單次訂購成本, H為單位年持有成本)</p>
+                             <p class="text-sm text-gray-500 mt-1"><b>公式: 經濟訂購量 = √ [ (2 × 年需求量 × 訂購成本) / 年單位持有成本 ]</b></p>
                         </li>
                         <li><b>雙箱法 (Two-Bin System):</b> 一種簡單直觀的定量不定期方法，特別適用於低價值的 C 類物料。將庫存分為兩箱，當第一箱用完時，即觸發訂單來補充第一箱，此時第二箱的量就是這段前置時間內的緩衝。</li>
                     </ul>
@@ -566,11 +571,11 @@
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-yellow-700">訂購模型實戰演練</h3>
                     <div class="ai-card bg-yellow-50 border-yellow-200">
-                        <label for="models-input" class="block mb-2 font-semibold text-gray-700">請提供物料的相關數據：</label>
-                        <div class="relative w-full">
-                            <textarea id="models-input" class="w-full p-2 pr-24 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500" rows="4" placeholder="例如：週平均需求200，週需求標準差50，前置時間2週，服務水準95% (Z=1.65)，年需求10000，單次訂購成本$50，單位年持有成本$2..."></textarea>
-                            <button onclick="loadExample('models')" class="absolute top-2 right-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md">載入範例</button>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="models-input" class="font-semibold text-gray-700">請提供物料的相關數據：</label>
+                            <button onclick="loadExample('models')" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md shrink-0">載入範例</button>
                         </div>
+                        <textarea id="models-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500" rows="4" placeholder="例如：週平均需求200，週需求標準差50，前置時間2週，服務水準95% (Z=1.65)，年需求10000，單次訂購成本$50，單位年持有成本$2..."></textarea>
                         <button onclick="handleAI('models')" class="mt-4 px-6 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 計算最佳訂購策略
                         </button>
@@ -639,11 +644,42 @@
                 <div class="ai-interactive-section">
                     <h3 class="card-subtitle text-red-700">8D 實戰演練</h3>
                     <div class="ai-card bg-red-50 border-red-200">
-                        <label for="improvement-input" class="block mb-2 font-semibold text-gray-700">請簡要描述您公司一個反覆發生的庫存問題：</label>
-                        <div class="relative w-full">
-                            <textarea id="improvement-input" class="w-full p-2 pr-24 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500" rows="4" placeholder="例如：我們的A款馬達，每到年底都會多出一堆庫存，但到了隔年三月又會缺貨，年年如此..."></textarea>
-                            <button onclick="loadExample('improvement')" class="absolute top-2 right-2 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md">載入範例</button>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="improvement-input" class="font-semibold text-gray-700">請簡要描述您公司一個反覆發生的庫存問題：</label>
+                            <button onclick="loadExample('improvement')" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-2 py-1 rounded-md shrink-0">載入範例</button>
                         </div>
+                        <textarea id="improvement-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500" rows="8" placeholder="[8D 報告範本]
+D0: 問題規劃與準備
+問題：A款馬達在每年Q1都會發生缺貨，導致產線停線，但在Q4又會產生呆滯庫存。
+D1: 成立團隊
+- 團隊負責人：王經理 (生管部)
+- 團隊成員：李課長 (採購), 陳組長 (倉儲), 張工程師 (業務), 林專員 (財務)
+D2: 描述問題 (5W2H)
+- What: A款馬達庫存水位不穩，Q1缺貨，Q4呆滯。
+- Where: 主要影響B產線。
+- When: 問題自三年前開始，每年重複發生。
+- Who: 倉管、採購、生管、業務皆受影響。
+- How: Q4業務預估過於樂觀，導致超額採購；Q1實際訂單超出預期，安全庫存不足。
+- How much: 過去三年平均缺貨損失約50萬/年，呆滯處理成本約30萬/年。
+D3: 執行並驗證暫時圍堵措施
+1. 緊急採購一批A款馬達空運，滿足Q1急單 (已完成)。
+2. 凍結所有A款馬達的自動補貨訂單，改為人工審核 (已實施)。
+D4: 根本原因分析 (RCA)
+- 為何Q4呆滯？ -> 業務為達年度目標，高估Q4預測 -> 未與客戶確認長期訂單。
+- 為何Q1缺貨？ -> 安全庫存公式未考慮季節性波動 -> 採購前置時間計算不準確。
+D5: 選擇並驗證永久對策
+1. 導入季節性指數修正預測模型。
+2. 要求業務提供客戶的年度訂單框架協議。
+3. 與供應商重新確認並縮短前置時間。
+D6: 執行永久對策
+1. 在ERP系統中更新A款馬達的安全庫存與再訂購點公式。
+2. 舉辦業務預測準確度訓練。
+3. 與主要供應商簽訂新的供貨協議。
+D7: 防止再發生
+1. 將季節性料號的審核流程納入SOP。
+2. 建立每月庫存健康檢查會議，追蹤Top 10高風險料號。
+D8: 團隊肯定
+- 在公司月會上表揚此專案團隊的貢獻，分享成功經驗。"></textarea>
                         <button onclick="handleAI('improvement')" class="mt-4 px-6 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75">
                             ✨ 啟動 AI 引導 8D 分析
                         </button>
@@ -717,21 +753,67 @@
     }
 
     // --- NEW: Load Example Text Logic ---
-    function loadExample(type) {
-        const inputElement = document.getElementById(`${type}-input`);
-        if (inputElement) {
-            const placeholderText = inputElement.getAttribute('placeholder');
-            inputElement.value = placeholderText;
-            inputElement.focus(); // Focus the textarea after loading
-        }
-    }
+    const examplePlaceholders = {
+        strategy: "例如：我們的備品倉庫呆滯料金額一直降不下來，但同時產線又時常因為缺料而停線...",
+        analysis: `請您以「料號, 單價, 需求 (以逗號分隔的 12 個月數據)」的格式提供數據，例如：
+料號A,500,10,12,11,10,13,11,10,12,11,10,12,11
+料號B,5,0,0,20,0,0,30,0,0,0,15,0,0
+料號C,100,20,22,31,11,15,19,15,18,12,11,13,15
+料號D,50,1,1,10,5,0,30,0,6,0,25,1,1
+請盡可能提供您所有物料的數據，數據越多，分析結果越精準。`,
+        models: "例如：週平均需求200，週需求標準差50，前置時間2週，服務水準95% (Z=1.65)，年需求10000，單次訂購成本$50，單位年持有成本$2...",
+        improvement: `[8D 報告範本]
+D0: 問題規劃與準備
+問題：A款馬達在每年Q1都會發生缺貨，導致產線停線，但在Q4又會產生呆滯庫存。
+D1: 成立團隊
+- 團隊負責人：王經理 (生管部)
+- 團隊成員：李課長 (採購), 陳組長 (倉儲), 張工程師 (業務), 林專員 (財務)
+D2: 描述問題 (5W2H)
+- What: A款馬達庫存水位不穩，Q1缺貨，Q4呆滯。
+- Where: 主要影響B產線。
+- When: 問題自三年前開始，每年重複發生。
+- Who: 倉管、採購、生管、業務皆受影響。
+- How: Q4業務預估過於樂觀，導致超額採購；Q1實際訂單超出預期，安全庫存不足。
+- How much: 過去三年平均缺貨損失約50萬/年，呆滯處理成本約30萬/年。
+D3: 執行並驗證暫時圍堵措施
+1. 緊急採購一批A款馬達空運，滿足Q1急單 (已完成)。
+2. 凍結所有A款馬達的自動補貨訂單，改為人工審核 (已實施)。
+D4: 根本原因分析 (RCA)
+- 為何Q4呆滯？ -> 業務為達年度目標，高估Q4預測 -> 未與客戶確認長期訂單。
+- 為何Q1缺貨？ -> 安全庫存公式未考慮季節性波動 -> 採購前置時間計算不準確。
+D5: 選擇並驗證永久對策
+1. 導入季節性指數修正預測模型。
+2. 要求業務提供客戶的年度訂單框架協議。
+3. 與供應商重新確認並縮短前置時間。
+D6: 執行永久對策
+1. 在ERP系統中更新A款馬達的安全庫存與再訂購點公式。
+2. 舉辦業務預測準確度訓練。
+3. 與主要供應商簽訂新的供貨協議。
+D7: 防止再發生
+1. 將季節性料號的審核流程納入SOP。
+2. 建立每月庫存健康檢查會議，追蹤Top 10高風險料號。
+D8: 團隊肯定
+- 在公司月會上表揚此專案團隊的貢獻，分享成功經驗。`
+    };
 
-    // --- NEW: Dynamic Placeholder for Forecasting ---
     const forecastPlaceholders = {
-        'time-series': "歷史數據預測請提供過去至少12期的需求，例如：[120, 130, 100, 170, ...]",
+        'time-series': "歷史數據預測請提供過去至少12期的需求，例如：[120, 130, 100, 170, 155, 180, 210, 190, 165, 140, 125, 135]",
         'new-product': "新產品預測請提供預估的市場潛力(m), 創新者係數(p), 模仿者係數(q)。例如：m=10000, p=0.01, q=0.2"
     };
 
+    function loadExample(type) {
+        const inputElement = document.getElementById(`${type}-input`);
+        if (inputElement) {
+            if (type === 'forecasting') {
+                const selectedMethod = document.querySelector('input[name="forecast-method"]:checked').value;
+                inputElement.value = forecastPlaceholders[selectedMethod];
+            } else {
+                inputElement.value = examplePlaceholders[type];
+            }
+            inputElement.focus();
+        }
+    }
+    
     const forecastingInput = document.getElementById('forecasting-input');
 
     function updateForecastPlaceholder() {
@@ -748,8 +830,12 @@
         });
     });
     
-    // Set initial placeholder on page load
-    document.addEventListener('DOMContentLoaded', updateForecastPlaceholder);
+    document.addEventListener('DOMContentLoaded', () => {
+        updateForecastPlaceholder();
+        // Set initial placeholders for other textareas
+        document.getElementById('analysis-input').placeholder = examplePlaceholders.analysis;
+        document.getElementById('improvement-input').placeholder = examplePlaceholders.improvement;
+    });
 
 
     // --- AI Interaction Logic ---
@@ -868,7 +954,7 @@
                 prompt = `你是一位資深供應鏈顧問。請基於 3T (Lead Time, WIP/Turnover, Productivity) 與 ESG 原則，分析以下使用者描述的庫存管理痛點，並提出具體的策略性建議。請以結構化、條列式的方式呈現。使用者情境：\n\n${userInput}`;
                 break;
             case 'analysis':
-                prompt = `你是一位庫存管理專家。我將提供一些物料數據，請幫我執行 ABC 與 XYZ 分析。你的任務是：\n1. 根據物料價值進行 ABC 分類。\n2. 根據需求波動性 (變異係數) 進行 XYZ 分類。\n3. 將每個物料歸類到九宮格中 (例如 AX, BZ, CX)。\n4. 針對每個九宮格分類，提出具體、可行的庫存管理策略建議。\n請將結果以 Markdown 表格與條列式建議呈現。\n\n使用者數據：\n${userInput}`;
+                prompt = `你是一位庫存管理專家。我將提供一些物料數據，請幫我執行 ABC 與 XYZ 分析。你的任務是：\n1. 根據我提供的數據格式（料號, 單價, 12個月需求...），解析數據。\n2. 根據物料價值進行 ABC 分類。\n3. 根據需求波動性 (變異係數) 進行 XYZ 分類。\n4. 將每個物料歸類到九宮格中 (例如 AX, BZ, CX)。\n5. 針對每個九宮格分類，提出具體、可行的庫存管理策略建議。\n請將結果以 Markdown 表格與條列式建議呈現。\n\n使用者數據：\n${userInput}`;
                 break;
             case 'forecasting':
                  const selectedForecastMethod = document.querySelector('input[name="forecast-method"]:checked').value;
@@ -882,7 +968,7 @@
                 prompt = `你是一位作業研究專家。我需要為一項物料決定最佳的庫存策略。請根據我提供的數據，計算出：\n1. 安全庫存 (Safety Stock, SS)\n2. 再訂購點 (Re-Order Point, ROP)\n3. 經濟訂購量 (Economic Order Quantity, EOQ)\n最後，請用一句話總結這個庫存策略：「當庫存降至 [ROP值] 時，下訂單採購 [EOQ值] 的數量。」\n請詳細列出你的計算過程。\n\n使用者數據：\n${userInput}`;
                 break;
             case 'improvement':
-                prompt = `你是一位資深的品質與流程改善顧問，精通 8D 問題解決流程。現在有一個客戶正為了一個反覆發生的庫存問題所苦。請你根據他描述的問題，引導他走完 8D 的每一個步驟。\n請從 D1 (建立團隊) 和 D2 (描述問題) 開始，提出具體的引導問題或建議，並以結構化的報告形式呈現。\n\n客戶描述的問題：\n${userInput}`;
+                prompt = `你是一位資深的品質與流程改善顧問，精通 8D 問題解決流程。現在有一個客戶提供了一份 8D 報告草稿。請你根據他提供的內容，以專業顧問的角度，優化這份報告，使其更加完整、專業、且具備可執行性。請針對每個D（D0-D8）提出具體的分析與建議，並以結構化的報告形式呈現。\n\n客戶提供的 8D 報告草稿：\n${userInput}`;
                 break;
         }
         
