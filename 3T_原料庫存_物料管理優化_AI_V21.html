@@ -703,8 +703,16 @@ D8: 團隊肯定,持續改善
                 <div class="mt-6 pt-6 border-t border-gray-200">
                     <p class="font-bold text-xl text-gray-800">最終目標：培養具備系統思維與數據分析能力的管理人才，駕馭 AI 工具，打造敏捷、高效、且具韌性的現代化供應鏈體系。</p>
                 </div>
+                
+                <!-- Mindmap Section Added Here -->
+                <div class="mt-8 pt-8 border-t border-gray-200 text-center">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">課程總結心智圖 (點擊放大)</h4>
+                    <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/MM_Mindmap.png" target="_blank">
+                        <img src="https://raw.githubusercontent.com/drcliffwang/course-material/main/MM_Mindmap.png" alt="課程總結心智圖" class="mx-auto rounded-lg shadow-md max-w-full h-auto cursor-pointer transition-transform transform hover:scale-105">
+                    </a>
+                </div>
 
-                <!-- Download Button Added Here -->
+                <!-- Download Button -->
                 <div class="mt-8 text-center">
                     <a href="https://github.com/drcliffwang/course-material/raw/main/3T_%E5%8E%9F%E6%96%99%E5%BA%AB%E5%AD%98_%E7%89%A9%E6%96%99%E7%AE%A1%E7%90%86%E5%84%AA%E5%8C%96Dr_Hiwin.xlsx" download class="inline-block px-8 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75 transition-transform transform hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -765,14 +773,12 @@ D8: 團隊肯定,持續改善
 
     // --- NEW: Load Example Text Logic ---
     const examplePlaceholders = {
-        strategy: "例如：我們的備品倉庫呆滯料金額一直降不下來，但同時產線又時常因為缺料而停線...",
-        analysis: `請您以「料號, 單價, 需求 (以逗號分隔的 12 個月數據)」的格式提供數據，例如：
-料號A,500,10,12,11,10,13,11,10,12,11,10,12,11
+        strategy: "我們的備品倉庫呆滯料金額一直降不下來，但同時產線又時常因為缺料而停線...",
+        analysis: `料號A,500,10,12,11,10,13,11,10,12,11,10,12,11
 料號B,5,0,0,20,0,0,30,0,0,0,15,0,0
 料號C,100,20,22,31,11,15,19,15,18,12,11,13,15
-料號D,50,1,1,10,5,0,30,0,6,0,25,1,1
-請盡可能提供您所有物料的數據，數據越多，分析結果越精準。`,
-        models: "例如：週平均需求200，週需求標準差50，前置時間2週，服務水準95% (Z=1.65)，年需求10000，單次訂購成本$50，單位年持有成本$2...",
+料號D,50,1,1,10,5,0,30,0,6,0,25,1,1`,
+        models: "週平均需求200，週需求標準差50，前置時間2週，服務水準95% (Z=1.65)，年需求10000，單次訂購成本$50，單位年持有成本$2",
         improvement: `[8D 報告範本]
 D0: 問題規劃與準備
 問題：A款馬達在每年Q1都會發生缺貨，導致產線停線，但在Q4又會產生呆滯庫存。
@@ -785,31 +791,12 @@ D2: 描述問題 (5W2H)
 - When: 問題自三年前開始，每年重複發生。
 - Who: 倉管、採購、生管、業務皆受影響。
 - How: Q4業務預估過於樂觀，導致超額採購；Q1實際訂單超出預期，安全庫存不足。
-- How much: 過去三年平均缺貨損失約50萬/年，呆滯處理成本約30萬/年。
-D3: 執行並驗證暫時圍堵措施
-1. 緊急採購一批A款馬達空運，滿足Q1急單 (已完成)。
-2. 凍結所有A款馬達的自動補貨訂單，改為人工審核 (已實施)。
-D4: 根本原因分析 (RCA)
-- 為何Q4呆滯？ -> 業務為達年度目標，高估Q4預測 -> 未與客戶確認長期訂單。
-- 為何Q1缺貨？ -> 安全庫存公式未考慮季節性波動 -> 採購前置時間計算不準確。
-D5: 選擇並驗證永久對策
-1. 導入季節性指數修正預測模型。
-2. 要求業務提供客戶的年度訂單框架協議。
-3. 與供應商重新確認並縮短前置時間。
-D6: 執行永久對策
-1. 在ERP系統中更新A款馬達的安全庫存與再訂購點公式。
-2. 舉辦業務預測準確度訓練。
-3. 與主要供應商簽訂新的供貨協議。
-D7: 防止再發生
-1. 將季節性料號的審核流程納入SOP。
-2. 建立每月庫存健康檢查會議，追蹤Top 10高風險料號。
-D8: 團隊肯定,持續改善
-- 在公司月會上表揚此專案團隊的貢獻，分享成功經驗。`
+- How much: 過去三年平均缺貨損失約50萬/年，呆滯處理成本約30萬/年。`
     };
 
     const forecastPlaceholders = {
-        'time-series': "歷史數據預測請提供過去至少12期的需求，例如：[120, 130, 100, 170, 155, 180, 210, 190, 165, 140, 125, 135]",
-        'new-product': "新產品預測請提供預估的市場潛力(m), 創新者係數(p), 模仿者係數(q)。例如：m=10000, p=0.01, q=0.2"
+        'time-series': "請提供過去至少12期的需求，例如：[120, 130, 100, 170, 155, 180, 210, 190, 165, 140, 125, 135]",
+        'new-product': "請提供預估的市場潛力(m), 創新者係數(p), 模仿者係數(q)。例如：m=10000, p=0.01, q=0.2"
     };
 
     function loadExample(type) {
@@ -843,9 +830,6 @@ D8: 團隊肯定,持續改善
     
     document.addEventListener('DOMContentLoaded', () => {
         updateForecastPlaceholder();
-        // Set initial placeholders for other textareas
-        document.getElementById('analysis-input').placeholder = examplePlaceholders.analysis;
-        document.getElementById('improvement-input').placeholder = examplePlaceholders.improvement;
     });
 
 
