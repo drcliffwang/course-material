@@ -573,6 +573,20 @@
                     <li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span> <b>AI 賦能:</b> 善用 AI 工具，在專案章程、WBS、風險分析(PPA)、成本控制(EVM)等環節提升效率與決策品質。</li>
                     <li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span> <b>PMBOK 7 展望:</b> 新版的專案管理更強調價值交付、僕人式領導與全域思維，值得持續關注。</li>
                 </ul>
+                
+                <!-- Added Download Section -->
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3 text-left">課程資源下載</h4>
+                    <ul class="list-none space-y-2 text-left">
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                            <a href="https://github.com/drcliffwang/course-material/raw/main/Project%20Management%20%E7%B7%B4%E7%BF%92%E6%AA%94.xlsx" class="text-blue-600 hover:underline" download>Project Management 練習檔.xlsx</a>
+                        </li>
+                    </ul>
+                </div>
+
                 <div class="mt-6 pt-6 border-t border-gray-200">
                     <p class="font-bold text-xl text-gray-800">最終目標：以人腦的策略智慧與批判性思維為主導，駕馭 AI 的強大執行與分析能力，將專案管理的挑戰轉化為組織的競爭優勢。</p>
                 </div>
@@ -632,7 +646,7 @@
         let body = {};
 
         if (provider === 'gemini') {
-            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
             body = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
         } else if (provider === 'deepseek') {
             apiUrl = 'https://api.deepseek.com/v1/chat/completions';
