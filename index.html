@@ -15,6 +15,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome for download icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Custom Styles with University of Michigan Colors -->
     <style>
         body {
@@ -60,6 +63,15 @@
         .lang-switcher button:not(.active) {
             @apply bg-gray-200 text-gray-700 hover:bg-gray-300;
         }
+        /* Accordion styles */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+        }
+        .accordion-header.active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -74,6 +86,7 @@
                 <a href="#about" class="text-gray-600 hover:text-um-blue transition duration-300" data-translate="nav_about">關於我們</a>
                 <a href="#services" class="text-gray-600 hover:text-um-blue transition duration-300" data-translate="nav_services">核心服務</a>
                 <a href="#success-case" class="text-gray-600 hover:text-um-blue transition duration-300" data-translate="nav_cases">成功案例</a>
+                <a href="#downloads" class="text-gray-600 hover:text-um-blue transition duration-300" data-translate="nav_downloads">課程下載</a>
                 <a href="#contact" class="bg-um-blue text-white px-4 py-2 rounded-md hover:bg-um-blue-dark transition duration-300" data-translate="nav_contact">聯絡我們</a>
             </div>
             <!-- Language Switcher -->
@@ -92,6 +105,7 @@
             <a href="#about" class="block py-2 text-gray-600 hover:text-um-blue" data-translate="nav_about_mobile">關於我們</a>
             <a href="#services" class="block py-2 text-gray-600 hover:text-um-blue" data-translate="nav_services_mobile">核心服務</a>
             <a href="#success-case" class="block py-2 text-gray-600 hover:text-um-blue" data-translate="nav_cases_mobile">成功案例</a>
+            <a href="#downloads" class="block py-2 text-gray-600 hover:text-um-blue" data-translate="nav_downloads_mobile">課程下載</a>
             <a href="#contact" class="block mt-2 bg-um-blue text-white text-center px-4 py-2 rounded-md hover:bg-um-blue-dark" data-translate="nav_contact_mobile">聯絡我們</a>
             <!-- Language Switcher for Mobile -->
             <div class="lang-switcher flex justify-center space-x-2 mt-4">
@@ -275,7 +289,7 @@
                            我們將專案管理的五大流程與十大知識體，濃縮成一個強大的 AI 專案助理。它能協助專案經理快速產出專業的專案章程、建立完整的工作分解結構(WBS)，並進行系統化的風險分析。
                         </p>
                         <p class="text-gray-300 mb-6" data-translate="case5_p2">
-                           透過導入實獲值管理(EVM)等工具，AI 助理能客觀地追蹤與評估專案的時程與成本績效，讓管理者能即時掌握專案健康狀況，做出精準的決策，大幅提升專案成功率。
+                           透過導入實獲值管理(EVM)等工具，AI 助理能客觀地追蹤與評估專案の時程與成本績效，讓管理者能即時掌握專案健康狀況，做出精準的決策，大幅提升專案成功率。
                         </p>
                         <a href="PM_AI.html" target="_blank" class="inline-block bg-um-maize text-um-blue font-bold py-3 px-6 rounded-lg hover:bg-um-maize-dark transition duration-300" data-translate="case5_button">
                             體驗專案管理AI助理
@@ -317,9 +331,131 @@
 
             </div>
         </section>
+        
+        <!-- Downloads Section -->
+        <section id="downloads" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title" data-translate="downloads_title">課程提案與檔案下載</h2>
+                <p class="section-subtitle" data-translate="downloads_subtitle">歡迎下載我們的課程提案，了解更多詳細資訊。</p>
+                <div class="max-w-4xl mx-auto rounded-lg shadow-md overflow-hidden border">
+                    <!-- Accordion Item 1 -->
+                    <div class="border-b">
+                        <button class="accordion-header w-full text-left p-5 focus:outline-none flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition">
+                            <h3 class="text-lg font-semibold text-um-blue" data-translate="download1_title">系統性思考問題分析與解決+AI_課程提案(2 Days)</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 bg-white flex items-center justify-between">
+                                <p class="text-sm text-gray-500" data-translate="download1_type">文件類型：Microsoft Word</p>
+                                <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/系統性思考問題分析與解決+AI_課程提案(2 Days).docx" download class="bg-um-blue text-white font-bold py-2 px-5 rounded-lg hover:bg-um-blue-dark transition duration-300 flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    <span data-translate="download_button">下載</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 2 -->
+                    <div class="border-b">
+                        <button class="accordion-header w-full text-left p-5 focus:outline-none flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition">
+                            <h3 class="text-lg font-semibold text-um-blue" data-translate="download2_title">庫存管理 + AI 助理_課程提案.docx</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 bg-white flex items-center justify-between">
+                                <p class="text-sm text-gray-500" data-translate="download2_type">文件類型：Microsoft Word</p>
+                                <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/庫存管理 + AI 助理_課程提案.docx" download class="bg-um-blue text-white font-bold py-2 px-5 rounded-lg hover:bg-um-blue-dark transition duration-300 flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    <span data-translate="download_button">下載</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 3 -->
+                    <div class="border-b">
+                        <button class="accordion-header w-full text-left p-5 focus:outline-none flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition">
+                            <h3 class="text-lg font-semibold text-um-blue" data-translate="download3_title">系統思維與創新+AI_課程提案.docx</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 bg-white flex items-center justify-between">
+                                <p class="text-sm text-gray-500" data-translate="download3_type">文件類型：Microsoft Word</p>
+                                <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/系統思維與創新+AI_課程提案.docx" download class="bg-um-blue text-white font-bold py-2 px-5 rounded-lg hover:bg-um-blue-dark transition duration-300 flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    <span data-translate="download_button">下載</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 4 -->
+                    <div class="border-b">
+                        <button class="accordion-header w-full text-left p-5 focus:outline-none flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition">
+                            <h3 class="text-lg font-semibold text-um-blue" data-translate="download4_title">非財會主管的財會+AI_課程提案.docx</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 bg-white flex items-center justify-between">
+                                <p class="text-sm text-gray-500" data-translate="download4_type">文件類型：Microsoft Word</p>
+                                <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/非財會主管的財會+AI_課程提案.docx" download class="bg-um-blue text-white font-bold py-2 px-5 rounded-lg hover:bg-um-blue-dark transition duration-300 flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    <span data-translate="download_button">下載</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 5 -->
+                    <div class="border-b">
+                        <button class="accordion-header w-full text-left p-5 focus:outline-none flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition">
+                            <h3 class="text-lg font-semibold text-um-blue" data-translate="download5_title">專案管理+AI_課程提案.docx</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 bg-white flex items-center justify-between">
+                                <p class="text-sm text-gray-500" data-translate="download5_type">文件類型：Microsoft Word</p>
+                                <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/專案管理+AI_課程提案.docx" download class="bg-um-blue text-white font-bold py-2 px-5 rounded-lg hover:bg-um-blue-dark transition duration-300 flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    <span data-translate="download_button">下載</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 6 -->
+                    <div class="border-b">
+                        <button class="accordion-header w-full text-left p-5 focus:outline-none flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition">
+                            <h3 class="text-lg font-semibold text-um-blue" data-translate="download6_title">數據驅動決策 + AI 助理_課程提案.docx</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 bg-white flex items-center justify-between">
+                                <p class="text-sm text-gray-500" data-translate="download6_type">文件類型：Microsoft Word</p>
+                                <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/數據驅動決策 + AI 助理_課程提案.docx" download class="bg-um-blue text-white font-bold py-2 px-5 rounded-lg hover:bg-um-blue-dark transition duration-300 flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    <span data-translate="download_button">下載</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 7 -->
+                    <div class="border-b-0">
+                        <button class="accordion-header w-full text-left p-5 focus:outline-none flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition">
+                            <h3 class="text-lg font-semibold text-um-blue" data-translate="download7_title">精實管理 + AI 助理_課程提案.docx</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 bg-white flex items-center justify-between">
+                                <p class="text-sm text-gray-500" data-translate="download7_type">文件類型：Microsoft Word</p>
+                                <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/精實管理 + AI 助理_課程提案.docx" download class="bg-um-blue text-white font-bold py-2 px-5 rounded-lg hover:bg-um-blue-dark transition duration-300 flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    <span data-translate="download_button">下載</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20 bg-white">
+        <section id="contact" class="py-20 bg-gray-100">
             <div class="container mx-auto px-6">
                 <h2 class="section-title" data-translate="contact_title">聯絡我們</h2>
                 <p class="section-subtitle" data-translate="contact_subtitle">準備好為您的企業注入 AI 驅動的成長動能了嗎？<br>請填寫右方表單，或透過以下方式直接與我們聯繫。</p>
@@ -353,7 +489,7 @@
                         </div>
                     </div>
                     <!-- Contact Form -->
-                    <div class="bg-gray-100 p-8 rounded-lg shadow-md">
+                    <div class="bg-white p-8 rounded-lg shadow-md">
                         <form action="https://formspree.io/f/xpwrgbab" method="POST">
                             <div class="mb-5">
                                 <label for="name" class="block text-gray-700 font-medium mb-2" data-translate="form_name">姓名</label>
@@ -400,10 +536,12 @@
                 "nav_about": "About Us",
                 "nav_services": "Core Services",
                 "nav_cases": "Success Cases",
+                "nav_downloads": "Downloads",
                 "nav_contact": "Contact Us",
                 "nav_about_mobile": "About Us",
                 "nav_services_mobile": "Core Services",
                 "nav_cases_mobile": "Success Cases",
+                "nav_downloads_mobile": "Downloads",
                 "nav_contact_mobile": "Contact Us",
                 "hero_title": "Solving Business Problems with Process, Logic, Data + AI",
                 "hero_subtitle": "Focusing on Problem Solving, Risk Management, Big Data, Finance & Accounting, Project Management, Strategic Thinking, and Lean, integrated with AI applications.",
@@ -459,6 +597,23 @@
                 "case7_p1": "We empower traditional Lean Management with AI. Our AI assistant guides users to identify the eight wastes, draw Value Stream Maps (VSM), and pinpoint bottlenecks.",
                 "case7_p2": "Leveraging AI's analytical capabilities, this tool assists in balancing production lines and optimizing standard work. It transforms lean principles into a data-driven, intelligent system for continuous improvement, effectively helping clients eliminate waste and create more value.",
                 "case7_button": "Experience Lean AI Assistant",
+                "downloads_title": "Course Proposals & Files Download",
+                "downloads_subtitle": "Feel free to download our course proposals to learn more details.",
+                "download1_title": "Systemic Thinking for Problem Analysis & Solving + AI_Course Proposal (2 Days)",
+                "download1_type": "File Type: Microsoft Word",
+                "download2_title": "Inventory Management + AI Assistant_Course Proposal.docx",
+                "download2_type": "File Type: Microsoft Word",
+                "download3_title": "Systemic Thinking & Innovation + AI_Course Proposal.docx",
+                "download3_type": "File Type: Microsoft Word",
+                "download4_title": "Finance for Non-Financial Managers + AI_Course Proposal.docx",
+                "download4_type": "File Type: Microsoft Word",
+                "download5_title": "Project Management + AI_Course Proposal.docx",
+                "download5_type": "File Type: Microsoft Word",
+                "download6_title": "Data-Driven Decision Making + AI Assistant_Course Proposal.docx",
+                "download6_type": "File Type: Microsoft Word",
+                "download7_title": "Lean Management + AI Assistant_Course Proposal.docx",
+                "download7_type": "File Type: Microsoft Word",
+                "download_button": "Download",
                 "contact_title": "Contact Us",
                 "contact_subtitle": "Ready to inject AI-driven growth momentum into your business? <br>Please fill out the form on the right, or contact us directly through the methods below.",
                 "contact_direct_title": "Direct Contact",
@@ -481,10 +636,12 @@
                 "nav_about": "關於我們",
                 "nav_services": "核心服務",
                 "nav_cases": "成功案例",
+                "nav_downloads": "課程下載",
                 "nav_contact": "聯絡我們",
                 "nav_about_mobile": "關於我們",
                 "nav_services_mobile": "核心服務",
                 "nav_cases_mobile": "成功案例",
+                "nav_downloads_mobile": "課程下載",
                 "nav_contact_mobile": "聯絡我們",
                 "hero_title": "用 流程, 邏輯, 數據 + AI，解決企業的問題",
                 "hero_subtitle": "專注於問題解決, 風險管理, 大數據, 財會, 專案管理, 策略思考與精實並結合AI運用",
@@ -540,6 +697,23 @@
                 "case7_p1": "我們將傳統的精實管理賦予AI動能。我們的AI助理能引導使用者識別八大浪費、繪製價值流圖(VSM)並找出瓶頸。",
                 "case7_p2": "透過AI的分析能力，此工具能協助進行產線平衡與標準作業的優化。這將精實原則轉化為數據驅動的智慧改善系統，有效協助客戶消除浪費、創造更高價值。",
                 "case7_button": "體驗精實管理AI助理",
+                "downloads_title": "課程提案與檔案下載",
+                "downloads_subtitle": "歡迎下載我們的課程提案，了解更多詳細資訊。",
+                "download1_title": "系統性思考問題分析與解決+AI_課程提案(2 Days)",
+                "download1_type": "文件類型：Microsoft Word",
+                "download2_title": "庫存管理 + AI 助理_課程提案.docx",
+                "download2_type": "文件類型：Microsoft Word",
+                "download3_title": "系統思維與創新+AI_課程提案.docx",
+                "download3_type": "文件類型：Microsoft Word",
+                "download4_title": "非財會主管的財會+AI_課程提案.docx",
+                "download4_type": "文件類型：Microsoft Word",
+                "download5_title": "專案管理+AI_課程提案.docx",
+                "download5_type": "文件類型：Microsoft Word",
+                "download6_title": "數據驅動決策 + AI 助理_課程提案.docx",
+                "download6_type": "文件類型：Microsoft Word",
+                "download7_title": "精實管理 + AI 助理_課程提案.docx",
+                "download7_type": "文件類型：Microsoft Word",
+                "download_button": "下載",
                 "contact_title": "聯絡我們",
                 "contact_subtitle": "準備好為您的企業注入 AI 驅動的成長動能了嗎？ <br>請填寫右方表單，或透過以下方式直接與我們聯繫。",
                 "contact_direct_title": "直接聯繫",
@@ -562,10 +736,12 @@
                 "nav_about": "关于我们",
                 "nav_services": "核心服务",
                 "nav_cases": "成功案例",
+                "nav_downloads": "课程下载",
                 "nav_contact": "联系我们",
                 "nav_about_mobile": "关于我们",
                 "nav_services_mobile": "核心服务",
                 "nav_cases_mobile": "成功案例",
+                "nav_downloads_mobile": "课程下载",
                 "nav_contact_mobile": "联系我们",
                 "hero_title": "用 流程, 逻辑, 数据 + AI，解决企业的问题",
                 "hero_subtitle": "专注于问题解决, 风险管理, 大数据, 财会, 项目管理, 策略思考与精实并结合AI运用",
@@ -621,6 +797,23 @@
                 "case7_p1": "我们将传统的精实管理赋予AI动能。我们的AI助理能引导使用者识别八大浪费、绘制价值流图(VSM)并找出瓶颈。",
                 "case7_p2": "透过AI的分析能力，此工具能协助进行产线平衡与标准作业的优化。这将精实原则转化为数据驱动的智慧改善系统，有效协助客户消除浪费、创造更高价值。",
                 "case7_button": "体验精实管理AI助理",
+                "downloads_title": "课程提案与文件下载",
+                "downloads_subtitle": "欢迎下载我们的课程提案，了解更多详细信息。",
+                "download1_title": "系统性思考问题分析与解决+AI_课程提案(2 Days)",
+                "download1_type": "文件类型：Microsoft Word",
+                "download2_title": "库存管理 + AI 助理_课程提案.docx",
+                "download2_type": "文件类型：Microsoft Word",
+                "download3_title": "系统思维与创新+AI_课程提案.docx",
+                "download3_type": "文件类型：Microsoft Word",
+                "download4_title": "非财会主管的财会+AI_课程提案.docx",
+                "download4_type": "文件类型：Microsoft Word",
+                "download5_title": "专案管理+AI_课程提案.docx",
+                "download5_type": "文件类型：Microsoft Word",
+                "download6_title": "数据驱动决策 + AI 助理_课程提案.docx",
+                "download6_type": "文件类型：Microsoft Word",
+                "download7_title": "精实管理 + AI 助理_课程提案.docx",
+                "download7_type": "文件类型：Microsoft Word",
+                "download_button": "下载",
                 "contact_title": "联系我们",
                 "contact_subtitle": "准备好为您的企业注入 AI 驱动的成长动能了吗？ <br>请填写右方表单，或透过以下方式直接与我们联系。",
                 "contact_direct_title": "直接联系",
@@ -690,6 +883,24 @@
                              mobileMenu.classList.add('hidden');
                         }
                     }
+                });
+            });
+
+            // Accordion logic for downloads
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const accordionContent = header.nextElementSibling;
+
+                    // Toggle active class for styling the icon
+                    header.classList.toggle('active');
+
+                    // Toggle the content panel's visibility with a smooth transition
+                    if (accordionContent.style.maxHeight) {
+                        accordionContent.style.maxHeight = null;
+                    } else {
+                        accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+                    } 
                 });
             });
 
