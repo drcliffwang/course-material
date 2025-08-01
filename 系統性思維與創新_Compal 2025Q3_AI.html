@@ -291,7 +291,7 @@
 
                 <div class="content-block">
                     <h4 data-lang-key="foundation_h4_4">四個步驟: PDCA & IDEA</h4>
-                    <p data-lang-key="foundation_p_4">系統性思維的實踐，可以透過兩種循環流程來體現：左腦的 PDCA 用於邏輯問題的處理與持續改善；右腦的 IDEA 框架則用於創意的激發與創新機會的探索。兩者交互運用，形成完整的思考閉環。</p>
+                    <p data-lang-key="foundation_p_4">系統性思維的實踐，可以透過兩種循環流程來體現：左腦的 PDCA 用於 logique 問題的處理與持續改善；右腦的 IDEA 框架則用於創意的激發與創新機會的探索。兩者交互運用，形成完整的思考閉環。</p>
                 </div>
 
                 <div class="content-block">
@@ -570,7 +570,7 @@
 
 
         <!-- Conclusion Section -->
-        <section id="conclusion" class="text-center">
+        <section id="conclusion" class="text-center mb-24">
             <h2 class="section-title" data-lang-key="conclusion_title">結論與討論</h2>
             <div class="card max-w-4xl mx-auto">
                  <div class="mb-6 p-2 border rounded-lg bg-gray-100">
@@ -590,6 +590,22 @@
                     <p class="text-lg text-gray-700" data-lang-key="conclusion_p_1">AI 輔助系統思維, 會由議題層直接跳至結論層, 人能力下降, 所以要以人腦智慧為主, 人工智能AI 為輔。</p>
                 </div>
             </div>
+            
+            <!-- File Download Section -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4" data-lang-key="download_section_title">課程資源下載</h3>
+                <div class="flex justify-center">
+                    <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/PSDM%20Excel%20Template.xlsx" 
+                       class="inline-flex items-center px-8 py-4 bg-green-600 text-white font-bold text-lg rounded-lg shadow-lg hover:bg-green-700 transition-transform transform hover:scale-105"
+                       download>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        <span data-lang-key="download_button_text">下載 PSDM Excel 範本</span>
+                    </a>
+                </div>
+            </div>
+            
         </section>
     </main>
 
@@ -736,6 +752,8 @@
             'conclusion_li_4': '四個步驟分成 PDCA 與 IDEA 之交互並用與 AI 協作',
             'conclusion_li_5': '五個AI強化運用應用場景: 資源/問題/風險/決策/創意',
             'conclusion_p_1': 'AI 輔助系統思維, 會由議題層直接跳至結論層, 人能力下降, 所以要以人腦智慧為主, 人工智能AI 為輔。',
+            'download_section_title': '課程資源下載',
+            'download_button_text': '下載 PSDM Excel 範本',
             'footer_text': '&copy; 2025 Systemic Thinking & Innovation + AI Course Material. All Rights Reserved.',
             'alert_save_success': 'API 金鑰已儲存！您現在選擇的服務是',
             'alert_save_endpoint_success': 'API 金鑰與 Endpoint 已儲存！您現在選擇的服務是',
@@ -885,6 +903,8 @@
             'conclusion_li_4': '四个步骤分成 PDCA 与 IDEA 之交互并用与 AI 协作',
             'conclusion_li_5': '五个AI强化运用应用场景: 资源/问题/风险/决策/创意',
             'conclusion_p_1': 'AI 辅助系统思维, 会由议题层直接跳至结论层, 人能力下降, 所以要以人脑智慧为主, 人工智能AI 为辅。',
+            'download_section_title': '课程资源下载',
+            'download_button_text': '下载 PSDM Excel 模板',
             'footer_text': '&copy; 2025 Systemic Thinking & Innovation + AI Course Material. All Rights Reserved.',
             'alert_save_success': 'API 密钥已储存！您现在选择的服务是',
             'alert_save_endpoint_success': 'API 密钥与 Endpoint 已储存！您现在选择的服务是',
@@ -989,7 +1009,7 @@
         let system_prompt_content = currentLang === 'zh-CN' ? "你是一位专业的顾问，请使用简体中文回答。" : "你是一位專業的顧問，請使用繁體中文回答。";
 
         if (provider === 'gemini') {
-            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
             body = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
         } else if (provider === 'deepseek') {
             apiUrl = 'https://api.deepseek.com/v1/chat/completions';
