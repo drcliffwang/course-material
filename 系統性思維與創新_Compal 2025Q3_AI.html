@@ -291,7 +291,7 @@
 
                 <div class="content-block">
                     <h4 data-lang-key="foundation_h4_4">四個步驟: PDCA & IDEA</h4>
-                    <p data-lang-key="foundation_p_4">系統性思維的實踐，可以透過兩種循環流程來體現：左腦的 PDCA 用於 logique 問題的處理與持續改善；右腦的 IDEA 框架則用於創意的激發與創新機會的探索。兩者交互運用，形成完整的思考閉環。</p>
+                    <p data-lang-key="foundation_p_4">系統性思維的實踐，可以透過兩種循環流程來體現：左腦的 PDCA 用於邏輯問題的處理與持續改善；右腦的 IDEA 框架則用於創意的激發與創新機會的探索。兩者交互運用，形成完整的思考閉環。</p>
                 </div>
 
                 <div class="content-block">
@@ -553,11 +553,11 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="toolbox-input" class="block mb-2 font-semibold text-gray-700" data-lang-key="toolbox_input_label">2. 請在此輸入您的情境、問題或主題：</label>
-                            <div class="relative">
-                                <textarea id="toolbox-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" rows="5"></textarea>
-                                <button onclick="loadExample()" class="absolute top-2 right-2 px-3 py-1 bg-gray-200 text-gray-700 text-xs font-semibold rounded hover:bg-gray-300 transition-colors" data-lang-key="toolbox_load_example_btn">載入範例</button>
+                            <div class="flex justify-between items-center mb-2">
+                                <label for="toolbox-input" class="font-semibold text-gray-700" data-lang-key="toolbox_input_label">2. 請在此輸入您的情境、問題或主題：</label>
+                                <button onclick="loadExample()" class="px-3 py-1 bg-gray-200 text-gray-700 text-xs font-semibold rounded hover:bg-gray-300 transition-colors" data-lang-key="toolbox_load_example_btn">載入範例</button>
                             </div>
+                            <textarea id="toolbox-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" rows="5"></textarea>
                         </div>
                         <button onclick="handleAIToolbox()" class="mt-2 px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75" data-lang-key="toolbox_submit_btn">
                             ✨ 啟動 AI 分析
@@ -994,50 +994,119 @@
             } else {
                  alert(`${translations[currentLang].alert_save_success} ${apiProvider.toUpperCase()}。`);
             }
-            keyInput.value = ''; // Clear for security
+            // Do not clear the key for user convenience during a single session.
+            // keyInput.value = ''; 
         } else {
             alert(translations[currentLang].alert_key_needed);
         }
     }
 
-    // --- AI Interaction Logic ---
+    // --- AI Interaction Logic (REVISED) ---
 
     async function callAI(prompt, apiKey, provider, endpoint) {
         let apiUrl = '';
         let headers = { 'Content-Type': 'application/json' };
         let body = {};
-        let system_prompt_content = currentLang === 'zh-CN' ? "你是一位专业的顾问，请使用简体中文回答。" : "你是一位專業的顧問，請使用繁體中文回答。";
+        const system_prompt_content = currentLang === 'zh-CN' ? "你是一位专业的顾问，请使用简体中文回答。" : "你是一位專業的顧問，請使用繁體中文回答。";
 
-        if (provider === 'gemini') {
-            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
-            body = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-        } else if (provider === 'deepseek') {
-            apiUrl = 'https://api.deepseek.com/v1/chat/completions';
-            headers['Authorization'] = `Bearer ${apiKey}`;
-            body = { model: "deepseek-chat", messages: [{ role: "system", content: system_prompt_content }, { role: "user", content: prompt }] };
-        } else if (provider === 'chatgpt') {
-            apiUrl = 'https://api.openai.com/v1/chat/completions';
-            headers['Authorization'] = `Bearer ${apiKey}`;
-            body = { model: "gpt-3.5-turbo", messages: [{ role: "system", content: system_prompt_content }, { role: "user", content: prompt }] };
-        } else if (provider === 'copilot') {
-            apiUrl = endpoint;
-            headers['api-key'] = apiKey;
-            body = { messages: [{ role: "system", content: system_prompt_content }, { role: "user", content: prompt }] };
+        // Configure based on the selected provider
+        switch (provider) {
+            case 'gemini':
+                // CORRECT: API Key in URL parameter. Using a recent model.
+                apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+                body = { 
+                    contents: [{ 
+                        role: "user", 
+                        parts: [{ text: prompt }] 
+                    }],
+                    systemInstruction: {
+                        role: "system",
+                        parts: [{ text: system_prompt_content }]
+                    }
+                };
+                break;
+
+            case 'deepseek':
+                // CORRECT: API Key in Authorization header as Bearer token.
+                apiUrl = 'https://api.deepseek.com/v1/chat/completions';
+                headers['Authorization'] = `Bearer ${apiKey}`;
+                body = { 
+                    model: "deepseek-chat", 
+                    messages: [
+                        { role: "system", content: system_prompt_content },
+                        { role: "user", content: prompt }
+                    ] 
+                };
+                break;
+
+            case 'chatgpt':
+                // CORRECT: API Key in Authorization header as Bearer token. Using a recent model.
+                apiUrl = 'https://api.openai.com/v1/chat/completions';
+                headers['Authorization'] = `Bearer ${apiKey}`;
+                body = { 
+                    model: "gpt-4o-mini", 
+                    messages: [
+                        { role: "system", content: system_prompt_content },
+                        { role: "user", content: prompt }
+                    ] 
+                };
+                break;
+
+            case 'copilot':
+                // CORRECT: API Key in 'api-key' header. URL must include api-version.
+                // The user's endpoint should be the base URL including their deployment name.
+                // e.g., https://my-resource.openai.azure.com/openai/deployments/my-deployment
+                if (!endpoint) {
+                    return "錯誤：使用 Copilot (Azure) 時必須提供 Endpoint URL。";
+                }
+                apiUrl = `${endpoint}/chat/completions?api-version=2024-02-01`;
+                headers['api-key'] = apiKey;
+                body = { 
+                    messages: [
+                        { role: "system", content: system_prompt_content },
+                        { role: "user", content: prompt }
+                    ] 
+                };
+                break;
+            
+            default:
+                return "錯誤：未知的 AI 服務提供商。";
         }
 
         try {
             const response = await fetch(apiUrl, { method: 'POST', headers: headers, body: JSON.stringify(body) });
+            
             if (!response.ok) {
-                const errorBody = await response.text();
-                throw new Error(`API 請求失敗，狀態碼： ${response.status}. ${errorBody}`);
+                // Try to parse the error message from the API for better feedback
+                let errorDetails = `API 請求失敗，狀態碼： ${response.status}`;
+                try {
+                    const errorBody = await response.json();
+                    // Prettify the JSON error for readability
+                    errorDetails += `\n<pre class="bg-gray-200 p-2 rounded mt-2 text-sm text-left">${JSON.stringify(errorBody, null, 2)}</pre>`;
+                } catch (e) {
+                    // If the error body isn't JSON, just show the raw text
+                    errorDetails += `. ${await response.text()}`;
+                }
+                throw new Error(errorDetails);
             }
+
             const result = await response.json();
-            if (provider === 'gemini') return result.candidates?.[0]?.content?.parts?.[0]?.text || "AI 回應格式有誤。";
-            if (provider === 'deepseek' || provider === 'chatgpt' || provider === 'copilot') return result.choices?.[0]?.message?.content || "AI 回應格式有誤。";
-            return "抱歉，AI 回應的格式有誤，請稍後再試。";
+            
+            // Extract content based on provider's response structure
+            switch (provider) {
+                case 'gemini':
+                    return result.candidates?.[0]?.content?.parts?.[0]?.text || "AI 回應格式有誤或為空。";
+                case 'deepseek':
+                case 'chatgpt':
+                case 'copilot':
+                    return result.choices?.[0]?.message?.content || "AI 回應格式有誤或為空。";
+                default:
+                    return "抱歉，AI 回應的格式有誤，請稍後再試。";
+            }
         } catch (error) {
             console.error("Error calling AI API:", error);
-            return `無法連接至 AI 服務。請檢查您的網路連線或 API 金鑰是否正確。\n錯誤詳情: ${error.message}`;
+            // The error message is now more detailed from the 'throw' statement above
+            return `無法連接至 AI 服務。請檢查您的網路連線或 API 金鑰是否正確。<br><br><b>錯誤詳情:</b><br>${error.message}`;
         }
     }
 
@@ -1189,7 +1258,7 @@
         'zh-TW': {
             'q1-foundation': '這個陳述提供了「為什麼」年輕人害怕成家的理由（離婚率、房價），這屬於支持結論的論點，因此是論證邏輯層。',
             'q2-foundation': '這是從數個「特定」的成功案例（個案），推導出一個「一般性」的結論（未來都該這樣做），屬於歸納法的應用。',
-            'q1-idea-id': '顧客輪廓（包含痛點、爽點、任務）是為了深入了解使用者，以發掘未被滿足的需求，這正是 Insight 階段的核心任務。',
+            'q1-idea-id': '顧客輪廓（包含痛点、爽點、任務）是為了深入了解使用者，以發掘未被滿足的需求，這正是 Insight 階段的核心任務。',
             'q2-idea-id': '這是將一個技術從「工業場域」轉移到「家庭場域」，是一個典型的空間(Where)應用轉移。',
             'q1-idea-e': '將手機(通訊功能)與相機(拍照功能)「結合」在一起，創造出新的產品，是 Combine 的典型應用。',
             'q2-idea-e': 'TRIZ 理論認為，創新的本質是解決系統中存在的矛盾（例如 A 變好，B 卻變差），並提供了系統化的原則來克服這些矛盾。',
