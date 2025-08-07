@@ -79,8 +79,8 @@
             font-family: 'Noto Sans TC', sans-serif;
         }
         .ai-output table { margin-top: 1rem; margin-bottom: 1rem; border-collapse: collapse; width: 100%; }
-        .ai-output th, .ai-output td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        .ai-output th { background-color: #f2f2f2; }
+        .ai-output th, .ai-output td { border: 1px solid #d1d5db; padding: 0.5rem; text-align: left; }
+        .ai-output th { background-color: #f9fafb; }
         .ai-output h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; }
         .ai-output ul { list-style-type: disc; padding-left: 1.5rem; }
         .ai-output ol { list-style-type: decimal; padding-left: 1.5rem; }
@@ -765,13 +765,14 @@ D8: 團隊肯定,持續改善
             } else {
                  alert(`API 金鑰已儲存！您現在選擇的服務是 ${apiProvider.toUpperCase()}。`);
             }
-            keyInput.value = ''; // Clear for security
+            // Do not clear the key input for user convenience during a session.
+            // keyInput.value = ''; 
         } else {
             alert('請輸入有效的 API 金鑰。');
         }
     }
 
-    // --- NEW: Load Example Text Logic ---
+    // --- Load Example & Dynamic Placeholder Logic ---
     const examplePlaceholders = {
         strategy: "我們的備品倉庫呆滯料金額一直降不下來，但同時產線又時常因為缺料而停線...",
         analysis: `料號A,500,10,12,11,10,13,11,10,12,11,10,12,11
@@ -824,7 +825,7 @@ D2: 描述問題 (5W2H)
     document.querySelectorAll('input[name="forecast-method"]').forEach(radio => {
         radio.addEventListener('change', () => {
              updateForecastPlaceholder();
-             forecastingInput.value = ''; // Clear input when changing method
+             if (forecastingInput) forecastingInput.value = ''; // Clear input when changing method
         });
     });
     
@@ -832,93 +833,127 @@ D2: 描述問題 (5W2H)
         updateForecastPlaceholder();
     });
 
+    // --- AI Interaction Logic (REVISED & ROBUST) ---
 
-    // --- AI Interaction Logic ---
-
-    // Generic function to call the selected AI API
+    /**
+     * A robust function to call the selected AI API with better error handling.
+     * @param {string} prompt - The user's prompt.
+     * @param {string} apiKey - The user's API key.
+     * @param {string} provider - The selected AI provider ('gemini', 'deepseek', etc.).
+     * @param {string} endpoint - The endpoint URL for Azure/Copilot.
+     * @returns {Promise<{success: boolean, text?: string, error?: string}>} - A promise that resolves to an object indicating success or failure.
+     */
     async function callAI(prompt, apiKey, provider, endpoint) {
         let apiUrl = '';
         let headers = { 'Content-Type': 'application/json' };
         let body = {};
         const system_prompt = "你是一位精通供應鏈管理、庫存優化與數據科學的頂尖顧問，請使用繁體中文，以專業、結構化的方式回答使用者的問題。";
 
-        // Prepare the request based on the provider
-        if (provider === 'gemini') {
-            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-            body = { 
-                contents: [{ role: "user", parts: [{ text: prompt }] }],
-                systemInstruction: { parts: [{ text: system_prompt }] }
-            };
-        } else if (provider === 'deepseek') {
-            apiUrl = 'https://api.deepseek.com/v1/chat/completions';
-            headers['Authorization'] = `Bearer ${apiKey}`;
-            body = {
-                model: "deepseek-chat",
-                messages: [
-                    { role: "system", content: system_prompt },
-                    { role: "user", content: prompt }
-                ]
-            };
-        } else if (provider === 'chatgpt') {
-            apiUrl = 'https://api.openai.com/v1/chat/completions';
-            headers['Authorization'] = `Bearer ${apiKey}`;
-            body = {
-                model: "gpt-4o",
-                messages: [
-                    { role: "system", content: system_prompt },
-                    { role: "user", content: prompt }
-                ]
-            };
-        } else if (provider === 'copilot') {
-            apiUrl = endpoint; // The user provides the full endpoint URL
-            headers['api-key'] = apiKey;
-            body = {
-                messages: [
-                    { role: "system", content: system_prompt },
-                    { role: "user", content: prompt }
-                ]
-            };
-        }
-
-
         try {
+            // Prepare the request based on the provider
+            switch (provider) {
+                case 'gemini':
+                    apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+                    body = {
+                        contents: [{ role: "user", parts: [{ text: prompt }] }],
+                        systemInstruction: { parts: [{ text: system_prompt }] },
+                        safetySettings: [
+                            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        ]
+                    };
+                    break;
+                case 'deepseek':
+                    apiUrl = 'https://api.deepseek.com/v1/chat/completions';
+                    headers['Authorization'] = `Bearer ${apiKey}`;
+                    body = {
+                        model: "deepseek-chat",
+                        messages: [
+                            { role: "system", content: system_prompt },
+                            { role: "user", content: prompt }
+                        ]
+                    };
+                    break;
+                case 'chatgpt':
+                    apiUrl = 'https://api.openai.com/v1/chat/completions';
+                    headers['Authorization'] = `Bearer ${apiKey}`;
+                    body = {
+                        model: "gpt-4o",
+                        messages: [
+                            { role: "system", content: system_prompt },
+                            { role: "user", content: prompt }
+                        ]
+                    };
+                    break;
+                case 'copilot':
+                    apiUrl = endpoint;
+                    headers['api-key'] = apiKey;
+                    body = {
+                        messages: [
+                            { role: "system", content: system_prompt },
+                            { role: "user", content: prompt }
+                        ]
+                    };
+                    break;
+                default:
+                    return { success: false, error: '未知的 AI 服務提供商。' };
+            }
+
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(body)
             });
 
+            const result = await response.json();
+
             if (!response.ok) {
-                const errorBody = await response.text();
-                throw new Error(`API 請求失敗，狀態碼： ${response.status}. ${errorBody}`);
+                const errorMsg = result?.error?.message || JSON.stringify(result);
+                throw new Error(`API 請求失敗 (狀態碼 ${response.status}): ${errorMsg}`);
             }
 
-            const result = await response.json();
-            
-            // Parse the response based on the provider
             if (provider === 'gemini') {
-                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
-                    return result.candidates[0].content.parts[0].text;
+                if (result.promptFeedback?.blockReason) {
+                    return { success: false, error: `請求因安全因素被阻擋：${result.promptFeedback.blockReason}` };
                 }
-            } else if (provider === 'deepseek' || provider === 'chatgpt' || provider === 'copilot') {
+                if (result.candidates && result.candidates.length > 0) {
+                    const candidate = result.candidates[0];
+                    if (candidate.finishReason !== "STOP" && candidate.finishReason !== "MAX_TOKENS") {
+                         return { success: false, error: `AI 回應因 '${candidate.finishReason}' 而中止。請檢查您的提示或 API 設定。` };
+                    }
+                    if (candidate.content?.parts[0]?.text) {
+                        return { success: true, text: candidate.content.parts[0].text };
+                    }
+                }
+                return { success: false, error: 'AI 回應格式有誤或為空 (Gemini)。' };
+            } else { // For OpenAI-compatible APIs
                 if (result.choices && result.choices[0]?.message?.content) {
-                    return result.choices[0].message.content;
+                    return { success: true, text: result.choices[0].message.content };
                 }
+                if (result.choices && result.choices[0]?.finish_reason) {
+                     return { success: false, error: `AI 回應因 '${result.choices[0].finish_reason}' 而中止。` };
+                }
+                return { success: false, error: 'AI 回應格式有誤或為空。' };
             }
-            
-            // Handle unexpected structures or errors
-            console.error("Unexpected API response structure:", result);
-            if (result.error) return `發生錯誤：${result.error.message}`;
-            if (result.promptFeedback?.blockReason) return `您的請求被阻擋，原因：${result.promptFeedback.blockReason}.`;
-            return "抱歉，AI 回應的格式有誤，請稍後再試。";
 
         } catch (error) {
             console.error("Error calling AI API:", error);
-            return `無法連接至 AI 服務。請檢查您的網路連線或 API 金鑰是否正確。\n錯誤詳情: ${error.message}`;
+            let friendlyError = `無法連接至 AI 服務。請檢查您的網路連線、API 金鑰及 Endpoint (如適用) 是否正確。`;
+            if (error.message.includes("API 請求失敗")) {
+                friendlyError = error.message; 
+            } else if (error.name === 'TypeError') {
+                friendlyError += ' 可能的原因是網路問題或 CORS 跨域錯誤。'
+            }
+            return { success: false, error: friendlyError };
         }
     }
 
-    // Main handler for single-turn AI interactions
+    /**
+     * Main handler for single-turn AI interactions.
+     * Uses the new callAI function and handles UI updates.
+     */
     async function handleAI(type) {
         if (apiProvider === 'copilot' && (!userApiKey || !userEndpointUrl)) {
             alert('請先在頁面上方的「啟動 AI 互動功能」區塊輸入並儲存您的 API 金鑰與 Azure Endpoint！');
@@ -944,6 +979,8 @@ D2: 描述問題 (5W2H)
         outputElement.classList.remove('hidden');
 
         let prompt = '';
+        // This switch statement generates the specific prompt for each analysis type.
+        // It remains unchanged from the original logic.
         switch (type) {
             case 'strategy':
                 prompt = `你是一位資深供應鏈顧問。請基於 3T (Lead Time, WIP/Turnover, Productivity) 與 ESG 原則，分析以下使用者描述的庫存管理痛點，並提出具體的策略性建議。請以結構化、條列式的方式呈現。使用者情境：\n\n${userInput}`;
@@ -967,8 +1004,17 @@ D2: 描述問題 (5W2H)
                 break;
         }
         
-        const aiResponse = await callAI(prompt, userApiKey, apiProvider, userEndpointUrl);
-        outputElement.innerHTML = marked.parse(aiResponse);
+        const result = await callAI(prompt, userApiKey, apiProvider, userEndpointUrl);
+
+        if (result.success) {
+            outputElement.innerHTML = marked.parse(result.text);
+        } else {
+            // Display a formatted error message
+            outputElement.innerHTML = `<div class="p-4 bg-red-100 border border-red-300 text-red-800 rounded-lg">
+                <p class="font-bold">發生錯誤</p>
+                <p class="mt-2 text-sm">${result.error}</p>
+            </div>`;
+        }
     }
 
     // --- Quiz Logic ---
