@@ -180,7 +180,7 @@
             <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">一門結合經典精實思維與現代 AI 技術的實戰課程，助您消除浪費，創造價值。</p>
             
             <div class="mt-6 flex justify-center items-center space-x-4">
-                <img src="https://raw.githubusercontent.com/drcliffwang/course-material/main/Cliff%20Baby%20Pic%20by%20GPT.png" alt="講師照片" class="rounded-full w-20 h-20 object-cover shadow-md">
+                <img src="https://raw.githubusercontent.com/drcliffwang/course-material/main/Cliff%20Baby%20Pic%20by%20GPT.png" alt="講師照片" class="rounded-full w-20 h-20 object-cover shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/80x80/f0f9ff/3b82f6?text=Image';">
                 <div>
                     <p class="text-lg font-semibold text-gray-700 text-left">Cliff Wang, Ph.D.</p>
                     <p class="text-sm text-gray-500 text-left">dr.cliffwang@a2psdm.com</p>
@@ -208,7 +208,7 @@
                         <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="gemini" checked> Google Gemini</label>
                         <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="deepseek"> Deepseek</label>
                         <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="chatgpt"> ChatGPT (OpenAI)</label>
-                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="copilot"> Copilot (Microsoft)</label>
+                        <label class="cursor-pointer"><input class="mr-1" type="radio" name="api-provider" value="copilot"> Copilot (Azure)</label>
                     </div>
                 </div>
 
@@ -601,7 +601,7 @@
 
         if (keyInput.value.trim()) {
             userApiKey = keyInput.value.trim();
-            // Store in sessionStorage for transfer
+            // Use sessionStorage to hold the key for the current session
             sessionStorage.setItem('userApiKey', userApiKey);
             sessionStorage.setItem('apiProvider', apiProvider);
 
@@ -629,18 +629,30 @@
         let apiUrl = '';
         let headers = { 'Content-Type': 'application/json' };
         let body = {};
+        const systemPrompt = "你是一位專業的精實管理顧問，請使用繁體中文回答。";
 
         // Prepare the request based on the provider
         if (provider === 'gemini') {
-            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            body = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+            // FIX: Use a stable and recommended model name
+            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash?key=${apiKey}`;
+            body = { 
+                contents: [{ 
+                    role: "user", 
+                    parts: [{ text: prompt }] 
+                }],
+                // Add system instruction for better context
+                systemInstruction: {
+                    role: "system",
+                    parts: [{ text: systemPrompt }]
+                }
+            };
         } else if (provider === 'deepseek') {
             apiUrl = 'https://api.deepseek.com/v1/chat/completions';
             headers['Authorization'] = `Bearer ${apiKey}`;
             body = {
                 model: "deepseek-chat",
                 messages: [
-                    { role: "system", content: "你是一位專業的顧問，請使用繁體中文回答。" },
+                    { role: "system", content: systemPrompt },
                     { role: "user", content: prompt }
                 ]
             };
@@ -650,7 +662,8 @@
             body = {
                 model: "gpt-3.5-turbo",
                 messages: [
-                    { role: "system", content: "You are a helpful assistant. Please respond in Traditional Chinese." },
+                    // FIX: Use consistent Traditional Chinese system prompt
+                    { role: "system", content: systemPrompt },
                     { role: "user", content: prompt }
                 ]
             };
@@ -659,7 +672,8 @@
             headers['api-key'] = apiKey;
             body = {
                 messages: [
-                    { role: "system", content: "You are a helpful assistant. Please respond in Traditional Chinese." },
+                    // FIX: Use consistent Traditional Chinese system prompt
+                    { role: "system", content: systemPrompt },
                     { role: "user", content: prompt }
                 ]
             };
@@ -729,13 +743,13 @@
         let prompt = '';
         switch (type) {
             case 'wastes':
-                prompt = `你是一位資深的精實生產顧問，請使用八大浪費(DOWNTIME: Defects, Overproduction, Waiting, Non-utilized talent, Transportation, Inventory, Motion, Extra-processing)的框架，分析以下使用者描述的流程，並找出潛在的浪費點，提出具體的改善建議。請將結果以 Markdown 表格呈現。請用繁體中文回答。\n\n使用者流程：${userInput}`;
+                prompt = `請使用八大浪費(DOWNTIME: Defects, Overproduction, Waiting, Non-utilized talent, Transportation, Inventory, Motion, Extra-processing)的框架，分析以下使用者描述的流程，並找出潛在的浪費點，提出具體的改善建議。請將結果以 Markdown 表格呈現。\n\n使用者流程：${userInput}`;
                 break;
             case 'vsm':
-                prompt = `你是一位精實管理專家，請協助我為以下描述的流程，建立一個初步的價值流圖(Value Stream Map)分析。請根據我的描述，識別出主要的加工程序、庫存點(I)，並計算總前置時間(Lead Time)與總加工時間(Processing Time)。最後，請以文字描述和 Markdown 表格呈現這個價值流的分析結果，並指出改善機會。請用繁體中文回答。\n\n使用者流程描述：${userInput}`;
+                prompt = `請協助我為以下描述的流程，建立一個初步的價值流圖(Value Stream Map)分析。請根據我的描述，識別出主要的加工程序、庫存點(I)，並計算總前置時間(Lead Time)與總加工時間(Processing Time)。最後，請以文字描述和 Markdown 表格呈現這個價值流的分析結果，並指出改善機會。\n\n使用者流程描述：${userInput}`;
                 break;
             case 'stdwork':
-                prompt = `你是一位資深的IE工程師，請協助我為以下任務進行產線平衡分析。請根據我描述的作業步驟與各步驟耗時，以及目標節拍時間(Takt Time)，分析瓶頸，並用ECRS原則提出工作重組建議，最後設計一份改善後的標準作業組合表(Standardized Work Combination Table)。請將結果以 Markdown 表格呈現。請用繁體中文回答。\n\n使用者任務描述：${userInput}`;
+                prompt = `你是一位資深的IE工程師，請協助我為以下任務進行產線平衡分析。請根據我描述的作業步驟與各步驟耗時，以及目標節拍時間(Takt Time)，分析瓶頸，並用ECRS原則提出工作重組建議，最後設計一份改善後的標準作業組合表(Standardized Work Combination Table)。請將結果以 Markdown 表格呈現。\n\n使用者任務描述：${userInput}`;
                 break;
         }
         
@@ -795,37 +809,6 @@
         const scoreEl = document.getElementById(`score-${type}`);
         scoreEl.textContent = `您的得分: ${score} / ${questions.length}`;
     }
-
-    // --- New script for API Key transfer ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const blueprintLink = document.getElementById('blueprint-link');
-        if (blueprintLink) {
-            blueprintLink.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent default link behavior before adding params
-
-                const apiKey = sessionStorage.getItem('userApiKey');
-                const provider = sessionStorage.getItem('apiProvider');
-                const endpoint = sessionStorage.getItem('userEndpointUrl');
-
-                if (!apiKey || !provider) {
-                    alert('請先在「啟動 AI 互動功能」區塊輸入並儲存您的 API 金鑰。');
-                    document.getElementById('api-key-input').focus();
-                    return;
-                }
-
-                let targetUrl = blueprintLink.href;
-                const params = new URLSearchParams();
-                params.append('apiKey', apiKey);
-                params.append('provider', provider);
-                if (provider === 'copilot' && endpoint) {
-                    params.append('endpoint', endpoint);
-                }
-
-                // Open the new page with API key as parameters
-                window.open(`${targetUrl}?${params.toString()}`, '_blank');
-            });
-        }
-    });
 
 </script>
 
