@@ -604,7 +604,6 @@
     let apiProvider = 'gemini'; // Default provider
     let userEndpointUrl = ''; // For Azure/Copilot
 
-    // Moved placeholders to global scope for access by multiple functions
     const placeholders = {
         dupont: "杜邦分析範例：\n公司A\n銷貨收入: 1000\n稅後淨利: 80\n總資產: 2000\n總股東權益: 1200",
         bep: "BEP範例：\n總固定成本: 350000\n單位售價: 10\n單位變動成本: 5.5\n預期銷售量: 100000",
@@ -642,13 +641,13 @@
             } else {
                  alert(`API 金鑰已儲存！您現在選擇的服務是 ${apiProvider.toUpperCase()}。`);
             }
-            keyInput.value = ''; // Clear for security
+            // Do not clear the key for user convenience during a single session.
+            // keyInput.value = '';
         } else {
             alert('請輸入有效的 API 金鑰。');
         }
     }
     
-    // --- NEW: Load Example Logic ---
     function loadExample(type) {
         const inputElement = document.getElementById(`${type}-input`);
         if (!inputElement) return;
@@ -656,88 +655,112 @@
         let exampleText = '';
         if (type === 'ai_toolbox') {
             const selectedValue = document.querySelector('input[name="analysis-type"]:checked').value;
-            // Do not load text for modes that open a new window
             if (selectedValue === 'competitor' || selectedValue === 'apple') {
                 return;
             }
             exampleText = placeholders[selectedValue] || '';
         } else {
-            // For other sections, get the placeholder directly
             exampleText = inputElement.placeholder;
         }
 
         if (exampleText) {
-            inputElement.value = exampleText;
-            // Optional: focus the textarea after loading
+            inputElement.value = exampleText.replace(/例如：/, '').trim();
             inputElement.focus();
         }
     }
 
-    // --- AI Interaction Logic ---
+    // --- AI Interaction Logic (REVISED & ROBUST) ---
+
+    /**
+     * A robust function to call the selected AI API with better error handling.
+     * @returns {Promise<{success: boolean, text?: string, error?: string}>}
+     */
     async function callAI(prompt, apiKey, provider, endpoint) {
         let apiUrl = '';
         let headers = { 'Content-Type': 'application/json' };
         let body = {};
-
-        if (provider === 'gemini') {
-            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            body = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-        } else if (provider === 'deepseek') {
-            apiUrl = 'https://api.deepseek.com/v1/chat/completions';
-            headers['Authorization'] = `Bearer ${apiKey}`;
-            body = { model: "deepseek-chat", messages: [{ role: "system", content: "你是一位專業的財務顧問，請使用繁體中文回答。" }, { role: "user", content: prompt }] };
-        } else if (provider === 'chatgpt') {
-            apiUrl = 'https://api.openai.com/v1/chat/completions';
-            headers['Authorization'] = `Bearer ${apiKey}`;
-            body = { model: "gpt-3.5-turbo", messages: [{ role: "system", content: "You are a professional financial consultant. Please respond in Traditional Chinese." }, { role: "user", content: prompt }] };
-        } else if (provider === 'copilot') {
-            apiUrl = endpoint;
-            headers['api-key'] = apiKey;
-            body = { messages: [{ role: "system", content: "You are a professional financial consultant. Please respond in Traditional Chinese." }, { role: "user", content: prompt }] };
-        }
+        const system_prompt = "你是一位專業的財務顧問，請使用繁體中文回答。";
 
         try {
+            switch (provider) {
+                case 'gemini':
+                    apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+                    body = {
+                        contents: [{ role: "user", parts: [{ text: prompt }] }],
+                        systemInstruction: { parts: [{ text: system_prompt }] },
+                        safetySettings: [
+                            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        ]
+                    };
+                    break;
+                case 'deepseek':
+                    apiUrl = 'https://api.deepseek.com/v1/chat/completions';
+                    headers['Authorization'] = `Bearer ${apiKey}`;
+                    body = { model: "deepseek-chat", messages: [{ role: "system", content: system_prompt }, { role: "user", content: prompt }] };
+                    break;
+                case 'chatgpt':
+                    apiUrl = 'https://api.openai.com/v1/chat/completions';
+                    headers['Authorization'] = `Bearer ${apiKey}`;
+                    body = { model: "gpt-4o-mini", messages: [{ role: "system", content: system_prompt }, { role: "user", content: prompt }] };
+                    break;
+                case 'copilot':
+                    apiUrl = endpoint;
+                    headers['api-key'] = apiKey;
+                    body = { messages: [{ role: "system", content: system_prompt }, { role: "user", content: prompt }] };
+                    break;
+                default:
+                    return { success: false, error: '未知的 AI 服務提供商。' };
+            }
+
             const response = await fetch(apiUrl, { method: 'POST', headers: headers, body: JSON.stringify(body) });
-            if (!response.ok) {
-                const errorBody = await response.text();
-                throw new Error(`API 請求失敗，狀態碼： ${response.status}. ${errorBody}`);
-            }
             const result = await response.json();
-            
-            if (provider === 'gemini') {
-                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) return result.candidates[0].content.parts[0].text;
-            } else if (['deepseek', 'chatgpt', 'copilot'].includes(provider)) {
-                if (result.choices && result.choices[0]?.message?.content) return result.choices[0].message.content;
+
+            if (!response.ok) {
+                const errorMsg = result?.error?.message || JSON.stringify(result);
+                throw new Error(`API 請求失敗 (狀態碼 ${response.status}): ${errorMsg}`);
             }
-            
-            console.error("Unexpected API response structure:", result);
-            if (result.error) return `發生錯誤：${result.error.message}`;
-            if (result.promptFeedback?.blockReason) return `您的請求被阻擋，原因：${result.promptFeedback.blockReason}.`;
-            return "抱歉，AI 回應的格式有誤，請稍後再試。";
+
+            if (provider === 'gemini') {
+                if (result.promptFeedback?.blockReason) {
+                    return { success: false, error: `請求因安全因素被阻擋：${result.promptFeedback.blockReason}` };
+                }
+                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
+                    return { success: true, text: result.candidates[0].content.parts[0].text };
+                }
+                return { success: false, error: 'AI 回應格式有誤或為空 (Gemini)。' };
+            } else {
+                if (result.choices && result.choices[0]?.message?.content) {
+                    return { success: true, text: result.choices[0].message.content };
+                }
+                return { success: false, error: 'AI 回應格式有誤或為空。' };
+            }
 
         } catch (error) {
             console.error("Error calling AI API:", error);
-            return `無法連接至 AI 服務。請檢查您的網路連線或 API 金鑰是否正確。\n錯誤詳情: ${error.message}`;
+            let friendlyError = `無法連接至 AI 服務。請檢查您的網路連線、API 金鑰及 Endpoint (如適用) 是否正確。`;
+            if (error.message.includes("API 請求失敗")) {
+                friendlyError = error.message; 
+            }
+            return { success: false, error: friendlyError };
         }
     }
 
     async function handleAI(type) {
-        // Handle the special cases for showcase links first
         if (type === 'ai_toolbox') {
             const selectedAnalysis = document.querySelector('input[name="analysis-type"]:checked').value;
             if (selectedAnalysis === 'competitor') {
-                const competitorURL = 'https://htmlpreview.github.io/?https://github.com/drcliffwang/course-material/blob/main/Competitor.html';
-                window.open(competitorURL, '_blank');
+                window.open('https://htmlpreview.github.io/?https://github.com/drcliffwang/course-material/blob/main/Competitor.html', '_blank');
                 return; 
             }
             if (selectedAnalysis === 'apple') {
-                const appleURL = 'https://htmlpreview.github.io/?https://github.com/drcliffwang/course-material/blob/main/Apple.html';
-                window.open(appleURL, '_blank');
+                window.open('https://htmlpreview.github.io/?https://github.com/drcliffwang/course-material/blob/main/Apple.html', '_blank');
                 return;
             }
         }
 
-        // Standard API key check
         if (apiProvider === 'copilot' && (!userApiKey || !userEndpointUrl)) {
             alert('請先在頁面上方的「啟動 AI 互動功能」區塊輸入並儲存您的 API 金鑰與 Azure Endpoint！');
             document.getElementById('api-key-input').focus();
@@ -774,26 +797,20 @@
                 if (selectedAnalysisModel === 'dupont') {
                     prompt = `你是一位頂尖的財務分析師，請使用杜邦分析 (DuPont Analysis) 的框架，解析以下使用者提供的財務數據。請計算出：\n1. 淨利率 (Net Profit Margin)\n2. 總資產週轉率 (Total Asset Turnover)\n3. 權益乘數 (Equity Multiplier)\n4. 股東權益報酬率 (ROE)\n\n最後，請以 Markdown 表格呈現分析結果，並根據數據給出提升 ROE 的初步策略建議。請用繁體中文回答。\n\n使用者數據：\n${userInput}`;
                 } else if (selectedAnalysisModel === 'bep') {
-                    prompt = `你是一位精通成本會計的分析師，請使用損益兩平點 (Break-Even Point) 分析法，解析以下使用者提供的數據。請計算出：\n1. 損益兩平點 (以銷售額表示)\n2. 損益兩平點 (以單位數量表示)\n3. 安全邊際 (Margin of Safety)\n\n請以 Markdown 表格呈現分析結果，並提供簡潔的管理洞見。請用繁體中文回答。\n\n使用者數據：${userInput}`;
+                    prompt = `你是一位精通成本會計的分析師，請使用損益兩平點 (Break-Even Point) 分析法，解析以下使用者提供的數據。請計算出：\n1. 損益兩平點 (以銷售額表示)\n2. 損益兩平點 (以單位數量表示)\n3. 安全邊際 (Margin of Safety)\n\n請以 Markdown 表格呈現分析結果，並提供簡潔的管理洞見。請用繁體中文回答。\n\n使用者數據：\n${userInput}`;
                 } else if (selectedAnalysisModel === 'payback') {
-                    // --- UPDATED PROMPT FOR PAYBACK ---
-                    prompt = `你是一位財務分析專家，請使用簡易投資回收期 (Payback Period) 分析法，評估以下投資案。請嚴格依照以下步驟計算：
-1.  根據「每年銷售收入」和「毛利率」計算出「毛利」。
-2.  根據「每年銷售收入」和「營業費用率」計算出「營業費用」。
-3.  計算「營業利益」(毛利 - 營業費用)。在簡易分析中，我們將其視為「每年的淨現金流入」。
-4.  計算「投資回收期」(初始投資 / 每年的淨現金流入)，結果請計算到小數點後兩位。
-5.  將回收期換算成年和月。
-
-請以 Markdown 表格呈現計算過程與結果，並提供簡潔的投資建議。請用繁體中文回答。
-
-使用者數據：
-${userInput}`;
+                    prompt = `你是一位財務分析專家，請使用簡易投資回收期 (Payback Period) 分析法，評估以下投資案。請嚴格依照以下步驟計算：\n1.  根據「每年銷售收入」和「毛利率」計算出「毛利」。\n2.  根據「每年銷售收入」和「營業費用率」計算出「營業費用」。\n3.  計算「營業利益」(毛利 - 營業費用)。在簡易分析中，我們將其視為「每年的淨現金流入」。\n4.  計算「投資回收期」(初始投資 / 每年的淨現金流入)，結果請計算到小數點後兩位。\n5.  將回收期換算成年和月。\n\n請以 Markdown 表格呈現計算過程與結果，並提供簡潔的投資建議。請用繁體中文回答。\n\n使用者數據：\n${userInput}`;
                 }
                 break;
         }
         
-        const aiResponse = await callAI(prompt, userApiKey, apiProvider, userEndpointUrl);
-        outputElement.innerHTML = marked.parse(aiResponse);
+        const result = await callAI(prompt, userApiKey, apiProvider, userEndpointUrl);
+        
+        if (result.success) {
+            outputElement.innerHTML = marked.parse(result.text);
+        } else {
+            outputElement.innerHTML = `<div class="p-4 bg-red-100 border border-red-300 text-red-800 rounded-lg"><p class="font-bold">發生錯誤</p><p class="mt-2 text-sm">${result.error}</p></div>`;
+        }
     }
 
     // --- Quiz Logic ---
@@ -846,18 +863,18 @@ ${userInput}`;
         const analysisInput = document.getElementById('ai_toolbox-input');
         const analysisButton = document.getElementById('ai_toolbox-button');
         const analysisOutput = document.getElementById('ai_toolbox-output');
-        const toolboxInputWrapper = analysisInput.parentElement; // Get the wrapper div
+        const toolboxInputWrapper = analysisInput.parentElement;
 
         function updateAnalysisUI() {
             const selectedValue = document.querySelector('input[name="analysis-type"]:checked').value;
             
             analysisInput.placeholder = placeholders[selectedValue];
-            analysisInput.value = ''; // Clear textarea on change
-            analysisOutput.classList.add('hidden'); // Hide output on change
+            analysisInput.value = '';
+            analysisOutput.classList.add('hidden');
 
             if (selectedValue === 'competitor' || selectedValue === 'apple') {
                 analysisInputLabel.style.display = 'none';
-                toolboxInputWrapper.style.display = 'none'; // Hide the whole wrapper
+                toolboxInputWrapper.style.display = 'none';
                 
                 if (selectedValue === 'competitor') {
                     analysisButton.textContent = '開啟競爭者分析觀摩 (新視窗)';
@@ -866,7 +883,7 @@ ${userInput}`;
                 }
             } else {
                 analysisInputLabel.style.display = 'block';
-                toolboxInputWrapper.style.display = 'block'; // Show the whole wrapper
+                toolboxInputWrapper.style.display = 'block';
                 analysisButton.textContent = '✨ 啟動 AI 財務分析';
             }
         }
@@ -875,7 +892,6 @@ ${userInput}`;
             radio.addEventListener('change', updateAnalysisUI);
         });
 
-        // Initial call to set the UI correctly on page load
         updateAnalysisUI();
     });
 
