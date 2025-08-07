@@ -638,7 +638,8 @@
         let body = {};
 
         if (provider === 'gemini') {
-            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            // --- FIX #1: Changed model name to a more stable version 'gemini-1.5-flash'. ---
+            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             body = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
         } else if (provider === 'deepseek') {
             apiUrl = 'https://api.deepseek.com/v1/chat/completions';
@@ -653,7 +654,9 @@
             headers['Authorization'] = `Bearer ${apiKey}`;
             body = { model: "gpt-3.5-turbo", messages: [{ role: "system", content: "You are a professional data analysis and decision-making consultant. Please respond in Traditional Chinese." }, { role: "user", content: prompt }] };
         } else if (provider === 'copilot') {
-            apiUrl = endpoint;
+            // --- FIX #2: Correctly construct the Azure endpoint URL with path and api-version. ---
+            const cleanEndpoint = endpoint.endsWith('/') ? endpoint.slice(0, -1) : endpoint;
+            apiUrl = `${cleanEndpoint}/chat/completions?api-version=2024-02-15-preview`;
             headers['api-key'] = apiKey;
             body = { messages: [{ role: "system", content: "You are a professional data analysis and decision-making consultant. Please respond in Traditional Chinese." }, { role: "user", content: prompt }] };
         }
