@@ -310,10 +310,9 @@
                     <h3 class="card-subtitle text-blue-700">當責情境實戰演練</h3>
                     <div class="ai-card">
                         <label for="core-input" class="block mb-2 font-semibold text-gray-700">請描述一個您在工作中遇到的跨部門難題：</label>
-                        <!-- Updated Textarea with Load Example Button -->
-                        <div class="relative w-full">
-                            <textarea id="core-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" placeholder="例如：行銷部門抱怨研發的新產品不符合市場需求，而研發部門覺得行銷部門沒有能力賣高階產品..."></textarea>
-                            <button onclick="loadExample('core')" class="absolute top-2 right-2 px-2 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded hover:bg-gray-300 transition-colors">
+                        <textarea id="core-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" placeholder="例如：行銷部門抱怨研發的新產品不符合市場需求，而研發部門覺得行銷部門沒有能力賣高階產品..."></textarea>
+                        <div class="flex justify-end w-full mt-2">
+                            <button onclick="loadExample('core')" class="px-3 py-1 bg-gray-200 text-gray-600 text-sm font-semibold rounded hover:bg-gray-300 transition-colors">
                                 載入範例
                             </button>
                         </div>
@@ -416,10 +415,10 @@
                         <div class="quiz-question" data-correct="c">
                              <p>2. 公司向股東「支付現金股利」，這在現金流量表中應歸類於哪一種活動？</p>
                             <div class="quiz-options">
-                                <label><input type="radio" name="q1-pillars" value="a"> A. 營運活動</label>
-                                <label><input type="radio" name="q1-pillars" value="b"> B. 投資活動</label>
-                                <label><input type="radio" name="q1-pillars" value="c"> C. 籌資活動</label>
-                                <label><input type="radio" name="q1-pillars" value="d"> D. 營業費用</label>
+                                <label><input type="radio" name="q2-pillars" value="a"> A. 營運活動</label>
+                                <label><input type="radio" name="q2-pillars" value="b"> B. 投資活動</label>
+                                <label><input type="radio" name="q2-pillars" value="c"> C. 籌資活動</label>
+                                <label><input type="radio" name="q2-pillars" value="d"> D. 營業費用</label>
                             </div>
                             <div class="quiz-feedback hidden"></div>
                         </div>
@@ -433,10 +432,9 @@
                     <h3 class="card-subtitle text-purple-700">活動分類實戰演練</h3>
                     <div class="ai-card bg-purple-50 border-purple-200">
                         <label for="pillars-input" class="block mb-2 font-semibold text-gray-700">請輸入一項公司活動，讓 AI 幫您判斷分類：</label>
-                        <!-- Updated Textarea with Load Example Button -->
-                        <div class="relative w-full">
-                            <textarea id="pillars-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder="例如：我們公司最近償還了一筆為期五年的銀行貸款..."></textarea>
-                            <button onclick="loadExample('pillars')" class="absolute top-2 right-2 px-2 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded hover:bg-gray-300 transition-colors">
+                        <textarea id="pillars-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" rows="4" placeholder="例如：我們公司最近償還了一筆為期五年的銀行貸款..."></textarea>
+                        <div class="flex justify-end w-full mt-2">
+                            <button onclick="loadExample('pillars')" class="px-3 py-1 bg-gray-200 text-gray-600 text-sm font-semibold rounded hover:bg-gray-300 transition-colors">
                                 載入範例
                             </button>
                         </div>
@@ -553,10 +551,11 @@
                             </div>
                         </div>
                         <label id="ai_toolbox-label" for="ai_toolbox-input" class="block mb-2 font-semibold text-gray-700">請在此輸入您的分析數據：</label>
-                        <!-- Updated Textarea with Load Example Button -->
-                        <div class="relative w-full">
+                        <div id="ai-toolbox-input-wrapper" class="w-full">
                             <textarea id="ai_toolbox-input" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-500 focus:border-teal-500" rows="6" placeholder=""></textarea>
-                            <button onclick="loadExample('ai_toolbox')" class="absolute top-2 right-2 px-2 py-1 bg-gray-200 text-gray-600 text-xs font-semibold rounded hover:bg-gray-300 transition-colors">
+                        </div>
+                        <div class="flex justify-end w-full mt-2">
+                            <button onclick="loadExample('ai_toolbox')" class="px-3 py-1 bg-gray-200 text-gray-600 text-sm font-semibold rounded hover:bg-gray-300 transition-colors">
                                 載入範例
                             </button>
                         </div>
@@ -606,7 +605,7 @@
 
     const placeholders = {
         dupont: "杜邦分析範例：\n公司A\n銷貨收入: 1000\n稅後淨利: 80\n總資產: 2000\n總股東權益: 1200",
-        bep: "BEP範例：\n總固定成本: 350000\n單位售價: 10\n單位變動成本: 5.5\n預期銷售量: 100000",
+        bep: "BEP範例：\n總固定成本: 350\n總變動成本: 550\n總收入: 1000\n單位售價: 10",
         payback: "Payback範例：\n初始投資: 1000000\n每年銷售收入: 3000000\n毛利率: 30%\n營業費用率: 6%",
         competitor: "此模式將直接開啟一個已完成的分析報告範例，無需輸入。",
         apple: "此模式將直接開啟一個已完成的分析報告範例，無需輸入。"
@@ -684,7 +683,7 @@
         try {
             switch (provider) {
                 case 'gemini':
-                    apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+                    apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                     body = {
                         contents: [{ role: "user", parts: [{ text: prompt }] }],
                         systemInstruction: { parts: [{ text: system_prompt }] },
@@ -797,7 +796,20 @@
                 if (selectedAnalysisModel === 'dupont') {
                     prompt = `你是一位頂尖的財務分析師，請使用杜邦分析 (DuPont Analysis) 的框架，解析以下使用者提供的財務數據。請計算出：\n1. 淨利率 (Net Profit Margin)\n2. 總資產週轉率 (Total Asset Turnover)\n3. 權益乘數 (Equity Multiplier)\n4. 股東權益報酬率 (ROE)\n\n最後，請以 Markdown 表格呈現分析結果，並根據數據給出提升 ROE 的初步策略建議。請用繁體中文回答。\n\n使用者數據：\n${userInput}`;
                 } else if (selectedAnalysisModel === 'bep') {
-                    prompt = `你是一位精通成本會計的分析師，請使用損益兩平點 (Break-Even Point) 分析法，解析以下使用者提供的數據。請計算出：\n1. 損益兩平點 (以銷售額表示)\n2. 損益兩平點 (以單位數量表示)\n3. 安全邊際 (Margin of Safety)\n\n請以 Markdown 表格呈現分析結果，並提供簡潔的管理洞見。請用繁體中文回答。\n\n使用者數據：\n${userInput}`;
+                    prompt = `你是一位精通成本會計的分析師，請使用損益兩平點 (Break-Even Point) 分析法，解析以下使用者提供的數據。
+使用者可能提供「總固定成本」、「單位售價」、「單位變動成本」和「預期銷售量」。
+或者，他們可能提供「總固定成本」、「總變動成本」、「總收入」和「單位售價」。
+如果提供了總數(總變動成本, 總收入)，請先計算出「單位變動成本」和「銷售量」。(計算公式： 銷售量 = 總收入 / 單位售價; 單位變動成本 = 總變動成本 / 銷售量)。
+
+請根據提供的數據，計算出：
+1. 損益兩平點 (以銷售額表示)
+2. 損益兩平點 (以單位數量表示)
+3. 安全邊際 (Margin of Safety)
+
+請以 Markdown 表格呈現分析結果，並提供簡潔的管理洞見。請用繁體中文回答。
+
+使用者數據：
+${userInput}`;
                 } else if (selectedAnalysisModel === 'payback') {
                     prompt = `你是一位財務分析專家，請使用簡易投資回收期 (Payback Period) 分析法，評估以下投資案。請嚴格依照以下步驟計算：\n1.  根據「每年銷售收入」和「毛利率」計算出「毛利」。\n2.  根據「每年銷售收入」和「營業費用率」計算出「營業費用」。\n3.  計算「營業利益」(毛利 - 營業費用)。在簡易分析中，我們將其視為「每年的淨現金流入」。\n4.  計算「投資回收期」(初始投資 / 每年的淨現金流入)，結果請計算到小數點後兩位。\n5.  將回收期換算成年和月。\n\n請以 Markdown 表格呈現計算過程與結果，並提供簡潔的投資建議。請用繁體中文回答。\n\n使用者數據：\n${userInput}`;
                 }
@@ -863,7 +875,8 @@
         const analysisInput = document.getElementById('ai_toolbox-input');
         const analysisButton = document.getElementById('ai_toolbox-button');
         const analysisOutput = document.getElementById('ai_toolbox-output');
-        const toolboxInputWrapper = analysisInput.parentElement;
+        const toolboxInputWrapper = document.getElementById('ai-toolbox-input-wrapper');
+        const loadExampleButtonWrapper = toolboxInputWrapper.nextElementSibling; 
 
         function updateAnalysisUI() {
             const selectedValue = document.querySelector('input[name="analysis-type"]:checked').value;
@@ -875,6 +888,7 @@
             if (selectedValue === 'competitor' || selectedValue === 'apple') {
                 analysisInputLabel.style.display = 'none';
                 toolboxInputWrapper.style.display = 'none';
+                loadExampleButtonWrapper.style.display = 'none';
                 
                 if (selectedValue === 'competitor') {
                     analysisButton.textContent = '開啟競爭者分析觀摩 (新視窗)';
@@ -884,6 +898,7 @@
             } else {
                 analysisInputLabel.style.display = 'block';
                 toolboxInputWrapper.style.display = 'block';
+                loadExampleButtonWrapper.style.display = 'flex'; 
                 analysisButton.textContent = '✨ 啟動 AI 財務分析';
             }
         }
