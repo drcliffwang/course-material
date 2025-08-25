@@ -8,10 +8,10 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', 'Noto Sans TC', 'Noto Sans SC', sans-serif;
+            font-family: 'Inter', 'Be Vietnam Pro', 'Noto Sans TC', 'Noto Sans SC', sans-serif;
             background-color: #f8fafc; /* A lighter gray background */
         }
         .tab-button {
@@ -121,7 +121,12 @@
         .lang-switcher button:last-child {
             border-top-right-radius: 0.375rem;
             border-bottom-right-radius: 0.375rem;
+        }
+        .lang-switcher button {
             border-left-width: 0;
+        }
+        .lang-switcher button:first-child {
+            border-left-width: 1px;
         }
         .lang-switcher button.active {
             background-color: #3b82f6;
@@ -157,6 +162,9 @@
                     </button>
                     <button type="button" id="lang-cn-btn" onclick="switchLanguage('zh-CN')">
                         简体中文
+                    </button>
+                    <button type="button" id="lang-vi-btn" onclick="switchLanguage('vi')">
+                        Tiếng Việt
                     </button>
                 </div>
             </div>
@@ -945,6 +953,150 @@
             "summaryList": `<li class="flex items-start"><span class="text-blue-500 font-bold mr-3 mt-1">✓</span> <span><b>一个关键思考整合：</b>逻辑思维 (左脑) 与创意思维 (右脑) 的交互运作。</span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3 mt-1">✓</span> <span><b>二个逻辑必须兼具：</b>演绎法与归纳法。</span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3 mt-1">✓</span> <span><b>三个层次检视：</b>议题层、论证逻辑层、结论行动层。</span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3 mt-1">✓</span> <span><b>四个步骤循环：</b>以 PDCA 处理逻辑问题，以 IDEA 框架激发创新。</span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3 mt-1">✓</span> <span><b>五个 AI 应用场景：</b>在 SA, PA, PPA, DA, CA 中，善用 AI 作为辅助工具。</span></li>`,
             "downloadButton": "下载练习档 (PSDM Excel Template.xlsx)",
             "finalGoal": "<b>最终目标：</b>以人脑的智慧与判断力为主导，驾驭 AI 的强大算力与知识库，成为未来职场中无可取代的关键人才。"
+        },
+        "vi": {
+            "pageTitle": "Tư duy Phản biện và Sáng tạo PSDM + AI",
+            "headerTitle": "Tư duy Phản biện và Sáng tạo PSDM + AI",
+            "headerSubtitle": "Một khóa học thực chiến về tư duy hệ thống PSDM và hợp tác với AI được thiết kế cho bạn",
+            "authorName": "Cliff Wang, Ph.D. Tiến sĩ Vương Khải Nhạc",
+            "podcastTitle": "Podcast của khóa học",
+            "audioNotSupported": "Trình duyệt của bạn không hỗ trợ phát âm thanh.",
+            "navOverview": "Tổng quan khóa học",
+            "navAiSetup": "Cài đặt AI",
+            "navSa": "SA Đánh giá Tình hình",
+            "navPa": "PA Phân tích Vấn đề",
+            "navPpa": "PPA Phân tích Vấn đề Tiềm ẩn",
+            "navDa": "DA Phân tích Quyết định",
+            "navCa": "CA Phân tích Sáng tạo",
+            "navConclusion": "Kết luận và Thảo luận",
+            "overviewTitle": "Năm Module Ứng dụng Tư duy Hệ thống",
+            "saTitle": "SA Đánh giá Tình hình", "saChar": "Rộng!", "saDesc": "Nắm bắt toàn cục",
+            "paTitle": "PA Phân tích Vấn đề", "paChar": "Sâu!", "paDesc": "Giải quyết vấn đề",
+            "ppaTitle": "PPA Phân tích Vấn đề Tiềm ẩn", "ppaChar": "Xa!", "ppaDesc": "Triển khai đón đầu",
+            "daTitle": "DA Phân tích Quyết định", "daChar": "Chuẩn!", "daDesc": "Quyết định đúng đắn",
+            "caTitle": "CA Phân tích Sáng tạo", "caChar": "Đổi!", "caDesc": "Phá vỡ khuôn khổ",
+            "aiSetupTitle": "Kích hoạt Chức năng Tương tác AI",
+            "aiSetupDesc": "Để sử dụng các bài thực hành AI trong khóa học, vui lòng chọn dịch vụ AI của bạn và dán khóa API tương ứng.",
+            "aiSetupStep1": "1. Chọn nhà cung cấp dịch vụ AI:",
+            "aiSetupStep2": "2. Nhập khóa API của bạn:",
+            "apiKeyPlaceholder": "Dán khóa dịch vụ bạn đã chọn vào đây...",
+            "saveButton": "Lưu",
+            "aiSetupStep3": "3. Nhập Azure Endpoint của bạn:",
+            "endpointPlaceholder": "Ví dụ: https://your-resource.openai.azure.com/",
+            "endpointNote": "Vui lòng xác nhận Endpoint bao gồm tên triển khai đầy đủ, ví dụ `.../deployments/your-deployment-name`",
+            "keyStorageInfo": "Khóa của bạn chỉ được lưu trữ trong trình duyệt hiện tại. Bạn có thể nhận miễn phí từ <a href='https://aistudio.google.com/app/apikey' target='_blank' class='underline hover:text-blue-800'>Google AI Studio</a>, <a href='https://platform.deepseek.com/api_keys' target='_blank' class='underline hover:text-blue-800'>Deepseek</a>, hoặc <a href='https://platform.openai.com/api-keys' target='_blank' class='underline hover:text-blue-800'>OpenAI/Azure</a>.",
+            "paymentNotice": "Xin lưu ý: Một số dịch vụ có thể yêu cầu bạn thiết lập phương thức thanh toán hoặc nạp tiền trên nền tảng đó để tiếp tục sử dụng sau khi hết hạn mức miễn phí.",
+            "saSectionTitle": "SA: Situation Appraisal (Đánh giá Tình hình)",
+            "saSectionSubtitle": "Nắm bắt toàn cục, làm rõ vấn đề",
+            "coreConcept": "Khái niệm cốt lõi",
+            "keySteps": "Phân tích các bước chính",
+            "saConceptText": "Khi đối mặt với một tình huống hỗn loạn, phức tạp, SA cung cấp một phương pháp hệ thống để phân tách bối cảnh phức tạp, xác lập thứ tự ưu tiên và quyết định hướng hành động tiếp theo. Đây là điểm khởi đầu của mọi phân tích, giúp chúng ta thoát khỏi tình trạng 'thấy cây mà không thấy rừng' để nhìn rõ toàn cục.",
+            "saSteps": `<li><b>1. Lập kế hoạch các vấn đề (Plan - Thẩm vấn):</b> Liệt kê tất cả các công việc cần làm, lo lắng, vấn đề trong đầu. Sau đó, áp dụng <b>nguyên tắc MECE (Loại trừ lẫn nhau, Bao hàm toàn diện)</b> để phân loại và quy nạp, sắp xếp các mối quan tâm lộn xộn thành một vài hạng mục vấn đề rõ ràng, độc lập.</li><li><b>2. Mức độ ưu tiên (Do - Thận trọng suy xét):</b> Nguồn lực có hạn, không thể làm mọi việc cùng lúc. Đối với mỗi vấn đề, đánh giá từ ba chiều: <b>Mức độ nghiêm trọng (S)</b>, <b>Mức độ khẩn cấp (U)</b>, và <b>Xu hướng phát triển (G)</b> để tìm ra số ít các vấn đề quan trọng thực sự cần được ưu tiên xử lý.</li><li><b>3. Quyết định quy trình (Check - Phân biệt rõ ràng):</b> Đối với các vấn đề có mức độ ưu tiên cao, xác định thuộc tính của chúng. Bước này là 'trạm phân luồng' quan trọng:<ul><li class='my-2'>- Nếu là 'sai lệch không rõ nguyên nhân', chuyển sang <b>PA (Phân tích Vấn đề)</b>.</li><li>- Nếu là 'cần đưa ra lựa chọn', chuyển sang <b>DA (Phân tích Quyết định)</b>.</li><li>- Nếu là 'rủi ro có thể xảy ra trong tương lai', chuyển sang <b>PPA (Phân tích Vấn đề Tiềm ẩn)</b>.</li></ul></li><li><b>4. Hành động có trách nhiệm (Action - Thực hiện):</b> Chuyển phân tích thành hành động. Xác định rõ 'Ai (Who)', 'Khi nào (When)', 'Làm gì (What)', và khởi động quy trình phân tích tương ứng.</li>`,
+            "quizTitleSA": "Kiểm tra Hiệu quả Học tập SA",
+            "saQ1": "1. Mục đích cốt lõi chính của Đánh giá Tình hình (SA) là gì?",
+            "saQ1A": "A. Tìm ra nguyên nhân gốc rễ duy nhất của vấn đề",
+            "saQ1B": "B. Ngăn chặn tất cả các rủi ro có thể xảy ra trong tương lai",
+            "saQ1C": "C. Phân tách tình huống phức tạp, làm rõ vấn đề và quyết định thứ tự ưu tiên",
+            "saQ1D": "D. Tạo ra nhiều ý tưởng sáng tạo đa dạng nhất",
+            "saQ2": "2. Trong SA, việc sử dụng nguyên tắc MECE nhằm mục đích gì?",
+            "saQ2A": "A. Đảm bảo việc phân chia các vấn đề không chồng chéo, không bỏ sót",
+            "saQ2B": "B. Đảm bảo mỗi vấn đề đều quan trọng như nhau",
+            "saQ2C": "C. Đảm bảo chỉ tìm ra những vấn đề khẩn cấp nhất",
+            "saQ2D": "D. Đảm bảo tất cả các vấn đề đều có giải pháp",
+            "submitAnswers": "Nộp bài",
+            "saExerciseTitle": "Thực hành SA",
+            "saExercisePrompt": "Vui lòng mô tả tình huống phức tạp bạn đang đối mặt tại đây:",
+            "loadExample": "Tải ví dụ",
+            "saExample": "Ví dụ: Công ty chúng tôi gần đây đối mặt với nhiều thách thức: khiếu nại của khách hàng tăng 30%, chủ yếu tập trung vào chất lượng sản phẩm và thời gian phản hồi của dịch vụ khách hàng; tỷ lệ nhân viên nghỉ việc tăng từ 5% lên 15%, đặc biệt là ở bộ phận kỹ thuật; tiến độ phát triển sản phẩm mới chậm hơn kế hoạch 2 tháng; đối thủ cạnh tranh ra mắt sản phẩm tương tự, chiếm 20% thị phần của chúng tôi; đồng thời, chi phí chuỗi cung ứng tăng 15%, ảnh hưởng đến lợi nhuận. Ban quản lý có ý kiến khác nhau về việc nên ưu tiên xử lý vấn đề nào.",
+            "runSA": "✨ Bắt đầu Đánh giá Tình hình bằng AI",
+            "paSectionTitle": "PA: Problem Analysis (Phân tích Vấn đề)",
+            "paSectionSubtitle": "Truy tìm tận gốc, tìm ra nguyên nhân thực sự",
+            "paConceptText": "Khi xảy ra sự sai lệch (Deviation) giữa 'thực tế' và 'mong muốn', và nguyên nhân không rõ ràng, PA cung cấp một bộ công cụ logic chặt chẽ. Tinh hoa của nó nằm ở việc 'so sánh', thông qua việc đối chiếu có hệ thống giữa 'LÀ (IS)' và 'KHÔNG PHẢI LÀ (IS NOT)' để tìm ra 'sự thay đổi đặc biệt' gây ra vấn đề, từ đó xác định nguyên nhân gốc rễ.",
+            "paSteps": `<li><b>1. Xác định vấn đề (Plan - Thẩm vấn):</b> Mô tả chính xác vấn đề (đối tượng + sai lệch), và sử dụng <b>bảng IS/IS NOT</b>, thu thập chi tiết 'sự thật' từ bốn khía cạnh What, Where, When, Extent, thay vì ý kiến hay phỏng đoán.</li><li><b>2. Suy luận nguyên nhân (Do - Thận trọng suy xét):</b> Tìm kiếm nguyên nhân có thể có từ hai hướng. <b>Phương pháp diễn dịch</b>: xuất phát từ kinh nghiệm, sử dụng các công cụ như biểu đồ xương cá để phát triển ý tưởng. <b>Phương pháp quy nạp</b>: tập trung vào các 'điểm khác biệt' và 'điểm thay đổi' trong bảng IS/IS NOT, đây là những manh mối khách quan nhất.</li><li><b>3. Biện chứng nguyên nhân (Check - Phân biệt rõ ràng):</b> Đây là bước xác minh quan trọng nhất. Lấy 'nguyên nhân có khả năng cao nhất (MPC)' đã tìm thấy ở bước trước để giải thích từng sự thật trong bảng IS/IS NOT. Nếu nguyên nhân này có thể giải thích hoàn hảo 'tại sao nó xảy ra ở IS mà không xảy ra ở IS NOT', thì rất có thể đó là nguyên nhân thực sự.</li><li><b>4. Quyết định và thực hiện (Act - Thực hiện):</b> Xác nhận nguyên nhân cuối cùng thông qua thử nghiệm hoặc quan sát. Sau khi xác nhận, ngay lập tức thực hiện <b>hành động khắc phục tạm thời (Containment)</b> để ngăn chặn thiệt hại lan rộng, và lập kế hoạch <b>hành động khắc phục triệt để (Corrective)</b> để loại bỏ vấn đề tận gốc.</li>`,
+            "quizTitlePA": "Kiểm tra Hiệu quả Học tập PA",
+            "paQ1": "1. Trong Phân tích Vấn đề (PA), tác dụng chính của phân tích 'IS / IS NOT' là gì?",
+            "paQ1A": "A. Đánh giá mức độ nghiêm trọng của vấn đề",
+            "paQ1B": "B. Thu hẹp phạm vi các nguyên nhân có thể có thông qua so sánh",
+            "paQ1C": "C. Quyết định ai sẽ chịu trách nhiệm giải quyết vấn đề",
+            "paQ1D": "D. Đề xuất các giải pháp sáng tạo",
+            "paQ2": "2. Khi bạn tìm thấy một 'nguyên nhân có khả năng cao nhất (MPC)', bước tiếp theo bạn nên làm gì để xác minh nó?",
+            "paQ2A": "A. Đầu tư nguồn lực ngay lập tức để giải quyết nó",
+            "paQ2B": "B. Tìm kiếm thêm các nguyên nhân có thể có khác",
+            "paQ2C": "C. Bỏ qua nó, tập trung vào hành động khắc phục tạm thời",
+            "paQ2D": "D. Dùng nó để giải thích tất cả các sự thật trong bảng IS/IS NOT xem có khớp không",
+            "paExerciseTitle": "Thực hành PA",
+            "selectMethod": "Vui lòng chọn phương pháp phân tích:",
+            "paExercisePrompt": "Vui lòng mô tả vấn đề bạn gặp phải và các dữ liệu liên quan tại đây:",
+            "paExample": "Ví dụ: Lớp sơn vỏ điện thoại mẫu A bị nứt. Vấn đề chỉ xảy ra trên dây chuyền A của nhà máy Đài Trung (Location: địa điểm lớn), và tập trung ở góc trên bên phải của vỏ (Position: vị trí nhỏ). Vấn đề bắt đầu từ hôm qua (Time: thời điểm), xảy ra theo chu kỳ (Pattern: quy luật), và thường xuất hiện vào ca làm việc lúc 10 giờ sáng (Life Cycle: vòng đời). Dây chuyền A của nhà máy Cao Hùng, điện thoại mẫu B, hoặc trước ngày hôm qua đều bình thường.",
+            "runPA": "✨ Bắt đầu Phân tích Vấn đề bằng AI",
+            "ppaSectionTitle": "PPA: Potential Problem Analysis (Phân tích Vấn đề Tiềm ẩn)",
+            "ppaSectionSubtitle": "Triển khai đón đầu, phòng ngừa rủi ro",
+            "ppaConceptText": "Bất kỳ kế hoạch hay hành động nào cũng đi kèm với rủi ro. PPA là một bộ phương pháp hệ thống hóa việc chuyển từ 'chữa cháy bị động' sang 'phòng cháy chủ động'. Nó giúp chúng ta, trước khi hành động, suy nghĩ một cách có hệ thống về 'điều gì có thể sai sót?', và lập sẵn kế hoạch 'phòng ngừa' và 'ứng phó', từ đó tăng đáng kể tỷ lệ thành công của kế hoạch.",
+            "ppaSteps": `<li><b>1. Nhận diện rủi ro (Plan):</b> Đối với mỗi bước của kế hoạch, brainstorming tất cả các vấn đề tiềm ẩn có thể xảy ra.</li><li><b>2. Sắp xếp thứ tự ưu tiên (Do):</b> Đánh giá định lượng cho mỗi rủi ro. <b>RPN (Số ưu tiên rủi ro) = S (Mức độ nghiêm trọng) x O (Tần suất xảy ra) x D (Khả năng phát hiện)</b>. Điểm số này giúp chúng ta xác định một cách khách quan các mục rủi ro cao cần được quan tâm nhất.</li><li><b>3. Phân tích nguyên nhân (Check):</b> Đối với các rủi ro có RPN cao nhất, phân tích sâu hơn các nguyên nhân có thể dẫn đến chúng (Likely Causes).</li><li><b>4. Xây dựng đối sách (Action):</b> Đây là cốt lõi hành động của PPA, được chia thành hai cấp độ:<ul><li class='my-2'>- <b>Hành động phòng ngừa (Prevention - Kế hoạch A):</b> Nhắm vào 'nguyên nhân', thực hiện các biện pháp để giảm 'tần suất xảy ra (O)' của rủi ro. Ví dụ: tăng cường đào tạo, thiết lập cơ chế chống sai sót.</li><li>- <b>Hành động ứng phó (Contingency - Kế hoạch B):</b> Giả sử rủi ro không may xảy ra, chuẩn bị sẵn các biện pháp đối phó để giảm 'mức độ nghiêm trọng (S)'. Đồng thời cũng cần suy nghĩ cách tăng 'khả năng phát hiện (D)', ví dụ như lắp đặt thêm thiết bị cảnh báo.</li></ul></li>`,
+            "quizTitlePPA": "Kiểm tra Hiệu quả Học tập PPA",
+            "ppaQ1": "1. Trong PPA, RPN (Số ưu tiên rủi ro) được tính bằng cách nhân ba yếu tố nào?",
+            "ppaQ1A": "A. Mức độ nghiêm trọng, Mức độ khẩn cấp, Xu hướng phát triển",
+            "ppaQ1B": "B. Chi phí, Thời gian, Chất lượng",
+            "ppaQ1C": "C. Khả năng xảy ra, Tác động, Khả năng kiểm soát",
+            "ppaQ1D": "D. Mức độ nghiêm trọng (S), Tần suất xảy ra (O), Khả năng phát hiện (D)",
+            "ppaQ2": "2. 'Chuẩn bị phụ tùng thay thế cho thiết bị mới' thuộc loại hành động nào trong PPA?",
+            "ppaQ2A": "A. Hành động ứng phó (Contingency - Kế hoạch B)",
+            "ppaQ2B": "B. Hành động phòng ngừa (Prevention - Kế hoạch A)",
+            "ppaQ2C": "C. Hành động khắc phục triệt để (Corrective Action)",
+            "ppaQ2D": "D. Hành động khắc phục tạm thời (Containment Action)",
+            "ppaExerciseTitle": "Thực hành PPA",
+            "ppaExercisePrompt": "Vui lòng mô tả kế hoạch hoặc dự án của bạn tại đây:",
+            "ppaExample": "Ví dụ: Chúng tôi dự định ra mắt sản phẩm đồng hồ thông minh mới trong vòng ba tháng. Dự án bao gồm: tháng đầu tiên hoàn thành phát triển phần mềm và kiểm thử tích hợp phần cứng; tháng thứ hai tiến hành kiểm thử người dùng và chuẩn bị sản xuất; tháng thứ ba bắt đầu sản xuất hàng loạt và quảng bá thị trường. Đội ngũ bao gồm 10 kỹ sư, 5 nhà thiết kế, 3 quản lý dự án. Ngân sách là 5 triệu TWD, mục tiêu bán 10,000 chiếc trong tháng đầu tiên. Đây là lần đầu tiên công ty tham gia vào thị trường thiết bị đeo.",
+            "runPPA": "✨ Bắt đầu Phân tích Rủi ro bằng AI",
+            "daSectionTitle": "DA: Decision Analysis (Phân tích Quyết định)",
+            "daSectionSubtitle": "Cân nhắc lợi hại, đưa ra lựa chọn tốt nhất",
+            "daConceptText": "Nâng cấp quá trình ra quyết định từ 'trực giác' và 'cảm tính' lên 'hệ thống' và 'tính toán'. DA cung cấp một quy trình có cấu trúc, minh bạch, phân tách các lựa chọn phức tạp thành các tiêu chí có thể đánh giá, giúp nhóm hoặc cá nhân có thể cân nhắc lợi hại một cách khách quan và có nhận thức rõ ràng về rủi ro của lựa chọn cuối cùng.",
+            "daSteps": `<li><b>1. Lập kế hoạch yêu cầu (Plan):</b> Đây là nền tảng của việc ra quyết định. Xác định rõ mục đích của quyết định và chia các tiêu chí đánh giá thành hai loại:<ul><li class='my-2'>- <b>Musts (Điều kiện bắt buộc):</b> Ngưỡng không thể thiếu, dùng để 'sàng lọc' các lựa chọn, những lựa chọn không đáp ứng sẽ bị loại trực tiếp.</li><li>- <b>Wants (Điều kiện mong muốn):</b> Các mục cộng điểm, càng nhiều càng tốt, dùng để 'chấm điểm'. Phải gán 'trọng số (Weight)' khác nhau cho mỗi Want để thể hiện tầm quan trọng tương đối của chúng.</li></ul></li><li><b>2. Phát triển các lựa chọn (Do):</b> Chấm điểm và tính toán. Đầu tiên, dùng Musts để loại bỏ các lựa chọn không đủ điều kiện. Sau đó, đối với các lựa chọn còn lại, chấm điểm từng mục theo Wants (thang điểm 1-10), rồi nhân điểm số với trọng số để ra tổng điểm có trọng số của mỗi lựa chọn.</li><li><b>3. Hiểu rõ rủi ro (Check):</b> Điểm số không phải là tất cả. Đối với một vài lựa chọn có điểm cao nhất, cần phải bình tĩnh phân tích các rủi ro tiêu cực tiềm ẩn (Adverse Consequences) của chúng. Một lựa chọn điểm cao nhưng rủi ro cực lớn chưa chắc đã là lựa chọn tốt nhất.</li><li><b>4. Thực hiện quyết định (Action):</b> Đưa ra lựa chọn cuối cùng. Lựa chọn lý tưởng là lựa chọn có 'tổng điểm có trọng số cao nhất' và 'rủi ro có thể kiểm soát'. Một khi đã quyết định, cần phải lập kế hoạch ứng phó cho các rủi ro có thể xảy ra.</li>`,
+            "quizTitleDA": "Kiểm tra Hiệu quả Học tập DA",
+            "daQ1": "1. Trong Phân tích Quyết định (DA), tác dụng chính của 'Musts (Điều kiện bắt buộc)' là gì?",
+            "daQ1A": "A. Dùng để tính điểm có trọng số cho các lựa chọn",
+            "daQ1B": "B. Đánh giá rủi ro tiềm ẩn của các lựa chọn",
+            "daQ1C": "C. Là ngưỡng sàng lọc để nhanh chóng loại bỏ các lựa chọn không đủ điều kiện",
+            "daQ1D": "D. So sánh ưu điểm của các lựa chọn khác nhau",
+            "daQ2": "2. Tại sao trong DA lại phải đặt trọng số (Weight) cho 'Wants (Điều kiện mong muốn)'?",
+            "daQ2A": "A. Để quá trình tính toán phức tạp hơn",
+            "daQ2B": "B. Để thể hiện tầm quan trọng tương đối của các tiêu chí khác nhau",
+            "daQ2C": "C. Để đảm bảo tất cả các lựa chọn đều có điểm số như nhau",
+            "daQ2D": "D. Đây là những con số được đặt ngẫu nhiên",
+            "daExerciseTitle": "Thực hành DA",
+            "daExercisePrompt": "Vui lòng mô tả quyết định bạn cần đưa ra tại đây (bao gồm các lựa chọn, tiêu chí đánh giá Wants và trọng số):",
+            "daExample": "Ví dụ: Chúng tôi cần chọn một nhà cung cấp dịch vụ đám mây mới. Hiện có ba lựa chọn: AWS, Azure, Google Cloud. Các yếu tố xem xét chính (Wants) và trọng số là: kiểm soát chi phí (trọng số 9), chất lượng hỗ trợ kỹ thuật (trọng số 8), bảo mật dữ liệu (trọng số 9), độ khó tích hợp hệ thống (trọng số 8), khả năng mở rộng trong tương lai (trọng số 7), chức năng AI (trọng số 6). Điều kiện bắt buộc (Musts) của chúng tôi là: phải tuân thủ các quy định về dữ liệu địa phương, cung cấp hỗ trợ kỹ thuật bằng tiếng Trung 24/7.",
+            "runDA": "✨ Bắt đầu Phân tích Quyết định bằng AI",
+            "caSectionTitle": "CA: Creativity Analysis (Phân tích Sáng tạo)",
+            "caSectionSubtitle": "Phá vỡ khuôn khổ, đổi mới hệ thống",
+            "caConceptText": "Sáng tạo không phải là đặc quyền của một số ít thiên tài, mà là một phương pháp mà mọi người đều có thể học được. CA cung cấp một khung IDEA có hệ thống, hướng dẫn chúng ta chuyển đổi những 'ý tưởng (Idea)' rời rạc thành 'sự đổi mới (Innovation)' có giá trị thị trường. Nó dạy chúng ta cách bắt đầu từ nhu cầu của khách hàng, phát triển ý tưởng thông qua các công cụ hệ thống, và cuối cùng xây dựng một mô hình kinh doanh thành công.",
+            "ideaFramework": "Phân tích Khung Sáng tạo IDEA",
+            "caSteps": `<li><b>I - Imagination / Input / Insight (Tưởng tượng/Đầu vào/Thấu hiểu):</b> Điểm khởi đầu của sự đổi mới. Thông qua việc quan sát bằng sự đồng cảm (Empathy), hiểu sâu sắc những nỗi đau (Pains) và lợi ích (Gains) của khách hàng, từ đó khám phá ra những nhu cầu chưa được đáp ứng.</li><li><b>D - Domain Application (Ứng dụng lĩnh vực):</b> Tìm kiếm 'khoảng trống' cho sự đổi mới. Suy nghĩ về việc áp dụng công nghệ hoặc sản phẩm hiện có vào thời gian, không gian hoặc đối tượng mới. Ví dụ, áp dụng bông sợi công nghiệp vào lĩnh vực vệ sinh cá nhân, từ đó ra đời băng vệ sinh.</li><li><b>E - Evolution / Evaluation (Tiến hóa/Đánh giá):</b> Làm cho ý tưởng 'tiến hóa' một cách có hệ thống. Sử dụng các công cụ như <b>SCAMPER</b> (Thay thế/Kết hợp/Điều chỉnh/Sửa đổi/Sử dụng khác/Loại bỏ/Sắp xếp lại) hoặc <b>TRIZ (Lý thuyết giải quyết vấn đề sáng chế)</b> để tái cấu trúc một cách đột phá các giải pháp hiện có, tạo ra những khả năng mới.</li><li><b>A - Action (Hành động đổi mới):</b> Hiện thực hóa những ý tưởng sáng tạo đã chín muồi. Sử dụng <b>Tư duy Thiết kế (Design Thinking)</b> để nhanh chóng lặp lại các nguyên mẫu, thông qua <b>Bản đồ Đề xuất Giá trị (VPC)</b> để đảm bảo sản phẩm phù hợp với thị trường, và cuối cùng sử dụng <b>Mô hình Kinh doanh Canvas (BMC)</b> để lập kế hoạch cho một mô hình kinh doanh bền vững.</li>`,
+            "quizTitleCA": "Kiểm tra Hiệu quả Học tập CA",
+            "caQ1": "1. Trong khung sáng tạo IDEA, giai đoạn nào tập trung nhất vào việc thấu hiểu nỗi đau và lợi ích của khách hàng thông qua sự đồng cảm?",
+            "caQ1A": "A. D (Domain Application)",
+            "caQ1B": "B. E (Evolution)",
+            "caQ1C": "C. A (Action)",
+            "caQ1D": "D. I (Insight)",
+            "caQ2": "2. Chữ 'C' trong công cụ SCAMPER có nghĩa là gì?",
+            "caQ2A": "A. Sao chép (Copy)",
+            "caQ2B": "B. Kết hợp (Combine)",
+            "caQ2C": "C. Thách thức (Challenge)",
+            "caQ2D": "D. Thay đổi (Change)",
+            "caExerciseTitle": "Thực hành CA",
+            "sixHats": "Sáu chiếc mũ tư duy",
+            "designThinking": "Tư duy Thiết kế",
+            "vpc": "Bản đồ Đề xuất Giá trị (VPC)",
+            "bmc": "Mô hình Kinh doanh Canvas (BMC)",
+            "pyramid": "Nguyên lý Kim tự tháp",
+            "caExercisePrompt": "Vui lòng nhập chủ đề hoặc sản phẩm bạn muốn đổi mới tại đây:",
+            "caExample": "Ví dụ: Làm thế nào để tăng lượng khách và doanh thu cho các hiệu sách truyền thống để đối phó với sự cạnh tranh từ thương mại điện tử?",
+            "runCA": "✨ Bắt đầu Phân tích Sáng tạo bằng AI",
+            "conclusionTitle": "Kết luận và Thảo luận",
+            "mindmapCaption": "Sơ đồ tư duy tổng kết khóa học (Nhấp để phóng to)",
+            "summaryList": `<li class="flex items-start"><span class="text-blue-500 font-bold mr-3 mt-1">✓</span> <span><b>Một sự tích hợp tư duy phản biện:</b> Sự tương tác giữa tư duy logic (não trái) và tư duy sáng tạo (não phải).</span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3 mt-1">✓</span> <span><b>Hai logic cần phải có:</b> Phương pháp diễn dịch và quy nạp.</span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3 mt-1">✓</span> <span><b>Ba cấp độ xem xét:</b> Cấp độ vấn đề, cấp độ logic lập luận, cấp độ kết luận và hành động.</span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3 mt-1">✓</span> <span><b>Bốn bước tuần hoàn:</b> Sử dụng PDCA để xử lý các vấn đề logic, sử dụng khung IDEA để kích thích sự đổi mới.</span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3 mt-1">✓</span> <span><b>Năm kịch bản ứng dụng AI:</b> Tận dụng AI như một công cụ hỗ trợ trong SA, PA, PPA, DA, CA.</span></li>`,
+            "downloadButton": "Tải xuống tệp thực hành (PSDM Excel Template.xlsx)",
+            "finalGoal": "<b>Mục tiêu cuối cùng:</b> Dẫn dắt bằng trí tuệ và khả năng phán đoán của con người, điều khiển sức mạnh tính toán và kho kiến thức khổng lồ của AI, để trở thành một nhân tài không thể thay thế trong môi trường làm việc tương lai."
         }
     };
 
@@ -974,6 +1126,7 @@
         // Update active button style
         document.getElementById('lang-tw-btn').classList.toggle('active', lang === 'zh-TW');
         document.getElementById('lang-cn-btn').classList.toggle('active', lang === 'zh-CN');
+        document.getElementById('lang-vi-btn').classList.toggle('active', lang === 'vi');
 
         // Save preference
         localStorage.setItem('preferredLanguage', lang);
@@ -1043,6 +1196,12 @@
                 successNoEndpoint: `API 密钥已保存！您现在选择的服务是 ${apiProvider.toUpperCase()}。`,
                 endpointNeeded: '使用 Copilot (Azure) 时，请务必输入您的 Endpoint URL。',
                 keyNeeded: '请输入有效的 API 密钥。'
+            },
+            "vi": {
+                success: `Đã lưu khóa API và Endpoint! Dịch vụ bạn đang chọn là ${apiProvider.toUpperCase()}.`,
+                successNoEndpoint: `Đã lưu khóa API! Dịch vụ bạn đang chọn là ${apiProvider.toUpperCase()}.`,
+                endpointNeeded: 'Khi sử dụng Copilot (Azure), vui lòng nhập URL Endpoint của bạn.',
+                keyNeeded: 'Vui lòng nhập khóa API hợp lệ.'
             }
         };
         
@@ -1070,7 +1229,15 @@
         let headers = { 'Content-Type': 'application/json' };
         let body = {};
         const currentLang = localStorage.getItem('preferredLanguage') || 'zh-TW';
-        const langInstruction = currentLang === 'zh-CN' ? '请使用简体中文回答。' : '請使用繁體中文回答。';
+        
+        let langInstruction = '請使用繁體中文回答。'; // Default
+        if (currentLang === 'zh-CN') {
+            langInstruction = '请使用简体中文回答。';
+        } else if (currentLang === 'vi') {
+            langInstruction = 'Vui lòng trả lời bằng tiếng Việt.';
+        }
+        
+        let systemContent = `You are a helpful assistant. ${langInstruction}`;
 
         try {
             switch (provider) {
@@ -1092,7 +1259,7 @@
                     body = {
                         model: "deepseek-chat",
                         messages: [
-                            { role: "system", content: `你是一位專業的顧問，${langInstruction}` },
+                            { role: "system", content: `You are a professional consultant. ${langInstruction}` },
                             { role: "user", content: prompt }
                         ]
                     };
@@ -1103,7 +1270,7 @@
                     body = {
                         model: "gpt-4o",
                         messages: [
-                            { role: "system", content: `You are a helpful assistant. ${langInstruction === '请使用简体中文回答。' ? 'Please respond in Simplified Chinese.' : 'Please respond in Traditional Chinese.'}` },
+                            { role: "system", content: systemContent },
                             { role: "user", content: prompt }
                         ]
                     };
@@ -1113,7 +1280,7 @@
                     headers['api-key'] = apiKey;
                     body = {
                         messages: [
-                            { role: "system", content: `You are a helpful assistant. ${langInstruction === '请使用简体中文回答。' ? 'Please respond in Simplified Chinese.' : 'Please respond in Traditional Chinese.'}` },
+                            { role: "system", content: systemContent },
                             { role: "user", content: prompt }
                         ]
                     };
@@ -1174,6 +1341,11 @@
                 alertKeyEndpoint: '请先在「AI 设定」分页中输入并储存您的 API 密钥与 Azure Endpoint！',
                 alertKey: '请先在「AI 设定」分页中输入并储存您的 API 密钥！',
                 alertInput: '请先输入您的情境或问题！'
+            },
+            "vi": {
+                alertKeyEndpoint: 'Vui lòng nhập và lưu khóa API và Azure Endpoint của bạn trong tab "Cài đặt AI" trước!',
+                alertKey: 'Vui lòng nhập và lưu khóa API của bạn trong tab "Cài đặt AI" trước!',
+                alertInput: 'Vui lòng nhập bối cảnh hoặc câu hỏi của bạn trước!'
             }
         };
 
@@ -1210,7 +1382,7 @@
             outputElement.innerHTML = marked.parse(result.text);
         } else {
             outputElement.innerHTML = `<div class="p-4 bg-red-100 border border-red-300 text-red-800 rounded-lg">
-                <p class="font-bold">發生錯誤</p>
+                <p class="font-bold">Đã xảy ra lỗi</p>
                 <p class="mt-2 text-sm">${result.error}</p>
             </div>`;
         }
@@ -1219,7 +1391,14 @@
     function generatePrompt(type, userInput) {
         const selectedCaMethod = document.querySelector('input[name="ca-method"]:checked')?.value;
         const currentLang = localStorage.getItem('preferredLanguage') || 'zh-TW';
-        const langPrompt = currentLang === 'zh-CN' ? '请以简体中文' : '請以繁體中文';
+        
+        let langPrompt = '請以繁體中文'; // Default
+        if (currentLang === 'zh-CN') {
+            langPrompt = '请以简体中文';
+        } else if (currentLang === 'vi') {
+            langPrompt = 'vui lòng trả lời bằng tiếng Việt';
+        }
+
 
         switch (type) {
             case 'sa':
@@ -1336,14 +1515,13 @@
         if (textarea) {
             const placeholderKey = textarea.getAttribute('data-lang-key-placeholder');
             const currentLang = localStorage.getItem('preferredLanguage') || 'zh-TW';
-            const exampleText = translations[currentLang][placeholderKey].replace(/^例如：/, '').replace(/^例如:/, '').trim();
+            const exampleText = translations[currentLang][placeholderKey].replace(/^例如：/, '').replace(/^例如:/, '').replace(/^Ví dụ: /, '').trim();
             textarea.value = exampleText;
             textarea.focus();
         }
     }
 
     function setupDynamicPlaceholders() {
-        const currentLang = localStorage.getItem('preferredLanguage') || 'zh-TW';
         // PA Dynamic Placeholder
         const paRadioButtons = document.querySelectorAll('input[name="pa-method"]');
         const paTextarea = document.getElementById('pa-input');
@@ -1361,6 +1539,13 @@
                 pmanalysis: "例如：我们公司的油压缸缸盖右侧，最近观察到持续渗油，地面有油滴。",
                 datadriven: "例如：我想为季节性商品『圣诞主题马克杯』决定最佳订购量。已知每个杯子成本100元，售价350元，季末没卖掉的只能当废品处理(残值0)。根据往年销售数据，预估需求呈常态分布，平均为500个，标准差为80个。",
                 "8dreport": "例如：我们的客户 XYZ 公司投诉，上一批交付的零件 (料号 #12345) 有 10% 的比例出现表面刮痕。"
+            },
+            "vi": {
+                isisnot: "Ví dụ: Lớp sơn vỏ điện thoại mẫu A bị nứt. Vấn đề chỉ xảy ra trên dây chuyền A của nhà máy Đài Trung (Location: địa điểm lớn), và tập trung ở góc trên bên phải của vỏ (Position: vị trí nhỏ). Vấn đề bắt đầu từ hôm qua (Time: thời điểm), xảy ra theo chu kỳ (Pattern: quy luật), và thường xuất hiện vào ca làm việc lúc 10 giờ sáng (Life Cycle: vòng đời). Dây chuyền A của nhà máy Cao Hùng, điện thoại mẫu B, hoặc trước ngày hôm qua đều bình thường.",
+                whywhy: "Ví dụ: Chúng tôi phát hiện tỷ lệ hỏng hóc của sản phẩm tại phía khách hàng đã tăng 5%, mặc dù chúng tôi đã có quy trình kiểm tra toàn bộ trước khi xuất hàng.",
+                pmanalysis: "Ví dụ: Gần đây, chúng tôi quan sát thấy có hiện tượng rò rỉ dầu liên tục ở phía bên phải nắp xi lanh thủy lực của công ty, có giọt dầu trên sàn.",
+                datadriven: "Ví dụ: Tôi muốn quyết định số lượng đặt hàng tối ưu cho mặt hàng theo mùa 'Cốc Giáng sinh'. Biết rằng chi phí mỗi chiếc cốc là 100 TWD, giá bán là 350 TWD, những chiếc không bán được cuối mùa chỉ có thể xử lý như phế phẩm (giá trị còn lại là 0). Dựa trên dữ liệu bán hàng các năm trước, nhu cầu dự kiến phân phối chuẩn, trung bình là 500 chiếc, độ lệch chuẩn là 80 chiếc.",
+                "8dreport": "Ví dụ: Khách hàng của chúng tôi, công ty XYZ, phàn nàn rằng lô hàng linh kiện (mã số #12345) được giao gần đây có 10% bị trầy xước bề mặt."
             }
         };
         paRadioButtons.forEach(radio => {
@@ -1393,6 +1578,15 @@
                 vpc: "例如：为忙碌但注重健康的都市上班族，设计一款个人化的订阅制健康餐盒服务。",
                 bmc: "例如：承接VPC的分析，为『个人化订阅制健康餐盒』服务规划一个完整的商业模式。",
                 pyramid: "例如：我想向管理层提议，公司应该投资导入新的AI客服系统。"
+            },
+            "vi": {
+                scamper: "Ví dụ: Làm thế nào để tăng lượng khách và doanh thu cho các hiệu sách truyền thống để đối phó với sự cạnh tranh từ thương mại điện tử?",
+                triz: "Ví dụ: Tôi muốn pin điện thoại có thời lượng sử dụng lâu hơn (tăng cường), nhưng không muốn pin to và nặng hơn (suy yếu).",
+                sixhats: "Ví dụ: Công ty có nên triển khai chính sách làm việc tại nhà (WFH) toàn diện không?",
+                designthinking: "Ví dụ: Làm thế nào để cải thiện trải nghiệm ăn uống của sinh viên trong khuôn viên trường đại học?",
+                vpc: "Ví dụ: Thiết kế một dịch vụ hộp cơm sức khỏe đăng ký theo cá nhân hóa cho nhân viên văn phòng thành thị bận rộn nhưng quan tâm đến sức khỏe.",
+                bmc: "Ví dụ: Tiếp nối phân tích VPC, lập kế hoạch một mô hình kinh doanh hoàn chỉnh cho dịch vụ 'hộp cơm sức khỏe đăng ký theo cá nhân hóa'.",
+                pyramid: "Ví dụ: Tôi muốn đề xuất với ban quản lý rằng công ty nên đầu tư vào việc triển khai một hệ thống dịch vụ khách hàng AI mới."
             }
         };
         caRadioButtons.forEach(radio => {
@@ -1430,6 +1624,18 @@
             'q2-da': '不同的决策标准其重要性也不同。设定权重是为了让最终的总分能真实反映出我们对不同标准的重视程度。',
             'q1-ca': 'IDEA框架的第一步是从洞察(Insight)开始，这需要我们深入使用者情境，用同理心去感受他们的痛点与爽点，这是所有创新的源头。',
             'q2-ca': 'SCAMPER是一个脑力激荡的检查表，C代表Combine(结合)，鼓励我们思考能否将不同的事物、功能或点子结合在一起，创造出新的价值。'
+        },
+        "vi": {
+            'q1-sa': 'Cốt lõi của SA là khi đối mặt với tình huống phức tạp, trước tiên cần phân tách và sắp xếp một cách có hệ thống để nắm bắt toàn cục, thay vì nhảy ngay vào giải pháp.',
+            'q2-sa': 'MECE (Mutually Exclusive, Collectively Exhaustive) có nghĩa là "loại trừ lẫn nhau, bao hàm toàn diện", là quy tắc vàng để đảm bảo cấu trúc logic chặt chẽ.',
+            'q1-pa': 'Tinh hoa của PA nằm ở việc so sánh các điều kiện "xảy ra (IS)" và "không xảy ra (IS NOT)" để tìm ra "sự khác biệt", những điểm khác biệt này là manh mối quan trọng để tìm ra nguyên nhân gốc rễ.',
+            'q2-pa': 'Sau khi tìm thấy nguyên nhân có khả năng cao nhất (MPC), cần phải dùng nó để kiểm chứng ngược lại, xem nó có thể giải thích hợp lý tất cả các sự thật đã biết (IS/IS NOT) hay không. Chỉ khi qua kiểm chứng mới có thể xác nhận là nguyên nhân thực sự.',
+            'q1-ppa': 'RPN là công cụ định lượng trong quản lý rủi ro, thông qua việc đánh giá tổng hợp mức độ nghiêm trọng, khả năng xảy ra và độ khó phát hiện của rủi ro để sắp xếp thứ tự ưu tiên một cách khách quan.',
+            'q2-ppa': 'Mục đích của Kế hoạch B (hành động ứng phó) là khi rủi ro không may xảy ra, có sẵn phương án để giảm thiểu thiệt hại hoặc tác động. Chuẩn bị phụ tùng thay thế là một ví dụ điển hình của Kế hoạch B.',
+            'q1-da': 'Musts là ngưỡng cứng trong việc ra quyết định. Bất kỳ lựa chọn nào không đáp ứng Musts, dù điểm Wants cao đến đâu, cũng nên bị loại bỏ ngay lập tức, điều này giúp thu hẹp phạm vi lựa chọn một cách hiệu quả.',
+            'q2-da': 'Tầm quan trọng của các tiêu chí quyết định khác nhau là khác nhau. Việc đặt trọng số là để tổng điểm cuối cùng có thể phản ánh chân thực mức độ chúng ta coi trọng các tiêu chí khác nhau.',
+            'q1-ca': 'Bước đầu tiên của khung IDEA là bắt đầu từ sự thấu hiểu (Insight), điều này đòi hỏi chúng ta phải đi sâu vào bối cảnh của người dùng, dùng sự đồng cảm để cảm nhận những nỗi đau và lợi ích của họ, đây là nguồn gốc của mọi sự đổi mới.',
+            'q2-ca': 'SCAMPER là một danh sách kiểm tra cho brainstorming, C đại diện cho Combine (Kết hợp), khuyến khích chúng ta suy nghĩ về việc liệu có thể kết hợp các sự vật, chức năng hoặc ý tưởng khác nhau lại với nhau để tạo ra giá trị mới hay không.'
         }
     };
 
@@ -1440,8 +1646,9 @@
         const currentLang = localStorage.getItem('preferredLanguage') || 'zh-TW';
         const currentExplanations = quizExplanations[currentLang];
         const messages = {
-            "zh-TW": { correct: "答對了！", incorrect: "答錯了。", notAnswered: "您未選擇答案。", scoreText: "您的得分:" },
-            "zh-CN": { correct: "答对了！", incorrect: "答错了。", notAnswered: "您未选择答案。", scoreText: "您的得分:" }
+            "zh-TW": { correct: "答對了！", incorrect: "答錯了。", notAnswered: "您未選擇答案。", scoreText: "您的得分:", explanationPrefix: "正確答案是" },
+            "zh-CN": { correct: "答对了！", incorrect: "答错了。", notAnswered: "您未选择答案。", scoreText: "您的得分:", explanationPrefix: "正确答案是" },
+            "vi": { correct: "Đúng rồi!", incorrect: "Sai rồi.", notAnswered: "Bạn chưa chọn câu trả lời.", scoreText: "Điểm của bạn:", explanationPrefix: "Đáp án đúng là" }
         };
         const currentMessages = messages[currentLang];
 
@@ -1459,11 +1666,11 @@
                     feedbackEl.innerHTML = `✅ <strong>${currentMessages.correct}</strong> ${currentExplanations[qName]}`;
                     feedbackEl.classList.add('feedback-correct');
                 } else {
-                    feedbackEl.innerHTML = `❌ <strong>${currentMessages.incorrect}</strong>正確答案是 (${correctAnswer.toUpperCase()})。<br>${currentExplanations[qName]}`;
+                    feedbackEl.innerHTML = `❌ <strong>${currentMessages.incorrect}</strong> ${currentMessages.explanationPrefix} (${correctAnswer.toUpperCase()}).<br>${currentExplanations[qName]}`;
                     feedbackEl.classList.add('feedback-incorrect');
                 }
             } else {
-                feedbackEl.innerHTML = `<strong>${currentMessages.notAnswered}</strong>正確答案是 (${correctAnswer.toUpperCase()})。<br>${currentExplanations[qName]}`;
+                feedbackEl.innerHTML = `<strong>${currentMessages.notAnswered}</strong> ${currentMessages.explanationPrefix} (${correctAnswer.toUpperCase()}).<br>${currentExplanations[qName]}`;
                 feedbackEl.classList.add('feedback-incorrect');
             }
         });
