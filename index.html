@@ -18,6 +18,17 @@
     <!-- Font Awesome for download icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- Lucide Icons for department scenarios -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+
     <!-- Custom Styles with University of Michigan Colors -->
     <style>
         body {
@@ -41,16 +52,16 @@
         .section-subtitle {
             @apply text-center text-gray-500 mb-12 max-w-2xl mx-auto;
         }
-        .service-card {
+        .card-base { /* Base styles for all cards to ensure consistency */
             @apply bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ease-in-out flex flex-col;
         }
-        .service-card h3 {
+        .card-base h3, .card-base h4 { /* Common heading styles for cards */
             @apply text-xl font-semibold text-um-blue mb-3;
         }
-        .service-card p {
+        .card-base p, .card-base ul { /* Common text/list styles for cards */
             @apply text-gray-600 flex-grow;
         }
-        .service-card .icon {
+        .card-base .icon { /* Common icon color for cards */
             color: #00274C;
         }
         /* Language switcher styles */
@@ -72,6 +83,32 @@
         .accordion-header.active .fa-chevron-down {
             transform: rotate(180deg);
         }
+
+        /* Specific override for the service cards to use card-base */
+        .service-card {
+            @apply card-base;
+        }
+
+        /* AI Scenarios Card Styling - now uses card-base and specific list styling */
+        .ai-scenario-card {
+            @apply card-base border border-gray-200; /* Inherit base card styles, added border */
+        }
+        /* Department title style consistent with service cards */
+        .ai-scenario-card .department-title {
+            @apply flex items-center text-xl font-semibold text-um-blue mb-4; /* Increased mb for more space */
+        }
+        .ai-scenario-card .department-title svg {
+            @apply h-8 w-8 text-um-blue p-1 bg-um-maize rounded-full mr-3; /* Larger icon, maize background, rounded */
+        }
+        .ai-scenario-card ul {
+            @apply text-gray-600 flex-grow space-y-2 mt-2; /* Increased space-y for list items */
+        }
+        .ai-scenario-card ul li {
+            @apply flex items-start; /* Align list item content */
+        }
+        .ai-scenario-card ul li svg {
+            @apply h-5 w-5 text-um-blue mr-2 mt-0.5 flex-shrink-0; /* Slightly larger list icon */
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -85,6 +122,7 @@
             <div class="hidden md:flex flex-grow justify-center space-x-6 items-center">
                 <a href="#about" class="text-gray-600 hover:text-um-blue transition duration-300" data-translate="nav_about">關於我們</a>
                 <a href="#services" class="text-gray-600 hover:text-um-blue transition duration-300" data-translate="nav_services">核心服務</a>
+                <a href="#ai-scenarios" class="text-gray-600 hover:text-um-blue transition duration-300" data-translate="nav_ai_scenarios">AI運用場景</a>
                 <a href="#success-case" class="text-gray-600 hover:text-um-blue transition duration-300" data-translate="nav_cases">成功案例</a>
                 <a href="#downloads" class="text-gray-600 hover:text-um-blue transition duration-300" data-translate="nav_downloads">課程下載</a>
                 <a href="#contact" class="bg-um-blue text-white px-4 py-2 rounded-md hover:bg-um-blue-dark transition duration-300" data-translate="nav_contact">聯絡我們</a>
@@ -104,6 +142,7 @@
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
             <a href="#about" class="block py-2 text-gray-600 hover:text-um-blue" data-translate="nav_about_mobile">關於我們</a>
             <a href="#services" class="block py-2 text-gray-600 hover:text-um-blue" data-translate="nav_services_mobile">核心服務</a>
+            <a href="#ai-scenarios" class="block py-2 text-gray-600 hover:text-um-blue" data-translate="nav_ai_scenarios_mobile">AI運用場景</a>
             <a href="#success-case" class="block py-2 text-gray-600 hover:text-um-blue" data-translate="nav_cases_mobile">成功案例</a>
             <a href="#downloads" class="block py-2 text-gray-600 hover:text-um-blue" data-translate="nav_downloads_mobile">課程下載</a>
             <a href="#contact" class="block mt-2 bg-um-blue text-white text-center px-4 py-2 rounded-md hover:bg-um-blue-dark" data-translate="nav_contact_mobile">聯絡我們</a>
@@ -209,6 +248,89 @@
             </div>
         </section>
 
+        <!-- AI Application Scenarios Section -->
+        <section id="ai-scenarios" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title" data-translate="ai_scenarios_title">公司AI運用場景</h2>
+                <p class="section-subtitle" data-translate="ai_scenarios_subtitle">
+                    我們的AI解決方案能深度整合至企業各核心功能部門，助力提升效率、優化決策，並推動創新。
+                </p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 財會 (Finance & Accounting) -->
+                    <div class="ai-scenario-card">
+                        <h3 class="flex items-center"><svg data-lucide="calculator" class="icon h-6 w-6 mr-2"></svg><b data-translate="dept_finance">財會</b></h3>
+                        <ul class="text-gray-600 flex-grow space-y-1 mt-2">
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="finance_metric">財務指標</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="finance_investment">投資效率</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="finance_budget">預算編成</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="finance_reports">財報</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="finance_receivable">應收/庫存/應付</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- 銷售與營銷 (Sales & Marketing) -->
+                    <div class="ai-scenario-card">
+                        <h3 class="flex items-center"><svg data-lucide="line-chart" class="icon h-6 w-6 mr-2"></svg><b data-translate="dept_sales_marketing">銷售與營銷</b></h3>
+                        <ul class="text-gray-600 flex-grow space-y-1 mt-2">
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="sales_channels">渠道</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="sales_crm">客戶關係</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="sales_lifecycle">產品週期</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="sales_forecast">訂單預測</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="sales_vpc_bmc">VPC/BMC</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- 人資 (Human Resources) -->
+                    <div class="ai-scenario-card">
+                        <h3 class="flex items-center"><svg data-lucide="graduation-cap" class="icon h-6 w-6 mr-2"></svg><b data-translate="dept_hr">人資</b></h3>
+                        <ul class="text-gray-600 flex-grow space-y-1 mt-2">
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="hr_performance">績效評核</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="hr_recruitment">應聘篩選</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="hr_interview">面談</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="hr_satisfaction">員工滿意度</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="hr_training">教育訓練</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- 生產 (Production) -->
+                    <div class="ai-scenario-card">
+                        <h3 class="flex items-center"><svg data-lucide="factory" class="icon h-6 w-6 mr-2"></svg><b data-translate="dept_production">生產</b></h3>
+                        <ul class="text-gray-600 flex-grow space-y-1 mt-2">
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="prod_cycle_time">Cycle Time</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="prod_inventory_turnover">庫存周轉</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="prod_cost">成本</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="prod_smart_factory">智慧工廠</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="prod_on_job_training">在職訓練</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- 研發 (R&D) -->
+                    <div class="ai-scenario-card">
+                        <h3 class="flex items-center"><svg data-lucide="lightbulb" class="icon h-6 w-6 mr-2"></svg><b data-translate="dept_rd">研發</b></h3>
+                        <ul class="text-gray-600 flex-grow space-y-1 mt-2">
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="rd_idea_gen">創意生成</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="rd_project_mgmt">專案管理</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="rd_tech_patents">技術專利</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="rd_log">研發日誌</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="rd_roadmap">產品Roadmap</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- 法務/採購 (Legal/Procurement) -->
+                    <div class="ai-scenario-card">
+                        <h3 class="flex items-center"><svg data-lucide="scale" class="icon h-6 w-6 mr-2"></svg><b data-translate="dept_legal_procurement">法務/採購</b></h3>
+                        <ul class="text-gray-600 flex-grow space-y-1 mt-2">
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="lp_contract_review">合約審查</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="lp_dispute_res">爭議解決</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="lp_legal_doc_gen">法務案件撰寫</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="lp_risk_mgmt">風險管理</span></li>
+                            <li class="flex items-center"><svg data-lucide="chevron-right"></svg><span data-translate="lp_forecast">預測</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <!-- Success Case Section -->
         <section id="success-case" class="py-20 bg-um-blue text-white">
             <div class="container mx-auto px-6 space-y-12">
@@ -329,6 +451,22 @@
                     </div>
                 </div>
 
+                <!-- Case 8: FMEA + AI Assistant -->
+                <div class="bg-[#001e3c] rounded-lg shadow-xl overflow-hidden">
+                    <div class="p-8 md:p-12">
+                        <h3 class="text-2xl font-bold mb-4 text-um-maize" data-translate="case8_title">案例八：FMEA + AI 助理</h3>
+                        <p class="text-gray-300 mb-4" data-translate="case8_p1">
+                            我們將失效模式與效應分析 (FMEA) 流程與 AI 結合，打造智能助理。此工具能引導使用者系統性地識別潛在失效模式、評估其影響與發生機率，並推薦最佳的預防與偵測措施。
+                        </p>
+                        <p class="text-gray-300 mb-6" data-translate="case8_p2">
+                            透過 AI 的輔助，FMEA 的執行效率與準確性大幅提升，有助於企業在產品設計、流程開發及系統運營初期，主動預防風險，顯著提升可靠性與品質。
+                        </p>
+                        <a href="FMEA_AI.html" target="_blank" class="inline-block bg-um-maize text-um-blue font-bold py-3 px-6 rounded-lg hover:bg-um-maize-dark transition duration-300" data-translate="case8_button">
+                            體驗 FMEA AI 助理
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </section>
         
@@ -435,7 +573,7 @@
                         </div>
                     </div>
                     <!-- Accordion Item 7 -->
-                    <div class="border-b-0">
+                    <div class="border-b">
                         <button class="accordion-header w-full text-left p-5 focus:outline-none flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition">
                             <h3 class="text-lg font-semibold text-um-blue" data-translate="download7_title">精實管理 + AI 助理_課程提案.docx</h3>
                             <i class="fas fa-chevron-down transition-transform duration-300"></i>
@@ -444,6 +582,22 @@
                             <div class="p-5 bg-white flex items-center justify-between">
                                 <p class="text-sm text-gray-500" data-translate="download7_type">文件類型：Microsoft Word</p>
                                 <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/精實管理 + AI 助理_課程提案.docx" download class="bg-um-blue text-white font-bold py-2 px-5 rounded-lg hover:bg-um-blue-dark transition duration-300 flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    <span data-translate="download_button">下載</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 8 -->
+                    <div class="border-b-0">
+                        <button class="accordion-header w-full text-left p-5 focus:outline-none flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition">
+                            <h3 class="text-lg font-semibold text-um-blue" data-translate="download8_title">FMEA_失效模式與效應分析 + AI 助理_課程提案.docx</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 bg-white flex items-center justify-between">
+                                <p class="text-sm text-gray-500" data-translate="download8_type">文件類型：Microsoft Word</p>
+                                <a href="https://raw.githubusercontent.com/drcliffwang/course-material/main/FMEA_失效模式與效應分析 + AI 助理_課程提案.docx" download class="bg-um-blue text-white font-bold py-2 px-5 rounded-lg hover:bg-um-blue-dark transition duration-300 flex items-center">
                                     <i class="fas fa-download mr-2"></i>
                                     <span data-translate="download_button">下載</span>
                                 </a>
@@ -535,11 +689,13 @@
                 "meta_description": "A2PSDM Consulting specializes in corporate training and consulting for Problem Solving, Data-Driven Decision Making, and Project Management, integrated with advanced AI technology.",
                 "nav_about": "About Us",
                 "nav_services": "Core Services",
+                "nav_ai_scenarios": "AI Scenarios",
                 "nav_cases": "Success Cases",
                 "nav_downloads": "Downloads",
                 "nav_contact": "Contact Us",
                 "nav_about_mobile": "About Us",
                 "nav_services_mobile": "Core Services",
+                "nav_ai_scenarios_mobile": "AI Scenarios",
                 "nav_cases_mobile": "Success Cases",
                 "nav_downloads_mobile": "Downloads",
                 "nav_contact_mobile": "Contact Us",
@@ -567,6 +723,44 @@
                 "service5_desc": "Visualize financial data with smart AI dashboards to strengthen managers' grasp of operational status and decision-making capabilities.",
                 "service6_title": "Critical Thinking & Innovation (Innovation)",
                 "service6_desc": "Use AI to assist brainstorming and innovation methodologies (like TRIZ) to systematically cultivate team creativity.",
+                "ai_scenarios_title": "Company AI Application Scenarios",
+                "ai_scenarios_subtitle": "Our AI solutions can be deeply integrated into various core functional departments to help improve efficiency, optimize decision-making, and drive innovation.",
+                "dept_finance": "Finance & Accounting",
+                "finance_metric": "Financial Indicators",
+                "finance_investment": "Investment Efficiency",
+                "finance_budget": "Budget Compilation",
+                "finance_reports": "Financial Reports",
+                "finance_receivable": "Accounts Receivable/Inventory/Payable",
+                "dept_sales_marketing": "Sales & Marketing", 
+                "sales_channels": "Channels",
+                "sales_crm": "Customer Relationship",
+                "sales_lifecycle": "Product Life Cycle",
+                "sales_forecast": "Order Forecast",
+                "sales_vpc_bmc": "VPC/BMC", 
+                "dept_hr": "Human Resources",
+                "hr_performance": "Performance Appraisal",
+                "hr_recruitment": "Recruitment Screening",
+                "hr_interview": "Interviews",
+                "hr_satisfaction": "Employee Satisfaction",
+                "hr_training": "Education & Training",
+                "dept_production": "Production",
+                "prod_cycle_time": "Cycle Time",
+                "prod_inventory_turnover": "Inventory Turnover",
+                "prod_cost": "Cost",
+                "prod_smart_factory": "Smart Factory",
+                "prod_on_job_training": "On-the-job Training",
+                "dept_rd": "R&D",
+                "rd_idea_gen": "Idea Generation",
+                "rd_project_mgmt": "Project Management",
+                "rd_tech_patents": "Technical Patents",
+                "rd_log": "R&D Log",
+                "rd_roadmap": "Product Roadmap",
+                "dept_legal_procurement": "Legal/Procurement",
+                "lp_contract_review": "Contract Review",
+                "lp_dispute_res": "Dispute Resolution",
+                "lp_legal_doc_gen": "Legal Document Drafting",
+                "lp_risk_mgmt": "Risk Management",
+                "lp_forecast": "Forecast",
                 "case_main_title": "Featured Projects & Success Cases",
                 "case_main_subtitle": "We upgrade traditional course materials and consulting methods into interactive AI solutions highly praised by clients.",
                 "case1_title": "Case 1: Problem Solving & Decision Making + AI Assistant",
@@ -597,6 +791,10 @@
                 "case7_p1": "We empower traditional Lean Management with AI. Our AI assistant guides users to identify the eight wastes, draw Value Stream Maps (VSM), and pinpoint bottlenecks.",
                 "case7_p2": "Leveraging AI's analytical capabilities, this tool assists in balancing production lines and optimizing standard work. It transforms lean principles into a data-driven, intelligent system for continuous improvement, effectively helping clients eliminate waste and create more value.",
                 "case7_button": "Experience Lean AI Assistant",
+                "case8_title": "Case 8: FMEA + AI Assistant", 
+                "case8_p1": "We integrate Failure Mode and Effects Analysis (FMEA) processes with AI to create an intelligent assistant. This tool guides users to systematically identify potential failure modes, evaluate their impact and probability of occurrence, and recommend optimal prevention and detection measures.", 
+                "case8_p2": "With AI assistance, the efficiency and accuracy of FMEA execution are significantly improved, helping enterprises proactively prevent risks in the early stages of product design, process development, and system operation, thereby significantly enhancing reliability and quality.", 
+                "case8_button": "Experience FMEA AI Assistant", 
                 "downloads_title": "Course Proposals & Files Download",
                 "downloads_subtitle": "Feel free to download our course proposals to learn more details.",
                 "download1_title": "Systemic Thinking for Problem Analysis & Solving + AI_Course Proposal (2 Days)",
@@ -613,6 +811,8 @@
                 "download6_type": "File Type: Microsoft Word",
                 "download7_title": "Lean Management + AI Assistant_Course Proposal.docx",
                 "download7_type": "File Type: Microsoft Word",
+                "download8_title": "FMEA_Failure Mode and Effects Analysis + AI Assistant_Course Proposal.docx", 
+                "download8_type": "File Type: Microsoft Word", 
                 "download_button": "Download",
                 "contact_title": "Contact Us",
                 "contact_subtitle": "Ready to inject AI-driven growth momentum into your business? <br>Please fill out the form on the right, or contact us directly through the methods below.",
@@ -635,11 +835,13 @@
                 "meta_description": "A2PSDM 顧問專注於問題分析與解決、數據驅動決策、專案管理等企業訓練與顧問案，並結合 AI 技術提供創新解決方案。",
                 "nav_about": "關於我們",
                 "nav_services": "核心服務",
+                "nav_ai_scenarios": "AI運用場景",
                 "nav_cases": "成功案例",
                 "nav_downloads": "課程下載",
                 "nav_contact": "聯絡我們",
                 "nav_about_mobile": "關於我們",
                 "nav_services_mobile": "核心服務",
+                "nav_ai_scenarios_mobile": "AI運用場景",
                 "nav_cases_mobile": "成功案例",
                 "nav_downloads_mobile": "課程下載",
                 "nav_contact_mobile": "聯絡我們",
@@ -667,6 +869,44 @@
                 "service5_desc": "以AI智慧儀表板視覺化財務數據，強化主管對營運狀況的掌握與決策能力。",
                 "service6_title": "關鍵思考與創新 (Innovation)",
                 "service6_desc": "利用AI輔助腦力激盪與創新方法學(如TRIZ)，系統性地培養團隊的創造力。",
+                "ai_scenarios_title": "公司AI運用場景",
+                "ai_scenarios_subtitle": "我們的AI解決方案能深度整合至企業各核心功能部門，助力提升效率、優化決策，並推動創新。",
+                "dept_finance": "財會",
+                "finance_metric": "財務指標",
+                "finance_investment": "投資效率",
+                "finance_budget": "預算編成",
+                "finance_reports": "財報",
+                "finance_receivable": "應收/庫存/應付",
+                "dept_sales_marketing": "銷售與營銷", // Changed
+                "sales_channels": "渠道",
+                "sales_crm": "客戶關係",
+                "sales_lifecycle": "產品週期",
+                "sales_forecast": "訂單預測",
+                "sales_vpc_bmc": "VPC/BMC", // Added
+                "dept_hr": "人資",
+                "hr_performance": "績效評核",
+                "hr_recruitment": "應聘篩選",
+                "hr_interview": "面談",
+                "hr_satisfaction": "員工滿意度",
+                "hr_training": "教育訓練",
+                "dept_production": "生產",
+                "prod_cycle_time": "Cycle Time",
+                "prod_inventory_turnover": "庫存周轉",
+                "prod_cost": "成本",
+                "prod_smart_factory": "智慧工廠",
+                "prod_on_job_training": "在職訓練",
+                "dept_rd": "研發",
+                "rd_idea_gen": "創意生成",
+                "rd_project_mgmt": "專案管理",
+                "rd_tech_patents": "技術專利",
+                "rd_log": "研發日誌",
+                "rd_roadmap": "產品Roadmap",
+                "dept_legal_procurement": "法務/採購",
+                "lp_contract_review": "合約審查",
+                "lp_dispute_res": "爭議解決",
+                "lp_legal_doc_gen": "法務案件撰寫",
+                "lp_risk_mgmt": "風險管理",
+                "lp_forecast": "預測",
                 "case_main_title": "精選專案與成功案例",
                 "case_main_subtitle": "我們將傳統的課程教材與顧問方法，升級為深受客戶好評的 AI 互動解決方案。",
                 "case1_title": "案例一：問題分析與解決+AI 助理",
@@ -697,6 +937,10 @@
                 "case7_p1": "我們將傳統的精實管理賦予AI動能。我們的AI助理能引導使用者識別八大浪費、繪製價值流圖(VSM)並找出瓶頸。",
                 "case7_p2": "透過AI的分析能力，此工具能協助進行產線平衡與標準作業的優化。這將精實原則轉化為數據驅動的智慧改善系統，有效協助客戶消除浪費、創造更高價值。",
                 "case7_button": "體驗精實管理AI助理",
+                "case8_title": "案例八：FMEA + AI 助理", 
+                "case8_p1": "我們將失效模式與效應分析 (FMEA) 流程與 AI 結合，打造智能助理。此工具能引導使用者系統性地識別潛在失效模式、評估其影響與發生機率，並推薦最佳的預防與偵測措施。", 
+                "case8_p2": "透過 AI 的輔助，FMEA 的執行效率與準確性大幅提升，有助於企業在產品設計、流程開發及系統運營初期，主動預防風險，顯著提升可靠性與品質。", 
+                "case8_button": "體驗 FMEA AI 助理", 
                 "downloads_title": "課程提案與檔案下載",
                 "downloads_subtitle": "歡迎下載我們的課程提案，了解更多詳細資訊。",
                 "download1_title": "系統性思考問題分析與解決+AI_課程提案(2 Days)",
@@ -713,9 +957,11 @@
                 "download6_type": "文件類型：Microsoft Word",
                 "download7_title": "精實管理 + AI 助理_課程提案.docx",
                 "download7_type": "文件類型：Microsoft Word",
+                "download8_title": "FMEA_失效模式與效應分析 + AI 助理_課程提案.docx", 
+                "download8_type": "文件類型：Microsoft Word", 
                 "download_button": "下載",
                 "contact_title": "聯絡我們",
-                "contact_subtitle": "準備好為您的企業注入 AI 驅動的成長動能了嗎？ <br>請填寫右方表單，或透過以下方式直接與我們聯繫。",
+                "contact_subtitle": "準備好為您的企業注入 AI 驅動的成長動能了嗎？<br>請填寫右方表單，或透過以下方式直接與我們聯繫。",
                 "contact_direct_title": "直接聯繫",
                 "contact_direct_subtitle": "我們期待收到您的訊息，開啟合作的第一步。",
                 "contact_email_label": "電子郵件",
@@ -735,11 +981,13 @@
                 "meta_description": "A2PSDM 顾问专注于问题分析与解决、数据驱动决策、项目管理等企业训练与顾问案，并结合 AI 技术提供创新解决方案。",
                 "nav_about": "关于我们",
                 "nav_services": "核心服务",
+                "nav_ai_scenarios": "AI运用场景",
                 "nav_cases": "成功案例",
                 "nav_downloads": "课程下载",
                 "nav_contact": "联系我们",
                 "nav_about_mobile": "关于我们",
                 "nav_services_mobile": "核心服务",
+                "nav_ai_scenarios_mobile": "AI运用场景",
                 "nav_cases_mobile": "成功案例",
                 "nav_downloads_mobile": "课程下载",
                 "nav_contact_mobile": "联系我们",
@@ -767,6 +1015,44 @@
                 "service5_desc": "以AI智慧仪表板可视化财务数据，强化主管对营运状况的掌握与决策能力。",
                 "service6_title": "关键思考与创新 (Innovation)",
                 "service6_desc": "利用AI辅助脑力激荡与创新方法学(如TRIZ)，系统性地培养团队的创造力。",
+                "ai_scenarios_title": "公司AI运用场景",
+                "ai_scenarios_subtitle": "我们的AI解决方案能深度整合至企业各核心功能部门，助力提升效率、优化决策，并推动创新。",
+                "dept_finance": "财会",
+                "finance_metric": "财务指标",
+                "finance_investment": "投资效率",
+                "finance_budget": "预算编制",
+                "finance_reports": "财报",
+                "finance_receivable": "应收/库存/应付",
+                "dept_sales_marketing": "销售与营销", // Changed
+                "sales_channels": "渠道",
+                "sales_crm": "客户关系",
+                "sales_lifecycle": "产品周期",
+                "sales_forecast": "订单预测",
+                "sales_vpc_bmc": "VPC/BMC", // Added
+                "dept_hr": "人资",
+                "hr_performance": "绩效评核",
+                "hr_recruitment": "应聘筛选",
+                "hr_interview": "面谈",
+                "hr_satisfaction": "员工满意度",
+                "hr_training": "教育训练",
+                "dept_production": "生产",
+                "prod_cycle_time": "Cycle Time",
+                "prod_inventory_turnover": "库存周转",
+                "prod_cost": "成本",
+                "prod_smart_factory": "智慧工厂",
+                "prod_on_job_training": "在职训练",
+                "dept_rd": "研发",
+                "rd_idea_gen": "创意生成",
+                "rd_project_mgmt": "项目管理",
+                "rd_tech_patents": "技术专利",
+                "rd_log": "研发日志",
+                "rd_roadmap": "产品Roadmap",
+                "dept_legal_procurement": "法务/采购",
+                "lp_contract_review": "合约审查",
+                "lp_dispute_res": "争议解决",
+                "lp_legal_doc_gen": "法务案件撰写",
+                "lp_risk_mgmt": "风险管理",
+                "lp_forecast": "预测",
                 "case_main_title": "精选项目与成功案例",
                 "case_main_subtitle": "我们将传统的课程教材与顾问方法，升级为深受客户好评的 AI 互动解决方案。",
                 "case1_title": "案例一：问题分析与解决+AI 助理",
@@ -778,25 +1064,29 @@
                 "case2_p2": "此方案成功协助客户在维持高服务水平的同时，显著降低了库存成本与呆滞料风险，将管理者的精力从繁琐计算中解放，专注于更有价值的策略决策。",
                 "case2_button": "体验库存优化AI",
                 "case3_title": "案例三：系统思维与创新+AI 工具箱助理",
-                "case3_p1": "我们将企业内部的「系统性思维与创新」课程，从单向讲授升级为一个强大的 AI 互动工具箱。学员可以在此平台选择多种经典思维模型（如 8D/5C, PM 分析, Why-Why 分析, TRIZ,设计思维, VPC/BMC等）。",
+                "case3_p1": "我们将企业内部的「系统性思维与创新」课程，从单向讲授升级为一个强大的 AI 互动工具箱。学员可以在此平台选择多種经典思维模型（如 8D/5C, PM 分析, Why-Why 分析, TRIZ,设计思维, VPC/BMC等）。",
                 "case3_p2": "透过引导式介面，学员能将真实工作难题输入，由 AI 协同产出结构化的分析报告与解决方案，将抽象的理论方法论，转化为可立即应用的实战利器，有效提升了组织内部的问题解决与创新能力。",
                 "case3_button": "体验 AI 创新工具箱",
-                "case4_title": "案例四：非财会主管的财会+AI助理",
+                "case4_title": "Case 4: Finance for Non-Financial Managers + AI Assistant",
                 "case4_p1": "我们透过 AI 助理赋予主管财务识读力。此工具能协助非财会背景的专业人士解读财务报表、对关键指标(如损益两平BEP、杜邦分析)进行模拟分析，并理解其营运决策对财务的影响。",
                 "case4_p2": "这套方案将复杂的数字转化为可行动的商业智慧，让每一位管理者都能基于财务数据做出更精准的判断，驱动企业的整体价值提升。",
                 "case4_button": "体验财会AI助理",
-                "case5_title": "案例五：项目管理 + AI 助理",
+                "case5_title": "Case 5: Project Management + AI Assistant",
                 "case5_p1": "我们将项目管理的五大流程与十大知识体，浓缩成一个强大的 AI 项目助理。它能协助项目经理快速产出专业的项目章程、建立完整的工作分解结构(WBS)，并进行系统化的风险分析。",
                 "case5_p2": "透过导入实获值管理(EVM)等工具，AI 助理能客观地追踪与评估项目的时程与成本绩效，让管理者能即时掌握项目健康状况，做出精准的决策，大幅提升项目成功率。",
                 "case5_button": "体验项目管理AI助理",
-                "case6_title": "案例六：数据驱动决策 + AI 助理",
-                "case6_p1": "我们打造了一款 AI 数据分析助理，让数据驱动决策变得前所未有的简单。使用者只需上传数据并用自然语言提问，AI 就能协助执行数据的整理,比较，关联, 控制预测。",
-                "case6_p2": "此工具降低了数据科学的技术门槛，让团队能快速从数据中验证假设、发掘洞见，并将其转化为有力的决策依据，真正落实数据导向的企业文化。",
-                "case6_button": "体验数据决策AI助理",
-                "case7_title": "案例七：精实管理 + AI 助理",
-                "case7_p1": "我们将传统的精实管理赋予AI动能。我们的AI助理能引导使用者识别八大浪费、绘制价值流图(VSM)并找出瓶颈。",
-                "case7_p2": "透过AI的分析能力，此工具能协助进行产线平衡与标准作业的优化。这将精实原则转化为数据驱动的智慧改善系统，有效协助客户消除浪费、创造更高价值。",
+                "case6_title": "Case 6: Data-Driven Decision Making + AI Assistant",
+                "case6_p1": "我们打造了一款 AI 数据分析助理，让数据驱动決策变得前所未有的简单。使用者只需上传数据并用自然语言提问，AI 就能协助执行数据的整理,比較，关联, 控制预测。",
+                "case6_p2": "此工具降低了数据科学的技術门槛，讓團隊能快速從數據中驗證假設、發掘洞見，並將其轉化為有力的決策依據，真正落實數據導向的企業文化。",
+                "case6_button": "体验数据決策AI助理",
+                "case7_title": "Case 7: Lean Management + AI Assistant",
+                "case7_p1": "我们将传统的精实管理赋予AI动能。我们的AI助理能引导使用者识别八大浪费、绘制价值流图(VSM)，并找出瓶颈。",
+                "case7_p2": "Leveraging AI's analytical capabilities, this tool assists in balancing production lines and optimizing standard work. It transforms lean principles into a data-driven, intelligent system for continuous improvement, effectively helping clients eliminate waste and create more value.",
                 "case7_button": "体验精实管理AI助理",
+                "case8_title": "案例八：FMEA + AI 助理", 
+                "case8_p1": "我们将失效模式与效应分析 (FMEA) 流程与 AI 结合，打造智能助理。此工具能引导使用者系统性地识别潜在失效模式、评估其影响与发生机率，并推荐最佳的預防與偵測措施。", 
+                "case8_p2": "透过 AI 的辅助，FMEA 的执行效率与准确性大幅提升，有助于企业在产品设计、流程开发及系统运营初期，主动预防风险，显著提升可靠性与品质。", 
+                "case8_button": "体验 FMEA AI Assistant", 
                 "downloads_title": "课程提案与文件下载",
                 "downloads_subtitle": "欢迎下载我们的课程提案，了解更多详细信息。",
                 "download1_title": "系统性思考问题分析与解决+AI_课程提案(2 Days)",
@@ -809,13 +1099,15 @@
                 "download4_type": "文件类型：Microsoft Word",
                 "download5_title": "专案管理+AI_课程提案.docx",
                 "download5_type": "文件类型：Microsoft Word",
-                "download6_title": "数据驱动决策 + AI 助理_课程提案.docx",
+                "download6_title": "数据驱动決策 + AI 助理_课程提案.docx",
                 "download6_type": "文件类型：Microsoft Word",
-                "download7_title": "精实管理 + AI 助理_课程提案.docx",
-                "download7_type": "文件类型：Microsoft Word",
+                "download7_title": "精实管理 + AI 助理_課程提案.docx",
+                "download7_type": "文件類型：Microsoft Word",
+                "download8_title": "FMEA_失效模式與效應分析 + AI 助理_課程提案.docx", 
+                "download8_type": "文件類型：Microsoft Word", 
                 "download_button": "下载",
                 "contact_title": "联系我们",
-                "contact_subtitle": "准备好为您的企业注入 AI 驱动的成长动能了吗？ <br>请填写右方表单，或透过以下方式直接与我们联系。",
+                "contact_subtitle": "准备好为您的企业注入 AI 驱动的成长动能了吗？<br>请填写右方表单，或透过以下方式直接与我们联系。",
                 "contact_direct_title": "直接联系",
                 "contact_direct_subtitle": "我们期待收到您的讯息，开启合作的第一步。",
                 "contact_email_label": "电子邮件",
@@ -859,6 +1151,10 @@
 
             // Update html lang attribute
             document.documentElement.lang = lang;
+            // Re-create Lucide icons after language switch to ensure they render correctly
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
