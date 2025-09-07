@@ -1639,6 +1639,18 @@
 請為每個構面都進行至少三層的 Why-Why 分析，並以結構化的方式呈現結果。
 
 使用者問題描述：\n${userInput}`;
+                } else if (selectedPaMethod === 'datadriven') {
+                    return `作為一名數據分析專家，請根據以下問題描述和相關數據，運用數據驅動的問題分析方法，找出問題的根本原因並提出改善建議。請遵循以下結構，並以${langPrompt}回答：
+### 1. 問題概述與數據洞察
+簡要概述問題，並從提供的數據中提煉出關鍵的數據洞察（例如：趨勢、異常、分佈等）。
+### 2. 潛在原因假設
+基於數據洞察，提出至少3個導致問題的潛在原因假設。
+### 3. 數據驗證與分析
+說明如何進一步利用數據（或需要哪些額外數據）來驗證這些假設，並闡述數據將如何支持或反駁這些假設。
+### 4. 根本原因推論與建議
+根據目前的數據和分析，推論最可能的根本原因，並提出具體的改善建議。
+
+使用者問題描述：\n${userInput}`;
                 }
                 return `你是一位根本原因分析專家，請根據使用者選擇的 ${selectedPaMethod} 方法，對以下問題進行分析，並以結構化、條列式的方式呈現結果。請用${langPrompt}回答。\n\n使用者問題描述：${userInput}`;
             case 'ppa':
@@ -1706,28 +1718,28 @@
                 isisnot: "例如：A款手機外殼塗漆出現裂縫。問題只發生在台中廠的A產線 (Location: 大地點)，且集中在外殼的右上角 (Position: 小位置)。問題是從昨天(Time: 時間點)開始，呈現週期性發生(Pattern: 模式)，且通常在早上10點的班次(Life Cycle: 生命週期)出現。高雄廠的A產線、B款手機、或昨天以前則正常。",
                 whywhy: "例如：我們發現產品在客戶端的故障率增加了5%，即使我們在出貨前已經有全檢程序。",
                 pmanalysis: "例如：我們公司的油壓缸缸蓋右側，最近觀察到持續滲油，地面有油滴。",
-                datadriven: "例如：我想為季節性商品『聖誕主題馬克杯』決定最佳訂購量。已知每個杯子成本100元，售價350元，季末沒賣掉的只能當廢品處理(殘值0)。根據往年銷售數據，預估需求呈常態分佈，平均為500個，標準差為80個。",
+                datadriven: "例如：某電商平台發現，過去三個月『顧客抱怨商品品質』的數量增加了20%。經初步統計，這些抱怨主要集中在『服飾類商品』，且多數抱怨發生在『收到商品後一週內』。平台希望透過數據分析，找出導致品質抱怨增加的根本原因，並提出改善建議。",
                 "8dreport": "例如：我們的客戶 XYZ 公司投訴，上一批交付的零件 (料號 #12345) 有 10% 的比例出現表面刮痕。"
             },
             "zh-CN": {
                 isisnot: "例如：A款手机外壳涂漆出现裂缝。问题只发生在台中厂的A产线 (Location: 大地点)，且集中在外壳的右上角 (Position: 小位置)。问题是从昨天(Time: 时间点)开始，呈现周期性发生(Pattern: 模式)，且通常在早上10点的班次(Life Cycle: 生命周期)出现。高雄厂的A产线、B款手机、或昨天以前则正常。",
                 whywhy: "例如：我们发现产品在客户端的故障率增加了5%，即使我们在出货前已经有全检程序。",
                 pmanalysis: "例如：我们公司的油压缸缸盖右侧，最近观察到持续渗油，地面有油滴。",
-                datadriven: "例如：我想为季节性商品『圣诞主题马克杯』决定最佳订购量。已知每个杯子成本100元，售价350元，季末没卖掉的只能当废品处理(残值0)。根据往年销售数据，预估需求呈常态分布，平均为500个，标准差为80个。",
+                datadriven: "例如：某电商平台发现，过去三个月『顾客抱怨商品质量』的数量增加了20%。经初步统计，这些抱怨主要集中在『服饰类商品』，且多数抱怨发生在『收到商品后一周内』。平台希望通过数据分析，找出导致质量抱怨增加的根本原因，并提出改进建议。",
                 "8dreport": "例如：我们的客户 XYZ 公司投诉，上一批交付的零件 (料号 #12345) 有 10% 的比例出现表面刮痕。"
             },
             "vi": {
                 isisnot: "Ví dụ: Lớp sơn vỏ điện thoại mẫu A bị nứt. Vấn đề chỉ xảy ra trên dây chuyền A của nhà máy Đài Trung (Location: địa điểm lớn), và tập trung ở góc trên bên phải của vỏ (Position: vị trí nhỏ). Vấn đề bắt đầu từ hôm qua (Time: thời điểm), xảy ra theo chu kỳ (Pattern: quy luật), và thường xuất hiện vào ca làm việc lúc 10 giờ sáng (Life Cycle: vòng đời). Dây chuyền A của nhà máy Cao Hùng, điện thoại mẫu B, hoặc trước ngày hôm qua đều bình thường.",
                 whywhy: "Ví dụ: Chúng tôi phát hiện tỷ lệ hỏng hóc của sản phẩm tại phía khách hàng đã tăng 5%, mặc dù chúng tôi đã có quy trình kiểm tra toàn bộ trước khi xuất hàng.",
                 pmanalysis: "Ví dụ: Gần đây, chúng tôi quan sát thấy có hiện tượng rò rỉ dầu liên tục ở phía bên phải nắp xi lanh thủy lực của công ty, có giọt dầu trên sàn.",
-                datadriven: "Ví dụ: Tôi muốn quyết định số lượng đặt hàng tối ưu cho mặt hàng theo mùa 'Cốc Giáng sinh'. Biết rằng chi phí mỗi chiếc cốc là 100 TWD, giá bán là 350 TWD, những chiếc không bán được cuối mùa chỉ có thể xử lý như phế phẩm (giá trị còn lại là 0). Dựa trên dữ liệu bán hàng các năm trước, nhu cầu dự kiến phân phối chuẩn, trung bình là 500 chiếc, độ lệch chuẩn là 80 chiếc.",
+                datadriven: "Ví dụ: Một nền tảng thương mại điện tử phát hiện số lượng 'khiếu nại về chất lượng sản phẩm của khách hàng' đã tăng 20% trong ba tháng qua. Theo thống kê sơ bộ, những khiếu nại này chủ yếu tập trung vào 'sản phẩm quần áo' và hầu hết các khiếu nại xảy ra 'trong vòng một tuần sau khi nhận hàng'. Nền tảng hy vọng thông qua phân tích dữ liệu, tìm ra nguyên nhân gốc rễ dẫn đến việc tăng khiếu nại về chất lượng và đưa ra các đề xuất cải thiện.",
                 "8dreport": "Ví dụ: Khách hàng của chúng tôi, công ty XYZ, phàn nàn rằng lô hàng linh kiện (mã số #12345) được giao gần đây có 10% bị trầy xước bề mặt."
             },
             "en": {
                 isisnot: "Example: Model A phone case paint cracking. The problem only occurs on Production Line A at Taichung Factory (Location: large location), and is concentrated on the upper right corner of the case (Position: small position). The problem started yesterday (Time: time point), occurs cyclically (Pattern: pattern), and usually appears during the 10 AM shift (Life Cycle: life cycle). Production Line A at Kaohsiung Factory, Model B phones, or before yesterday are all normal.",
                 whywhy: "Example: We found that the product failure rate at the customer end increased by 5%, even though we have a full inspection process before shipment.",
                 pmanalysis: "Example: Recently, we observed continuous oil leakage on the right side of our company's hydraulic cylinder head, with oil drops on the ground.",
-                datadriven: "Example: I want to determine the optimal order quantity for the seasonal product 'Christmas-themed mugs'. Each mug costs 100 TWD, sells for 350 TWD, and unsold items at the end of the season can only be disposed of as waste (residual value 0). Based on past sales data, demand is estimated to follow a normal distribution with a mean of 500 units and a standard deviation of 80 units.",
+                datadriven: "Example: An e-commerce platform found that the number of 'customer complaints about product quality' increased by 20% in the past three months. Preliminary statistics show that these complaints are mainly concentrated in 'apparel products', and most complaints occurred 'within one week of receiving the goods'. The platform hopes to use data analysis to find the root cause of the increase in quality complaints and propose improvement suggestions.",
                 "8dreport": "Example: Our customer XYZ Company complained that 10% of the recently delivered parts (part number #12345) have surface scratches."
             }
         };
