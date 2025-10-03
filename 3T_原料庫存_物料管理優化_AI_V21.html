@@ -853,7 +853,7 @@ D2: 描述問題 (5W2H)
             // Prepare the request based on the provider
             switch (provider) {
                 case 'gemini':
-                    apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+                    apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
                     body = {
                         contents: [{ role: "user", parts: [{ text: prompt }] }],
                         systemInstruction: { parts: [{ text: system_prompt }] },
