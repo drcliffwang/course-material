@@ -671,6 +671,7 @@ D5: 選擇並驗證永久對策
 1. 導入季節性指數修正預測模型。
 2. 要求業務提供客戶的年度訂單框架協議。
 3. 與供應商重新確認並縮短前置時間。
+4. 在採購系統中對 A 款馬達設置季節性安全庫存提醒。
 D6: 執行永久對策
 1. 在ERP系統中更新A款馬達的安全庫存與再訂購點公式。
 2. 舉辦業務預測準確度訓練。
@@ -792,7 +793,26 @@ D2: 描述問題 (5W2H)
 - When: 問題自三年前開始，每年重複發生。
 - Who: 倉管、採購、生管、業務皆受影響。
 - How: Q4業務預估過於樂觀，導致超額採購；Q1實際訂單超出預期，安全庫存不足。
-- How much: 過去三年平均缺貨損失約50萬/年，呆滯處理成本約30萬/年。`
+- How much: 過去三年平均缺貨損失約50萬/年，呆滯處理成本約30萬/年。
+D3: 執行並驗證暫時圍堵措施
+1. 緊急採購一批A款馬達空運，滿足Q1急單 (已完成)。
+2. 凍結所有A款馬達的自動補貨訂單，改為人工審核 (已實施)。
+D4: 根本原因分析 (RCA)
+- 為何Q4呆滯？ -> 業務為達年度目標，高估Q4預測 -> 未與客戶確認長期訂單。
+- 為何Q1缺貨？ -> 安全庫存公式未考慮季節性波動 -> 採購前置時間計算不準確。
+D5: 選擇並驗證永久對策
+1. 導入季節性指數修正預測模型。
+2. 要求業務提供客戶的年度訂單框架協議。
+3. 與供應商重新確認並縮短前置時間。
+D6: 執行永久對策
+1. 在ERP系統中更新A款馬達的安全庫存與再訂購點公式。
+2. 舉辦業務預測準確度訓練。
+3. 與主要供應商簽訂新的供貨協議。
+D7: 防止再發生
+1. 將季節性料號的審核流程納入SOP。
+2. 建立每月庫存健康檢查會議，追蹤Top 10高風險料號。
+D8: 團隊肯定,持續改善
+- 在公司月會上表揚此專案團隊的貢獻，分享成功經驗。`
     };
 
     const forecastPlaceholders = {
@@ -853,10 +873,15 @@ D2: 描述問題 (5W2H)
             // Prepare the request based on the provider
             switch (provider) {
                 case 'gemini':
+                    // **修正點: 移除 systemInstruction 欄位，將系統提示合併到使用者提示中**
                     apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+                    
+                    // 將系統指令和使用者提示合併為一個 contents 元素
+                    const geminiPrompt = `${system_prompt}\n\n[使用者請求]\n${prompt}`;
+                    
                     body = {
-                        contents: [{ role: "user", parts: [{ text: prompt }] }],
-                        systemInstruction: { parts: [{ text: system_prompt }] },
+                        contents: [{ role: "user", parts: [{ text: geminiPrompt }] }],
+                        // systemInstruction: { parts: [{ text: system_prompt }] }, // 移除此行，因為它導致 400 錯誤
                         safetySettings: [
                             { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
                             { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
