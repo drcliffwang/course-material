@@ -633,19 +633,19 @@
 
         // Prepare the request based on the provider
         if (provider === 'gemini') {
-            // FIX: Use a stable and recommended model name
-            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash?key=${apiKey}`;
-            body = { 
-                contents: [{ 
-                    role: "user", 
-                    parts: [{ text: prompt }] 
-                }],
-                // Add system instruction for better context
-                systemInstruction: {
-                    role: "system",
-                    parts: [{ text: systemPrompt }]
-                }
-            };
+     apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    
+    // 將系統提示詞和使用者問題合併成一個字串
+    const combinedPrompt = `${systemPrompt}\n\n[使用者請求]\n${prompt}`;
+
+    body = {
+        // 在 contents 中傳入合併後的完整提示詞
+        contents: [{ 
+            role: "user", 
+            parts: [{ text: combinedPrompt }] 
+        }]
+        // 移除了整個 systemInstruction 欄位
+    };
         } else if (provider === 'deepseek') {
             apiUrl = 'https://api.deepseek.com/v1/chat/completions';
             headers['Authorization'] = `Bearer ${apiKey}`;
