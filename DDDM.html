@@ -639,7 +639,7 @@
 
         if (provider === 'gemini') {
             // --- FIX #1: Changed model name to a more stable version 'gemini-1.5-flash'. ---
-            apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+            apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
             body = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
         } else if (provider === 'deepseek') {
             apiUrl = 'https://api.deepseek.com/v1/chat/completions';
