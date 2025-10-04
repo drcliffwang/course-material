@@ -654,18 +654,25 @@
         try {
             switch (provider) {
                 case 'gemini':
-                    apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
-                    body = {
-                        contents: [{ role: "user", parts: [{ text: prompt }] }],
-                        systemInstruction: { parts: [{ text: system_prompt }] },
-                        safetySettings: [
-                            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                        ]
-                    };
-                    break;
+    apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    
+    // 將系統提示詞和使用者問題合併成一個字串
+    const combinedPrompt = `${system_prompt}\n\n[使用者請求]\n${prompt}`;
+
+    body = {
+        // 在 contents 中傳入合併後的完整提示詞
+        contents: [{ role: "user", parts: [{ text: combinedPrompt }] }],
+        
+        // 移除 systemInstruction 欄位
+        
+        safetySettings: [
+            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+        ]
+    };
+    break;
                 case 'deepseek':
                     apiUrl = 'https://api.deepseek.com/v1/chat/completions';
                     headers['Authorization'] = `Bearer ${apiKey}`;
