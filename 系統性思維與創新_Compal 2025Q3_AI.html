@@ -1001,20 +1001,24 @@
 
         // Configure based on the selected provider
         switch (provider) {
-            case 'gemini':
-                // *** 修正 Gemini API 請求結構以符合其規範 ***
-                apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-                body = { 
-                    contents: [{ 
-                        role: "user", 
-                        parts: [{ text: prompt }] 
-                    }],
-                    // 正確的 systemInstruction 傳遞方式是在 generationConfig 內
-                    generationConfig: {
-                        systemInstruction: system_prompt_content 
-                    }
-                };
-                break;
+     case 'gemini':
+                    // **修正點: 移除 systemInstruction 欄位，將系統提示合併到使用者提示中**
+                    apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+                    
+                    // 將系統指令和使用者提示合併為一個 contents 元素
+                    const geminiPrompt = `${system_prompt_content}\n\n[使用者請求]\n${prompt}`;
+                    
+                    body = {
+                        contents: [{ role: "user", parts: [{ text: geminiPrompt }] }],
+                        // systemInstruction: { parts: [{ text: system_prompt }] }, // 移除此行，因為它導致 400 錯誤
+                        safetySettings: [
+                            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        ]
+                    };
+                    break;
 
             case 'deepseek':
                 apiUrl = 'https://api.deepseek.com/v1/chat/completions';
