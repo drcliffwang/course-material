@@ -585,6 +585,8 @@
         const provider = apiProvider;
         const apiKey = userApiKey;
         const endpoint = userEndpointUrl;
+// ---> 新增：在這裡定義一個共用的系統提示詞
+    const systemPrompt = "你是一位專業的品質管理與風險分析顧問，請使用繁體中文回答。";
 
         let apiUrl = '';
         let headers = { 'Content-Type': 'application/json' };
@@ -593,20 +595,22 @@
         try {
             switch (provider) {
                 case 'gemini':
-                    const geminiKey = apiKey || ""; // Use user key, fallback to empty for environment key
-                    // FIX: Changed API URL to use the v1 endpoint and a stable model name (gemini-2.5-flash) 
-                    // to prevent the 404/Not Found error seen in the image.
-                    apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${geminiKey}`;
-                    body = {
-                        contents: [{ role: "user", parts: [{ text: prompt }] }],
-                        safetySettings: [
-                            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                        ]
-                    };
-                    break;
+    apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+
+    // 將系統提示詞和使用者問題合併成一個字串
+    const combinedPrompt = `${systemPrompt}\n\n[使用者請求]\n${prompt}`;
+    
+    body = {
+        // 在 contents 中傳入合併後的完整提示詞
+        contents: [{ role: "user", parts: [{ text: combinedPrompt }] }],
+        safetySettings: [
+            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+        ]
+    };
+    break;
                 case 'deepseek':
                     if (!apiKey) throw new Error('Deepseek 需要 API 金鑰。');
                     apiUrl = 'https://api.deepseek.com/v1/chat/completions';
