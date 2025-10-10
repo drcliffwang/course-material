@@ -245,6 +245,7 @@
             <div class="language-switcher">
                 <button id="lang-zh-Hant" class="lang-btn active">繁體中文</button>
                 <button id="lang-zh-CN" class="lang-btn">简体中文</button>
+                <button id="lang-en" class="lang-btn">English</button>
             </div>
             <p class="copyright">Developed by Dr. Cliff Wang | © 2025 All Rights Reserved</p>
         </header>
@@ -442,6 +443,87 @@
                     "个人健康管理仪表板": { vibe: {V: "你是一位专业的健康应用程序开发者，为注重健康的个人用户打造一个数据仪表板。",I: "语气专业，代码需包含清晰注解，特别是数据处理与图表绘制的部分。",B: "仪表板布局需清晰，将数据输入、当前状态与历史趋势图分区块呈现。",E: "输出为一个完整的、可独立运行的单档 HTML，使用 Chart.js 绘制图表。"}, ticoe: {T: "开发一个个人健康管理仪表板，用以记录与追踪体重、睡眠与运动数据。",I: "用户每日输入：体重(kg)、睡眠时长(小时)、运动时长(分钟)。",C: "不需后端数据库，使用 localStorage 进行数据存储。需处理至少 30 天的数据并以图表呈现趋势。",O: "产出：1. 每日健康数据输入表单。 2. 显示最新数据的讯息卡。 3. 三个独立的折线图，分别展示体重、睡眠与运动时长的历史趋势。",E: "评估标准：数据记录的准确性、趋势图表的可视化效果、用户接口的易用性。"} }
                 }
             }
+        },
+        'en': {
+            ui: {
+                title: "A2PSDM Vibe Coding Prompt Generator",
+                subtitle: "Fusing VIBE Issue Layer & TICOE Logic Layer with AI Scenarios Across Departments",
+                labelDepartment: "1. Select Department",
+                labelScenario: "2. Select Scenario",
+                headerPrompt: "Generated Prompt",
+                copyButton: "Copy Prompt",
+                copyButtonSuccess: "Copied!",
+                headerDeconstruction: "Prompt Deconstruction (VIBE Issue Layer x TICOE Logic Layer)",
+            },
+            templates: {
+                "Semiconductor": {
+                    "Competitive Analysis Report": { vibe: {V: "You are a top-tier semiconductor industry analyst specializing in AI chips, providing sharp insights for senior executives.",I: "Use an objective, data-driven tone. Conclusions must be direct, clear, and presented upfront.",B: "The report should be professional and concise, presenting a comparison table first, followed by bullet points summarizing strategic highlights. Avoid using unconfirmed rumors.",E: "Directly output a single-file HTML embeddable in a dashboard, including collapsible sections and interactive charts."}, ticoe: {T: "Produce a competitive analysis report for 'Chip A', comparing key metrics against NVIDIA, Qualcomm, and Intel, and propose our differentiation strategy.",I: "Comparison metrics: AI computing power (TOPS/W), power consumption (TDP), Zonal architecture support, software ecosystem, automotive-grade certification (ASIL), target price.",C: "The summary must not exceed 300 words; focus only on Chip A's core differentiating advantages, ignoring minor specs.",O: "Report structure must include: Executive Summary, Competitive Comparison Table, Differentiation Strategy (e.g., using SCAMPER analysis), Risks and Countermeasures.",E: "Evaluation criteria: data accuracy, depth of insight (i.e., provides concrete strategies), clarity of expression (understandable to non-technical executives)."} },
+                    "Product Line Strategy Proposal": { vibe: {V: "You are a senior product manager with extensive experience in the semiconductor industry, pitching to the C-level.",I: "The tone should be persuasive, strategic, and demonstrate strong business acumen.",B: "The report must be well-structured and logical, applying the MECE principle. Make extensive use of business analysis frameworks.",E: "Output a complete HTML report containing all required sections and diagrams."}, ticoe: {T: "Write a strategic proposal for the 'Big Success' dual product lines (BSO & BSU).",I: "Product line info: BSO (7nm, cost-effective), BSU (5nm+Chiplet, innovative). Target customers: leading new-energy vehicle brands, high-growth brands. Goal: 10% market share within 3 years.",C: "The report must focus on the mainland China market, with a time frame of the next 3-5 years.",O: "Output sections must include: Executive Summary, TAM/SAM/SOM, Competitive Product Analysis, BSU Differentiation Strategy (SCAMPER), VPC, BMC, Risk Management (RPN), Technical Execution Plan.",E: "Evaluation criteria: completeness of business logic, depth of market analysis, feasibility of the proposal."} }
+                },
+                "Human Resources (HR)": {
+                    "Annual Performance Review Form": { vibe: {V: "You are a senior HR management expert familiar with competency models in the tech manufacturing industry.",I: "The tone must be professional, neutral, and objective, ensuring evaluation criteria are clear and unambiguous.",B: "The form design must be both comprehensive and practical, easy for employees and managers to complete.",E: "Output as HTML for easy embedding into internal systems or conversion to Excel for analysis."}, ticoe: {T: "Design a comprehensive annual performance review form for the tech manufacturing industry.",I: "Company background: approx. 300 employees. Evaluation dimensions must include: Job Performance (40%), Teamwork (30%), Innovation & Learning (20%), Professionalism (10%).",C: "Each dimension needs 3-5 specific, measurable evaluation metrics.",O: "Form structure: Name, Employee ID, evaluation items, metrics, rating scale (1-5), auto-sum, fields for specific examples, manager's comments, and employee feedback. A batch input version must be provided to enter multiple employee data at once, automatically generating a comparison table for HR's horizontal analysis.",E: "Evaluation criteria: conformity of metrics to SMART principles, user-friendliness of the form, fairness of the content."} },
+                    "New Hire Training Plan Generator": { vibe: {V: "You are a professional corporate training consultant specializing in designing onboarding plans for technical roles.",I: "The tone should be systematic and structured to ensure the plan's executability.",B: "The plan must be progressive, moving from general knowledge to professional skills, and finally to independent work.",E: "Present in Markdown table format for easy tracking and modification."}, ticoe: {T: "Design a 3-month onboarding training plan for a new 'Quality Control Engineer'.",I: "Training duration: 3 months. Key milestones: Month 1 (Basics), Month 2 (Hands-on Practice), Month 3 (Independent Operation).",C: "The plan must be detailed on a weekly basis.",O: "Table columns should include: Week, Training Topic, Learning Objectives, Mentor, Assessment Method.",E: "Evaluation criteria: completeness of the plan, reasonableness of the learning curve, effectiveness of the assessment methods."} }
+                },
+                "Project Management (PM)": {
+                    "APR Risk Management Gantt Chart": { vibe: {V: "You are a top-tier full-stack developer specializing in project management tools and data visualization, with particular expertise in the semiconductor APR process.",I: "The tone should be professional, and the code must include clear comments explaining core functionalities and interactive logic.",B: "The interface should feature a modern design (e.g., using Tailwind CSS) and be highly interactive, allowing users to intuitively manage tasks and risks.",E: "Output a single, complete, standalone HTML file containing all CSS and JavaScript code."}, ticoe: {T: "Develop an interactive APR (Auto Place & Route) process risk management Gantt chart tool.",I: "Default APR process steps (e.g., Power Plan, Floorplan, CTS). Users can set a project start date. Each step can have a scheduled duration, and multiple risk items (including problem description, severity, occurrence, risk days) can be added.",C: "No backend database is required; all data should be stored using the browser's localStorage. The Gantt chart must be dynamically generated and reflect date changes in real-time.",O: "Output: 1. A task list management interface. 2. A dynamic Gantt chart (drawn with Canvas) to visualize task schedules and risk durations. 3. AI-assisted features: an 'AI Risk Suggestion' button for each task and an 'AI Project Summary' function to analyze overall risks. 4. Allow users to add custom tasks.",E: "Evaluation criteria: functional completeness and conformity with the example (APR Gantt 優化.html), visual quality and accuracy of the Gantt chart, and smoothness of user interaction."} },
+                    "Project Management Dashboard": { vibe: {V: "You are a senior project management tool developer with expertise in data visualization.",I: "Professional tone, with clear code comments.",B: "The interface design should be clean and intuitive, with key metrics visible at a glance.",E: "Provide complete HTML, CSS, and JavaScript code that can run directly in a browser, using local storage."}, ticoe: {T: "Develop a web-based project management dashboard.",I: "Sample data: Provide at least 3 projects, including name, owner, progress, status, milestones, risks, etc.",C: "No backend database is required; use localStorage for data persistence.",O: "Dashboard features: Project list, visual progress bars, key milestones, resource overview, risk summary, interactive detail expansion.",E: "Evaluation criteria: code readability, functional completeness, UI intuitiveness."} }
+                },
+                "Quality Control (QC)": {
+                    "Quality Inspection Form": { vibe: {V: "You are a senior quality control engineer familiar with the manufacturing processes and inspection standards for electronic components.",I: "The tone should be rigorous and precise to ensure inspection standards are accurate.",B: "The form should be structured to cover all necessary inspection procedures and fields.",E: "Output in HTML table format, suitable for filling out on a tablet or for printing."}, ticoe: {T: "Design a quality inspection form for a 'Circuit Board' product.",I: "Inspection items: Visual Inspection, Dimensional Check, Electrical Test, Solder Quality, Marking Check.",C: "Acceptance criteria for each item must be clearly defined.",O: "Form fields: Item, Standard, Actual Measurement, Result (OK/NG), Remarks, Inspector Signature, Date.",E: "Evaluation criteria: completeness of inspection items, clarity of standards, usability of the form."} },
+                    "Defect Analysis Report": { vibe: {V: "You are a professional quality analyst skilled in using the seven basic tools of quality control.",I: "Data-driven, objective analysis, and specific conclusions.",B: "The report should have a clear structure, from data presentation to root cause analysis and then to improvement suggestions.",E: "Output in HTML format, including tables and text descriptions, suitable for direct inclusion in presentations or reports."}, ticoe: {T: "Generate an analysis report based on the provided defect data.",I: "Data: 45 appearance defects, 23 dimensional defects, 18 functional defects, 12 packaging defects, 7 others. Total production: 5000 units.",C: "The main causes of defects must be identified, and specific improvement plans proposed.",O: "Report contents: Defect rate calculation, Pareto Chart analysis, improvement suggestions for the top three defect causes.",E: "Evaluation criteria: accuracy of data analysis, feasibility and relevance of improvement suggestions."} },
+                    "8D + FMEA (Manufacturing Anomaly)": { vibe: {V: "You are a senior quality assurance (SQA) expert, proficient in 8D reports, Root Cause Analysis (RCA), and Failure Mode and Effects Analysis (FMEA).",I: "The tone must be rigorous and logical, guiding users through the analysis steps sequentially.",B: "Strictly follow the structure of the 8D methodology, from problem description to permanent countermeasures, and finally feeding the conclusions back into the FMEA document.",E: "Output a structured HTML report with clear section headings and tables for easy reporting and tracking."}, ticoe: {T: "Transform a manufacturing anomaly report into a complete 8D report and generate corresponding FMEA update recommendations.",I: "Input an anomaly description report, including: time of occurrence, location, product, lot number, problem phenomenon, initial findings, etc.",C: "The report must completely cover all steps from D0 to D8. Permanent countermeasures should specify which item in the FMEA should be updated (e.g., Occurrence, Detection).",O: "Output: 1. A complete 8D report (covering all sections D0-D8). 2. An FMEA update suggestion table. 3. A Control Plan update suggestion.",E: "Evaluation criteria: logical rigor of the analysis, depth of the root cause, feasibility of preventive measures, and linkage to the FMEA."} }
+                },
+                "Production": {
+                    "Production Scheduling Optimization": { vibe: {V: "You are a senior production management expert familiar with APS (Advanced Planning and Scheduling) system logic.",I: "The tone should be logical, data-oriented, and explain the considerations for scheduling priorities.",B: "First, explain the scheduling logic, then present the final production plan in a table format.",E: "Present in Markdown table format for easy pasting into reports or internal communications."}, ticoe: {T: "Arrange an optimized production schedule based on provided order and capacity information to ensure on-time delivery.",I: "Sample input: Order A (Product X, 1000 units, due in 3 days), Order B (Product Y, 1500 units, due in 5 days); Line 1 (X, 600 units/day), Line 2 (Y, 400 units/day).",C: "Must meet all order deadlines and maximize capacity utilization.",O: "Output: 1. Explanation of scheduling logic and priorities. 2. A daily production plan table for each production line.",E: "Evaluation criteria: feasibility of the schedule, on-time delivery rate, clarity of logic."} },
+                    "Equipment Maintenance Reminder System": { vibe: {V: "You are a professional factory equipment management system developer, focusing on practicality and ease of use.",I: "Professional and pragmatic, the code should include clear comments explaining core functions.",B: "The interface design should be clear and easy to use, with key information (like upcoming maintenance) highlighted.",E: "Provide a complete single-file HTML, CSS, and JavaScript code that can run directly in a browser."}, ticoe: {T: "Develop a simple equipment maintenance reminder system to track the maintenance status of factory equipment.",I: "Functional requirements: Add equipment (name, ID, maintenance cycle, last maintenance date), automatically calculate next maintenance date, display a list of upcoming maintenance, record maintenance history.",C: "No backend database required; use the browser's localStorage for data persistence.",O: "A complete, executable HTML file with interactive features.",E: "Evaluation criteria: functional completeness, code quality and readability, UI intuitiveness."} }
+                },
+                "Sales & Marketing (S&M)": {
+                    "AI Service Market Opportunity Analysis": { vibe: {V: "You are a senior B2B market strategist specializing in Go-to-Market Strategy for AI services and the SaaS industry.",I: "The tone should be insightful and data-driven, capable of precisely analyzing the real pain points and willingness to pay of the target audience.",B: "The analysis should focus on high-value services and provide potential business models or entry points for each service opportunity.",E: "Present in a Markdown table format, with columns for Service, Target Pain Point, Value Proposition, and Reasons for Customer Investment."}, ticoe: {T: "For a startup providing AI product design services, identify the top three service areas that their target audience needs most and is most willing to invest in.",I: "Service offered: AI product design services. Ideal Customer Profile (ICP): Founders or senior executives of digital businesses in Western countries.",C: "The analysis must be based on current market trends and avoid proposing overly vague or saturated service ideas. Each service should have a concise description.",O: "A table containing three service opportunities. Each opportunity must detail: 1. Service Name, 2. Core Pain Point, 3. Value Proposition, 4. Why Customers Are Willing to Pay.",E: "Evaluation criteria: authenticity of market demand, commercial potential of the suggestions, depth and actionability of the analysis."} },
+                    "Customer Relationship Management (CRM) Tool": { vibe: {V: "You are a professional business systems developer focused on creating lightweight, efficient tools for sales teams.",I: "Professional tone, with clear code comments for easy maintenance.",B: "The interface should be clean and professional, easy for sales personnel to get started with quickly, avoiding complex features.",E: "Provide a complete single-file HTML, CSS, and JavaScript code that can run directly in a browser."}, ticoe: {T: "Develop a simple Customer Relationship Management (CRM) tool for tracking customers and visit records.",I: "Functional requirements: 1. Add customers (company, contact, phone, email). 2. Log visits (date, purpose, discussion, next steps). 3. Tag customer status (lead, in-discussion, won, lost). 4. Display a 'To-Follow-Up This Week' list on the homepage.",C: "No backend database required; use the browser's localStorage for data persistence.",O: "A complete, executable HTML file with all interactive features.",E: "Evaluation criteria: functional completeness, code quality, UI intuitiveness."} }
+                },
+                "Finance (FIN)": {
+                    "Interactive Financial Competitive Analysis Dashboard": { vibe: {V: "You are a top-tier financial data scientist and full-stack developer, skilled at transforming complex financial reports into intuitive, interactive dashboards.",I: "The tone should be professional and data-driven. Code must include clear comments, especially for data processing and chart generation parts.",B: "The dashboard design must be professional and aesthetically pleasing (like the Competitor.html example), with clear navigation and data visualization hierarchy.",E: "Output a single, complete, standalone HTML file, including all CSS and JavaScript, and dynamic charts (Chart.js)."}, ticoe: {T: "Develop an interactive financial competitive analysis dashboard to compare key financial metrics for 1 to 5 companies.",I: "Require the user to upload annual financial reports for 1 to 5 companies in PDF, Excel, Word, or plain text formats. The AI must be able to automatically extract key financial data (e.g., revenue, net income, gross margin, ROE, debt ratio, R&D expenses).",C: "The dashboard must handle financial reports with different currencies and units, converting them to USD for comparison. Missing data should be marked as N/A.",O: "Output: 1. A file upload interface. 2. Data overview cards. 3. Comparison tables and interactive charts for key metrics (revenue, profitability, financial structure, R&D investment). 4. A summary section for market insights and future outlook. 5. A conclusion for each company.",E: "Evaluation criteria: accuracy of data extraction, interactivity and clarity of charts, professionalism of UI/UX, and functional completeness compared to the example (Competitor.html)."} },
+                    "Ansoff Matrix & Sensitivity Analysis": { vibe: {V: "You are a top-tier corporate strategy consultant and financial analyst, specializing in using quantitative models like the Ansoff Matrix to evaluate growth strategies.",I: "The tone must be highly professional and objectively data-driven, capable of clearly presenting potential returns and risks of different strategies to decision-makers.",B: "The report should be structured, first defining the four quadrants of the Ansoff Matrix, then comparing and analyzing various options, and finally conducting a sensitivity analysis.",E: "Output an HTML report containing data tables and chart recommendations for interactive analysis and presentation."}, ticoe: {T: "Use the Ansoff Matrix to analyze three main future growth options for the company and perform a sensitivity analysis to identify the best strategy.",I: "Option A: Market Development (existing products, new overseas customers). Option B: Product Development (new generation products, existing customers). Option C: Market Penetration (existing products, 15% price cut). Provide hypothetical financial data (e.g., expected revenue growth, profit margins, market share changes).",C: "The analysis must include quantitative financial forecasts. The sensitivity analysis must consider at least two variables (e.g., market acceptance, competitor reaction).",O: "Output: 1. Ansoff Matrix diagram. 2. A comparative financial forecast table for each option (ROI, NPV, Payback Period). 3. Sensitivity analysis results (e.g., a tornado chart or scenario analysis table). 4. Final strategic recommendation with justification.",E: "Evaluation criteria: correct application of the model, reasonableness of financial forecasts, comprehensiveness of risk analysis, persuasiveness of the strategic recommendation."} }
+                },
+                "Supply Chain": {
+                    "Supplier Risk Dashboard": {
+                        vibe: {
+                            V: "You are a senior supply chain risk analyst and full-stack developer, building a decision-making tool for procurement executives.",
+                            I: "The tone should be professional, data-driven, and risk-oriented. Code must include clear comments.",
+                            B: "The dashboard design must be clean and intuitive, with a 'command center' feel. Key risk indicators should be highlighted using a red-yellow-green traffic light system.",
+                            E: "Output a single, complete, standalone HTML application."
+                        },
+                        ticoe: {
+                            T: "Develop an interactive supplier risk dashboard to monitor and evaluate the operational and financial stability of key suppliers.",
+                            I: "The application should allow users to input supplier data, including: Supplier Name, Category (e.g., critical components, raw materials), Financial Health Score (1-10), On-Time Delivery Rate (%), Quality Acceptance Rate (%), and any recent negative news summaries (text input).",
+                            C: "No backend database is required; use the browser's localStorage for data persistence. The risk assessment logic must be implemented in JavaScript (e.g., a weighted scoring algorithm).",
+                            O: "Output: 1. A form to add/edit supplier data. 2. A main dashboard view with a sortable table of all suppliers. 3. Each row of supplier data should display a calculated overall risk score and a corresponding 'traffic light' status (Red/Yellow/Green). 4. A summary block showing the count of high, medium, and low-risk suppliers. 5. Clicking on a single supplier should expand to show more detailed information.",
+                            E: "Evaluation criteria: accuracy of the risk calculation, clarity of data visualization, user-friendliness of the interface, correctness of data persistence."
+                        }
+                    },
+                    "Demand Forecasting Tool (Holt-Winters Triple Exponential Smoothing)": {
+                        vibe: {
+                            V: "You are a supply chain data scientist, proficient in time-series forecasting models, especially Holt-Winters triple exponential smoothing.",
+                            I: "The tone should be professional and educational. Code comments must clearly explain the calculation steps of the Holt-Winters model, including level, trend, and seasonal components.",
+                            B: "The application should clearly separate data input, parameter tuning, forecast results, and visual charts, allowing users to interactively explore the impact of different parameters on the forecast.",
+                            E: "Output a single, complete, standalone HTML file, using Chart.js for plotting."
+                        },
+                        ticoe: {
+                            T: "Develop an interactive demand forecasting tool using Holt-Winters triple exponential smoothing to forecast time-series data with trend and seasonality.",
+                            I: "Allow users to input a set of historical demand data as a comma-separated string. Users should be able to adjust Alpha (level), Beta (trend), and Gamma (seasonal) smoothing factors, and set the seasonal period length (e.g., 12 for monthly data).",
+                            C: "No backend database is required. The Holt-Winters calculation logic must be implemented from scratch in JavaScript, not just relying on an external library.",
+                            O: "Output: 1. An interface for inputting historical data and Alpha/Beta/Gamma/Period parameters. 2. A 'Calculate Forecast' button. 3. A table showing the forecast values for the next N periods (e.g., 12). 4. A line chart plotting the historical data, the model's fitted data, and the future forecast trend line.",
+                            E: "Evaluation criteria: correctness of the Holt-Winters algorithm calculation, clarity of the chart presentation, and the interactive experience of seeing results update immediately after adjusting parameters."
+                        }
+                    }
+                },
+                "Personal": {
+                    "AI Translation Tool": { vibe: {V: "You are an individual user with no knowledge of AI or IT.",I: "The tone does not need to be professional.",B: "The interface design should be simple and efficient, allowing the user to see translation results and pronunciation functions for all target languages at a glance after inputting text.",E: "Output a single, complete, standalone HTML file."}, ticoe: {T: "Develop a multilingual AI translation tool that can instantly translate user-inputted Chinese into Japanese, Korean, German, and English.",I: "The user inputs Chinese text into a single text box. The target translation languages are fixed: Japanese, Korean, German, and English.",C: "The translation function must be accomplished by calling an AI model. The pronunciation function must use the browser's built-in capabilities and not rely on external services.",O: "Output: 1. An area for inputting Chinese text. 2. A 'Translate' button. 3. Four parallel result cards displaying the translation results for Japanese, Korean, German, and English respectively. 4. Each result card, in addition to the translated text, must include a 'Pronounce' button that, when clicked, reads out the translation in that language.",E: "Evaluation criteria: accuracy of the translation, correctness of the pronunciation function for all languages, intuitiveness and ease of use of the user interface."} },
+                    "Native Orchid Planting Chart": { vibe: {V: "You are an expert in data visualization and front-end development, skilled at creating beautiful and practical interactive tools for gardening enthusiasts.",I: "The tone should be professional, and the code must include clear comments, especially for the implementation of the data structure and interactive features.",B: "The interface design must be aesthetically pleasing and intuitive, using plenty of visual elements (like color blocks and borders) to convey information, and providing rich interactive tooltips.",E: "Output a single, complete, standalone HTML file with all CSS and JavaScript, and without relying on external charting libraries."}, ticoe: {T: "Develop a simple interactive chart for planting native orchids in the Taipei area to help users filter and make decisions based on month, environment, etc.",I: "Must use a built-in plant database. Each orchid should include: name, type (terrestrial/epiphytic), bloom period (month range), light requirement (low/medium/high), difficulty (easy/medium/hard), common diseases and high-risk months, image URL, indoor recommendations, and fertilization/medium advice.",C: "All functionality must be implemented in a single HTML file. Data must be written directly in JavaScript.",O: "Output features: 1. Filters: by month, disease, environment (indoor/outdoor). 2. Main chart: A table with 12 months on the x-axis and orchid species on the y-axis. 3. Visual indicators: Use different colored bars to mark blooming periods and high-risk disease periods. The brightness and border of the bars should indicate light requirements and difficulty. 4. Interactive Tooltips: Hovering over a bar must display a tooltip with an image and detailed care information.",E: "Evaluation criteria: correctness of the filter function, clarity of the visual information conveyed by the chart, smoothness and completeness of the interactive tooltips, and functional conformity with the example (蘭花.html)."} },
+                    "Simple Personal Ledger": { vibe: {V: "You are an individual user who wants the simplest way to keep track of expenses and wants AI to provide a ready-to-use tool directly.",I: "The tone should be simple and direct. Feature names should be colloquial, like 'Log an Entry' or 'Where did it go?'.",B: "The interface must be minimalist, with an input process not exceeding three steps. It must have a visual chart to present the spending distribution.",E: "Output a single, complete, standalone HTML file using Chart.js to draw the chart."}, ticoe: {T: "Develop a simple personal ledger to quickly record daily expenses and analyze spending habits with a pie chart.",I: "User inputs: amount, expense category (defaults: Food, Transport, Shopping, Entertainment, Other), and notes. All data should be stored in the browser.",C: "No backend database is required; use localStorage for data persistence. Expense categories are fixed options.",O: "Output: 1. An expense input form. 2. A monthly expense overview and detailed list. 3. A dynamically updated pie chart showing the percentage of each expense category.",E: "Evaluation criteria: convenience of the logging process, correctness of data storage, clarity of the pie chart analysis."} },
+                    "Personal Health Dashboard": { vibe: {V: "You are a professional health application developer creating a data dashboard for health-conscious individual users.",I: "The tone should be professional, and the code must include clear comments, especially for data processing and chart plotting sections.",B: "The dashboard layout should be clear, with distinct sections for data input, current status, and historical trend charts.",E: "Output a single, complete, standalone HTML file using Chart.js to draw the charts."}, ticoe: {T: "Develop a personal health management dashboard to record and track weight, sleep, and exercise data.",I: "User daily inputs: weight (kg), sleep duration (hours), exercise duration (minutes).",C: "No backend database is required; use localStorage for data persistence. It must handle at least 30 days of data and present the trend in a chart.",O: "Output: 1. A daily health data input form. 2. Information cards displaying the latest data. 3. Three separate line charts showing historical trends for weight, sleep, and exercise duration respectively.",E: "Evaluation criteria: accuracy of data recording, effectiveness of the trend chart visualization, ease of use of the user interface."} }
+                }
+            }
         }
     };
 
@@ -464,6 +546,7 @@
     
     const btnHant = document.getElementById('lang-zh-Hant');
     const btnCN = document.getElementById('lang-zh-CN');
+    const btnEN = document.getElementById('lang-en');
 
 
     // --- 函式定義 ---
@@ -472,6 +555,7 @@
      * 根據選擇的部門和情境，生成並顯示提示語和解構
      */
     function generatePrompt() {
+        if (!currentLanguage) return;
         const department = departmentSelect.value;
         const scenario = scenarioSelect.value;
         const template = appData[currentLanguage].templates[department]?.[scenario];
@@ -479,23 +563,32 @@
         if (!template) return;
 
         // 組合 VIBE 和 TICOE 形成完整提示語
-        const vibeText = `【VIBE 指令】\nV (角色): ${template.vibe.V}\nI (語氣): ${template.vibe.I}\nB (風格): ${template.vibe.B}\nE (格式): ${template.vibe.E}`;
-        const ticoeText = `【TICOE 任務】\nT (任務): ${template.ticoe.T}\nI (輸入): ${template.ticoe.I}\nC (約束): ${template.ticoe.C}\nO (產出): ${template.ticoe.O}\nE (評估): ${template.ticoe.E}`;
-        const fullPrompt = `${vibeText}\n\n${ticoeText}`;
+        const vibeText = `【VIBE Directive】\nV (Role): ${template.vibe.V}\nI (Tone): ${template.vibe.I}\nB (Style): ${template.vibe.B}\nE (Format): ${template.vibe.E}`;
+        const ticoeText = `【TICOE Task】\nT (Task): ${template.ticoe.T}\nI (Input): ${template.ticoe.I}\nC (Constraint): ${template.ticoe.C}\nO (Output): ${template.ticoe.O}\nE (Evaluation): ${template.ticoe.E}`;
+        
+        let fullPrompt = "";
+        if (currentLanguage === 'en') {
+            fullPrompt = `${vibeText}\n\n${ticoeText}`;
+        } else {
+             const vibeTextZh = `【VIBE 指令】\nV (角色): ${template.vibe.V}\nI (語氣): ${template.vibe.I}\nB (風格): ${template.vibe.B}\nE (格式): ${template.vibe.E}`;
+             const ticoeTextZh = `【TICOE 任務】\nT (任務): ${template.ticoe.T}\nI (輸入): ${template.ticoe.I}\nC (約束): ${template.ticoe.C}\nO (產出): ${template.ticoe.O}\nE (評估): ${template.ticoe.E}`;
+             fullPrompt = `${vibeTextZh}\n\n${ticoeTextZh}`;
+        }
+
 
         promptOutput.value = fullPrompt;
 
         // 產生解構視圖
         const deconstructionHTML = `
-            <div class="item-deconstruct item-vibe"><strong>V (角色)</strong><p>${template.vibe.V}</p></div>
-            <div class="item-deconstruct item-vibe"><strong>I (語氣)</strong><p>${template.vibe.I}</p></div>
-            <div class="item-deconstruct item-vibe"><strong>B (風格)</strong><p>${template.vibe.B}</p></div>
-            <div class="item-deconstruct item-vibe"><strong>E (格式)</strong><p>${template.vibe.E}</p></div>
-            <div class="item-deconstruct item-ticoe"><strong>T (任務)</strong><p>${template.ticoe.T}</p></div>
-            <div class="item-deconstruct item-ticoe"><strong>I (輸入)</strong><p>${template.ticoe.I}</p></div>
-            <div class="item-deconstruct item-ticoe"><strong>C (約束)</strong><p>${template.ticoe.C}</p></div>
-            <div class="item-deconstruct item-ticoe"><strong>O (產出)</strong><p>${template.ticoe.O}</p></div>
-            <div class="item-deconstruct item-ticoe"><strong>E (評估)</strong><p>${template.ticoe.E}</p></div>
+            <div class="item-deconstruct item-vibe"><strong>V (Role)</strong><p>${template.vibe.V}</p></div>
+            <div class="item-deconstruct item-vibe"><strong>I (Tone)</strong><p>${template.vibe.I}</p></div>
+            <div class="item-deconstruct item-vibe"><strong>B (Style)</strong><p>${template.vibe.B}</p></div>
+            <div class="item-deconstruct item-vibe"><strong>E (Format)</strong><p>${template.vibe.E}</p></div>
+            <div class="item-deconstruct item-ticoe"><strong>T (Task)</strong><p>${template.ticoe.T}</p></div>
+            <div class="item-deconstruct item-ticoe"><strong>I (Input)</strong><p>${template.ticoe.I}</p></div>
+            <div class="item-deconstruct item-ticoe"><strong>C (Constraint)</strong><p>${template.ticoe.C}</p></div>
+            <div class="item-deconstruct item-ticoe"><strong>O (Output)</strong><p>${template.ticoe.O}</p></div>
+            <div class="item-deconstruct item-ticoe"><strong>E (Evaluation)</strong><p>${template.ticoe.E}</p></div>
         `;
         deconstructionOutput.innerHTML = deconstructionHTML;
     }
@@ -538,11 +631,8 @@
      * 設定語言
      */
     function setLanguage(lang) {
-        // BUG FIX: Removed the check that prevented initial rendering
-        // if (lang === currentLanguage) return; 
-        
         currentLanguage = lang;
-        document.documentElement.lang = lang; // Update html lang attribute
+        document.documentElement.lang = lang; 
 
         const ui = appData[currentLanguage].ui;
         
@@ -558,6 +648,8 @@
         // 更新按鈕樣式
         btnHant.classList.toggle('active', lang === 'zh-Hant');
         btnCN.classList.toggle('active', lang === 'zh-CN');
+        btnEN.classList.toggle('active', lang === 'en');
+
 
         // 重新初始化下拉選單並產生提示語
         initializeDropdowns();
@@ -589,6 +681,7 @@
 
         btnHant.addEventListener('click', () => setLanguage('zh-Hant'));
         btnCN.addEventListener('click', () => setLanguage('zh-CN'));
+        btnEN.addEventListener('click', () => setLanguage('en'));
 
         // 初始載入
         setLanguage('zh-Hant');
