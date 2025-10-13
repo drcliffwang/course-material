@@ -399,6 +399,21 @@
                     }
                 },
                 "個人 (Personal)": {
+                    "貪吃蛇遊戲": {
+                        vibe: {
+                            V: "你是一位經驗豐富的遊戲開發者，擅長用 HTML5 Canvas 和 JavaScript 打造有趣且流暢的經典遊戲。",
+                            I: "語氣需清晰、專業，程式碼註解要能清楚解釋遊戲的核心邏輯，如遊戲循環、碰撞偵測與狀態管理。",
+                            B: "遊戲介面需簡潔、美觀，並具備現代化的視覺風格。遊戲體驗需流暢，且同時支援桌面與行動裝置。",
+                            E: "輸出為一個完整的、可獨立運行的單檔 HTML，包含所有 CSS 與 JavaScript。"
+                        },
+                        ticoe: {
+                            T: "開發一個經典的貪吃蛇遊戲，讓使用者可以透過鍵盤或觸控螢幕來控制蛇的移動。",
+                            I: "遊戲規則：玩家控制一條蛇，在畫布上移動並吃掉隨機出現的食物。每吃掉一個食物，蛇的身體會變長，分數也會增加。",
+                            C: "不依賴任何外部遊戲引擎或函式庫。需處理邊界碰撞或穿牆模式。遊戲結束的條件是蛇撞到自己身體。",
+                            O: "產出功能：1. 一個遊戲畫布。 2. 分數與最高分的顯示區。 3. 開始/重新開始遊戲的按鈕。 4. 鍵盤（方向鍵）與觸控螢幕（滑動）的雙重控制。 5. 吃到食物與遊戲結束的簡單音效回饋。",
+                            E: "評估標準：遊戲邏輯的正確性、控制的反應靈敏度、遊戲畫面的流暢度、跨裝置的相容性。"
+                        }
+                    },
                     "AI 翻譯工具": { vibe: {V: "你是一位個人使用者, 不懂 AI or IT",I: "語氣不須專業",B: "介面設計需簡潔、高效，使用者輸入文字後能一目了然地看到所有目標語言的翻譯結果與發音功能。",E: "輸出為一個完整的、可獨立運行的單檔 HTML"}, ticoe: {T: "開發一個多語言 AI 翻譯工具，能將使用者輸入的中文即時翻譯成日文、韓文、德文 與英文。",I: "使用者在一個文字輸入框中輸入中文。目標翻譯語言是固定的：日文、韓文、德文、英文。",C: "翻譯功能需呼叫 AI 模型完成。發音功能必須使用瀏覽器內建的，不依賴外部服務。",O: "產出：1. 一個用於輸入中文的區域。 2. 一個『翻譯』按鈕。 3. 四個並列的結果卡片，分別顯示日文、韓文、德文、英文的翻譯結果。 4. 每個結果卡片中，除了翻譯文字外，必須包含一個『發音』按鈕，點擊後能朗讀該語言的翻譯結果。",E: "評估標準：翻譯的準確性、所有語言發音功能的正確性、使用者介面的直觀易用性。"} },
                     "原生蘭花種植圖表": { vibe: {V: "你是一位精通數據可視化與前端開發的專家，擅長為園藝愛好者打造美觀且實用的互動式工具。",I: "語氣專業，程式碼需包含清晰的註解，尤其是數據結構與互動功能的實現部分。",B: "介面設計需美觀、直觀，大量運用視覺化元素（如色塊、邊框）來傳達資訊，並提供豐富的互動提示。",E: "輸出為一個完整的、可獨立運行的單檔 HTML，包含所有 CSS 與 JavaScript，且不依賴外部圖表函式庫。"}, ticoe: {T: "開發一個台北市區種植原生蘭花的簡易互動圖表，幫助使用者根據月份、環境等條件進行篩選與決策。",I: "需使用內建的植物資料庫，每種蘭花包含：名稱、類型(地生/附生)、花期(月份區間)、光照需求(低/中/高)、栽培難度(易/中/難)、常見疾病與高風險月份、圖片連結、室內建議、施肥與介質建議。",C: "所有功能需在單一 HTML 檔案中實現，資料必須直接寫在 JavaScript 中。",O: "產出功能：1. 篩選器：可依月份、疾病、環境(室內/戶外)篩選。2. 主圖表：以表格呈現，橫軸為12個月份，縱軸為蘭花物種。3. 視覺化標示：用不同顏色的長條圖(bar)標示花期與疾病高風險期。長條圖的亮暗與邊框需用以表示光照需求與栽培難度。4. 互動提示：滑鼠懸停在長條圖上時，需顯示包含圖片與詳細照顧資訊的提示框(Tooltip)。",E: "評估標準：篩選功能的正確性、圖表視覺化傳達資訊的清晰度、互動提示的流暢度與資訊完整性。"} },
                     "簡易個人記帳本": { vibe: {V: "你是一位想用最簡單方式記帳的個人使用者，希望AI能直接給你一個馬上能用的工具。",I: "語氣簡單、直接。功能命名需口語化，例如「記一筆」、「花在哪」。",B: "介面極簡，輸入流程不能超過三個步驟。必須有視覺化的圖表來呈現支出分佈。",E: "輸出為一個完整的、可獨立運行的單檔 HTML，使用 Chart.js 繪製圖表。"}, ticoe: {T: "開發一個簡易的個人記帳本，能快速記錄每日支出，並透過圓餅圖分析消費習慣。",I: "使用者輸入：金額、支出類別（預設：餐飲、交通、購物、娛樂、其他）、備註。所有數據需儲存在瀏覽器中。",C: "不需後端資料庫，使用 localStorage 進行數據儲存。支出類別為固定選項。",O: "產出：1. 支出輸入表單。 2. 當月支出總覽與明細列表。 3. 一個動態更新的圓餅圖，顯示各類別支出佔比。",E: "評估標準：記帳流程的便捷性、數據儲存的正確性、圓餅圖分析的清晰度。"} },
@@ -482,6 +497,21 @@
                     }
                 },
                 "个人 (Personal)": {
+                    "贪吃蛇游戏": {
+                        vibe: {
+                            V: "你是一位经验丰富的游戏开发者，擅长用 HTML5 Canvas 和 JavaScript 打造有趣且流畅的经典游戏。",
+                            I: "语气需清晰、专业，代码注解要能清楚解释游戏的核心逻辑，如游戏循环、碰撞侦测与状态管理。",
+                            B: "游戏接口需简洁、美观，并具备现代化的视觉风格。游戏体验需流畅，且同时支持桌面与行动装置。",
+                            E: "输出为一个完整的、可独立运行的单档 HTML，包含所有 CSS 与 JavaScript。"
+                        },
+                        ticoe: {
+                            T: "开发一个经典的贪吃蛇游戏，让用户可以通过键盘或触控屏幕来控制蛇的移动。",
+                            I: "游戏规则：玩家控制一条蛇，在画布上移动并吃掉随机出现的食物。每吃掉一个食物，蛇的身体会变长，分数也会增加。",
+                            C: "不依赖任何外部游戏引擎或函数库。需处理边界碰撞或穿墙模式。游戏结束的条件是蛇撞到自己身体。",
+                            O: "产出功能：1. 一个游戏画布。 2. 分数与最高分的显示区。 3. 开始/重新开始游戏的按钮。 4. 键盘（方向键）与触控屏幕（滑动）的双重控制。 5. 吃到食物与游戏结束的简单音效回馈。",
+                            E: "评估标准：游戏逻辑的正确性、控制的反应灵敏度、游戏画面的流畅度、跨装置的兼容性。"
+                        }
+                    },
                     "AI 翻译工具": { vibe: {V: "你是一位个人用户, 不懂 AI or IT",I: "语气不须专业",B: "接口设计需简洁、高效，用户输入文字后能一目了然地看到所有目标语言的翻译结果与发音功能。",E: "输出为一个完整的、可独立运行的单档 HTML"}, ticoe: {T: "开发一个多语言 AI 翻译工具，能将用户输入的中文实时翻译成日文、韩文、德文 与英文。",I: "用户在一个文字输入框中输入中文。目标翻译语言是固定的：日文、韩文、德文、英文。",C: "翻译功能需呼叫 AI 模型完成。发音功能必须使用浏览器内置的，不依赖外部服务。",O: "产出：1. 一个用于输入中文的区域。 2. 一个『翻译』按钮。 3. 四个并列的结果卡片，分别显示日文、韩文、德文、英文的翻译结果。 4. 每个结果卡片中，除了翻译文字外，必须包含一个『发音』按钮，点击后能朗读该语言的翻译结果。",E: "评估标准：翻译的准确性、所有语言发音功能的正确性、用户接口的直观易用性。"} },
                     "原生兰花种植图表": { vibe: {V: "你是一位精通数据可视化与前端开发的专家，擅长为园艺爱好者打造美观且实用的交互式工具。",I: "语气专业，代码需包含清晰的注解，尤其是数据结构与交互功能的实现部分。",B: "接口设计需美观、直观，大量运用可视化元素（如色块、边框）来传达信息，并提供丰富的交互提示。",E: "输出为一个完整的、可独立运行的单档 HTML，包含所有 CSS 与 JavaScript，且不依赖外部图表库。"}, ticoe: {T: "开发一个台北市区种植原生兰花的简易交互图表，帮助用户根据月份、环境等条件进行筛选与决策。",I: "需使用内置的植物数据库，每种兰花包含：名称、类型(地生/附生)、花期(月份区间)、光照需求(低/中/高)、栽培难度(易/中/难)、常见疾病与高风险月份、图片链接、室内建议、施肥与介质建议。",C: "所有功能需在单一 HTML 文件中实现，数据必须直接写在 JavaScript 中。",O: "产出功能：1. 筛选器：可依月份、疾病、环境(室内/户外)筛选。2. 主图表：以表格呈现，横轴为12个月份，纵轴为兰花物种。3. 可视化标示：用不同颜色的长条图(bar)标示花期与疾病高风险期。长条图的亮暗与边框需用以表示光照需求与栽培难度。4. 交互提示：鼠标悬停在长条图上时，需显示包含图片与详细照顾信息的提示框(Tooltip)。",E: "评估标准：筛选功能的正确性、图表可视化传达信息的清晰度、交互提示的流畅度与信息完整性。"} },
                     "简易个人记帐本": { vibe: {V: "你是一位想用最简单方式记帐的个人用户，希望AI能直接给你一个马上能用的工具。",I: "语气简单、直接。功能命名需口语化，例如「记一笔」、「花在哪」。",B: "接口极简，输入流程不能超过三个步骤。必须有可视化的图表来呈现支出分布。",E: "输出为一个完整的、可独立运行的单档 HTML，使用 Chart.js 绘制图表。"}, ticoe: {T: "开发一个简易的个人记帐本，能快速记录每日支出，并透过饼图分析消费习惯。",I: "用户输入：金额、支出类别（预设：餐饮、交通、购物、娱乐、其他）、备注。所有数据需存储在浏览器中。",C: "不需后端数据库，使用 localStorage 进行数据存储。支出类别为固定选项。",O: "产出：1. 支出输入表单。 2. 当月支出总览与明细列表。 3. 一个动态更新的饼图，显示各类别支出占比。",E: "评估标准：记帐流程的便捷性、数据存储的正确性、饼图分析的清晰度。"} },
@@ -565,6 +595,21 @@
                     }
                 },
                 "Personal": {
+                    "Snake Game": {
+                        vibe: {
+                            V: "You are an experienced game developer, skilled at creating fun and smooth classic games using HTML5 Canvas and JavaScript.",
+                            I: "The tone should be clear and professional. Code comments must clearly explain the core game logic, such as the game loop, collision detection, and state management.",
+                            B: "The game interface needs to be clean, aesthetically pleasing, and have a modern visual style. The gameplay experience must be smooth and support both desktop and mobile devices.",
+                            E: "Output a single, complete, standalone HTML file that includes all CSS and JavaScript."
+                        },
+                        ticoe: {
+                            T: "Develop a classic Snake game that allows users to control the snake's movement using either the keyboard or a touch screen.",
+                            I: "Game rules: The player controls a snake, moving it around the canvas to eat randomly appearing food. Each time food is eaten, the snake's body grows longer, and the score increases.",
+                            C: "Do not rely on any external game engines or libraries. It must handle boundary collisions or a wrap-around mode. The game ends when the snake collides with its own body.",
+                            O: "Output features: 1. A game canvas. 2. A display area for the score and high score. 3. Buttons to start/restart the game. 4. Dual control support for keyboard (arrow keys) and touch screen (swipe gestures). 5. Simple sound feedback for eating food and game over.",
+                            E: "Evaluation criteria: correctness of the game logic, responsiveness of controls, smoothness of the game animation, and cross-device compatibility."
+                        }
+                    },
                     "AI Translation Tool": { vibe: {V: "You are an individual user with no knowledge of AI or IT.",I: "The tone does not need to be professional.",B: "The interface design should be simple and efficient, allowing the user to see translation results and pronunciation functions for all target languages at a glance after inputting text.",E: "Output a single, complete, standalone HTML file."}, ticoe: {T: "Develop a multilingual AI translation tool that can instantly translate user-inputted Chinese into Japanese, Korean, German, and English.",I: "The user inputs Chinese text into a single text box. The target translation languages are fixed: Japanese, Korean, German, and English.",C: "The translation function must be accomplished by calling an AI model. The pronunciation function must use the browser's built-in capabilities and not rely on external services.",O: "Output: 1. An area for inputting Chinese text. 2. A 'Translate' button. 3. Four parallel result cards displaying the translation results for Japanese, Korean, German, and English respectively. 4. Each result card, in addition to the translated text, must include a 'Pronounce' button that, when clicked, reads out the translation in that language.",E: "Evaluation criteria: accuracy of the translation, correctness of the pronunciation function for all languages, intuitiveness and ease of use of the user interface."} },
                     "Native Orchid Planting Chart": { vibe: {V: "You are an expert in data visualization and front-end development, skilled at creating beautiful and practical interactive tools for gardening enthusiasts.",I: "The tone should be professional, and the code must include clear comments, especially for the implementation of the data structure and interactive features.",B: "The interface design must be aesthetically pleasing and intuitive, using plenty of visual elements (like color blocks and borders) to convey information, and providing rich interactive tooltips.",E: "Output a single, complete, standalone HTML file with all CSS and JavaScript, and without relying on external charting libraries."}, ticoe: {T: "Develop a simple interactive chart for planting native orchids in the Taipei area to help users filter and make decisions based on month, environment, etc.",I: "Must use a built-in plant database. Each orchid should include: name, type (terrestrial/epiphytic), bloom period (month range), light requirement (low/medium/high), difficulty (easy/medium/hard), common diseases and high-risk months, image URL, indoor recommendations, and fertilization/medium advice.",C: "All functionality must be implemented in a single HTML file. Data must be written directly in JavaScript.",O: "Output features: 1. Filters: by month, disease, environment (indoor/outdoor). 2. Main chart: A table with 12 months on the x-axis and orchid species on the y-axis. 3. Visual indicators: Use different colored bars to mark blooming periods and high-risk disease periods. The brightness and border of the bars should indicate light requirements and difficulty. 4. Interactive Tooltips: Hovering over a bar must display a tooltip with an image and detailed care information.",E: "Evaluation criteria: correctness of the filter function, clarity of the visual information conveyed by the chart, smoothness and completeness of the interactive tooltips, and functional conformity."} },
                     "Simple Personal Ledger": { vibe: {V: "You are an individual user who wants the simplest way to keep track of expenses and wants AI to provide a ready-to-use tool directly.",I: "The tone should be simple and direct. Feature names should be colloquial, like 'Log an Entry' or 'Where did it go?'.",B: "The interface must be minimalist, with an input process not exceeding three steps. It must have a visual chart to present the spending distribution.",E: "Output a single, complete, standalone HTML file using Chart.js to draw the chart."}, ticoe: {T: "Develop a simple personal ledger to quickly record daily expenses and analyze spending habits with a pie chart.",I: "User inputs: amount, expense category (defaults: Food, Transport, Shopping, Entertainment, Other), and notes. All data should be stored in the browser.",C: "No backend database is required; use localStorage for data persistence. Expense categories are fixed options.",O: "Output: 1. An expense input form. 2. A monthly expense overview and detailed list. 3. A dynamically updated pie chart showing the percentage of each expense category.",E: "Evaluation criteria: convenience of the logging process, correctness of data storage, clarity of the pie chart analysis."} },
@@ -740,5 +785,3 @@
     </script>
 </body>
 </html>
-
-
