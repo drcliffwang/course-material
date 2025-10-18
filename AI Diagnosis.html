@@ -110,7 +110,14 @@
             <!-- API 設定 -->
             <div id="api-settings" class="bg-white rounded-xl shadow-lg card-shadow p-8 border border-gray-200 mb-8">
                 <h2 class="text-2xl font-bold text-michigan-blue mb-4">AI 引擎設定</h2>
-                <p class="text-gray-600 mb-6">API Key: 使用(Gemini, GPT, Deepseek)模型，請於此處設定。</p>
+                <p class="text-gray-600 mb-2">API Key: 使用(Gemini, GPT, Deepseek)模型，請於此處設定。</p>
+                <!-- [修改] 新增 API Key 取得說明 -->
+                <p class="text-sm text-gray-500 mb-6">
+                    您的API Key 金鑰只會儲存在您目前的瀏覽器中, 可從 
+                    <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Google AI Studio</a> (推薦,免費中), 
+                    <a href="https://platform.deepseek.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Deepseek</a>, 或 
+                    <a href="https://platform.openai.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">OpenAI</a> 取得。
+                </p>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <label for="aiProvider" class="block text-sm font-semibold text-michigan-blue mb-2">AI 服務提供商</label>
@@ -287,6 +294,9 @@
 
         // --- [新增] 帶入範例挑戰的函數 ---
         function loadExampleChallenge() {
+            document.getElementById('industry').value = "代工傳產OEM/ODM";
+            document.getElementById('companySize').value = "中小型企業 (51-500人)";
+            document.getElementById('businessModel').value = "傳統車件與金屬加工";
             const exampleText = "過去二十年，我們從做傳統車件與金屬加工的代工傳產，擴展到模組化組裝與ODM，開始累積技術與設計能量。10年前開始品牌之路。我們與世界級手工具品牌聯名合作，逐漸打響名號；目前品牌營收占總營收的三分之一，也將公司毛利提高兩成。然而，做品牌需要的人才與代工的人才，是兩種截然不同的「物種」 。我們從外部找人來做品牌，困難重重：首先，開不起市場行情價；其次，人才進來難以溝通、水土不服；第三，磨合不順後離職，又得從頭來過。另方面，我們也同步內部培養。工廠裡的老員工要從過去的「交貨邏輯」切換到「價值創造邏輯」，需要時間磨。但客戶、市場、競爭者步步緊逼，究竟要投入資源培養原有團隊，以求穩定文化、慢慢轉型？還是從外部招募品牌高手，冒著文化衝突的風險，來換取轉型速度？做品牌，產品只是入場券，真正的戰場在於「組織能不能跟上品牌腳步」。";
             document.getElementById('problemDescription').value = exampleText;
         }
@@ -916,3 +926,4 @@
     </script>
 </body>
 </html>
+
